@@ -1,0 +1,9 @@
+{
+  "conventionalCommits.scopes": [
+    "core",
+    "components",
+    "apis",
+    "configs",
+    "dependencies"
+  ]
+}
