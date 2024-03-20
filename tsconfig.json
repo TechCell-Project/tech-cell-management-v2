@@ -27,6 +27,15 @@
       ],
       "~public/*": [
         "./public/*"
+      ],
+      "~auth/*": [
+        "./src/modules/auth/*"
+      ],
+      "~user-mnt/*": [
+        "./src/modules/user-mnt/*"
+      ],
+      "~address/*": [
+        "./src/modules/address/*"
       ]
     }
   },
