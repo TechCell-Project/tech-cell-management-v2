@@ -12,6 +12,11 @@ import { loginApi } from '@/modules/auth/apis';
 import { useAuthStore } from '@/modules/auth/store';
 import { setOneSessionStorage } from '@/utilities/session.util';
 import * as yup from 'yup';
+import { ForgotPassword } from '../ForgotPassword/ForgotPassword';
+import { useTheme } from 'next-themes';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { Routes } from '@/constants/enum';
 
 const loginValidateSchema: yup.ObjectSchema<AuthLogin> = yup.object({
   emailOrUsername: yup.string().required('Vui lòng nhập thông tin!'),
@@ -20,7 +25,9 @@ const loginValidateSchema: yup.ObjectSchema<AuthLogin> = yup.object({
 
 export const SignIn = () => {
   const { toast } = useToast();
-  const { fetching, fetched, setUser } = useAuthStore();
+  const { fetching, fetched, setUser, isSignedIn } = useAuthStore();
+  const { theme } = useTheme();
+  const { push } = useRouter();
 
   const signInForm = useForm<AuthLogin>({
     resolver: yupResolver(loginValidateSchema),
@@ -48,6 +55,8 @@ export const SignIn = () => {
         title: 'Đăng nhập thành công',
         description: 'Chào mừng bạn dến với Techcell Dashboard',
       });
+
+      push(Routes.Dashboard);
     },
     onError: (error) => {
       console.log(error.message);
@@ -60,40 +69,57 @@ export const SignIn = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<AuthLogin> = (data) => mutateAsync(data);
+  if (isSignedIn) {
+    push(Routes.Dashboard);
+  }
 
   return (
-    <Form {...signInForm}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <TextInput<AuthLogin>
-          name="emailOrUsername"
-          label="Email hoặc tên người dùng"
-          control={control}
-          className="mb-5"
-        />
-        <TextInput<AuthLogin>
-          name="password"
-          label="Mật khẩu"
-          control={control}
-          className="mb-4"
-          inputAttributes={{
-            type: 'password',
-          }}
-        />
+    <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+      <Image
+        width={100}
+        height={50}
+        src={theme === 'light' ? '/images/logo-red.png' : '/images/logo-white.png'}
+        alt="techcell-logo"
+      />
+      <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mb-1">
+        Đăng nhập
+      </h1>
+      <span className="text-[14px]">Tiếp tục để đến với trang quản trị Techcell</span>
 
-        <p className="text-sm text-right cursor-pointer">Quên mật khẩu</p>
+      <Form {...signInForm}>
+        <form onSubmit={handleSubmit((data) => mutateAsync(data))}>
+          <TextInput<AuthLogin>
+            name="emailOrUsername"
+            label="Email hoặc tên người dùng"
+            control={control}
+            className="mb-5"
+          />
+          <TextInput<AuthLogin>
+            name="password"
+            label="Mật khẩu"
+            control={control}
+            className="mb-4"
+            inputAttributes={{
+              type: 'password',
+            }}
+          />
 
-        <Button type="submit" className="w-full my-5" isLoading={isSubmitting}>
-          Đăng nhập
-        </Button>
+          <div className="w-full flex justify-end">
+            <ForgotPassword />
+          </div>
 
-        <p className="text-center text-sm font-medium mt-3">
-          Trang chủ:{' '}
-          <Link href="https://techcell.cloud/" className="font-semibold underline">
-            https://techcell.cloud/
-          </Link>
-        </p>
-      </form>
-    </Form>
+          <Button type="submit" className="w-full my-5" isLoading={isSubmitting}>
+            Đăng nhập
+          </Button>
+
+          <p className="text-center text-sm font-medium mt-3">
+            Trang chủ:{' '}
+            <Link href="https://techcell.cloud/" className="font-semibold underline">
+              https://techcell.cloud/
+            </Link>
+          </p>
+        </form>
+      </Form>
+    </div>
   );
 };

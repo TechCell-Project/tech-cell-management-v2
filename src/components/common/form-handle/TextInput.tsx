@@ -17,8 +17,8 @@ type TextInputProps<T extends FieldValues> = {
   label: string;
   control: Control<T, any>;
   description?: string | ReactNode;
-  inputAttributes?: InputHTMLAttributes<HTMLInputElement>;
   className?: string;
+  inputAttributes?: InputHTMLAttributes<HTMLInputElement>;
 };
 
 /**
@@ -40,8 +40,8 @@ export const TextInput = <T extends FieldValues>({
   label,
   description,
   control,
-  inputAttributes,
   className,
+  inputAttributes,
 }: TextInputProps<T>): JSX.Element => {
   return (
     <FormField
