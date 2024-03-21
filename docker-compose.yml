@@ -1,0 +1,9 @@
+version: '3.9'
+
+services:
+  techcell-mnt:
+    container_name: techcell-mnt
+    image: techcell-mnt
+    build: .
+    ports:
+      - "3000:3000"
