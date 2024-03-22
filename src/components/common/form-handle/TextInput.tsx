@@ -47,11 +47,11 @@ export const TextInput = <T extends FieldValues>({
     <FormField
       control={control}
       name={name}
-      render={({ field }) => (
+      render={({ field, fieldState: { error } }) => (
         <FormItem className={className}>
           <FormLabel className="text-[13px]">{label}</FormLabel>
           <FormControl>
-            <Input {...field} {...inputAttributes} />
+            <Input {...field} {...inputAttributes} className={`${error && 'border-[#ee4949]'}`} />
           </FormControl>
           <FormDescription>{description}</FormDescription>
           <FormMessage className="text-[13px]" />
