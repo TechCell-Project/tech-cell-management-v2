@@ -1,10 +1,14 @@
+import LoadingPage from '@/app/loading';
 import { Sidebar } from '@/components/navigation';
 import { ProtectedProvider } from '@/components/provider';
+import { Suspense } from 'react';
 
 const DashboardLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <ProtectedProvider>
-      <Sidebar />
+      <Suspense fallback={<LoadingPage loading />}>
+        <Sidebar />
+      </Suspense>
     </ProtectedProvider>
   );
 };

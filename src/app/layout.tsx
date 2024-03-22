@@ -6,6 +6,7 @@ import './custom.css';
 import './globals.css';
 
 import Favicon from '~public/images/favicon.ico';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Trang quản trị Techcell',

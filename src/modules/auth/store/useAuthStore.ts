@@ -37,7 +37,7 @@ export const useAuthStore = create<AuthStore>()(
   })),
 );
 
-const rehydrateAuthState = () => {
+export const rehydrateAuthState = () => {
   const user = getOneSessionStorage<User>('user', 'object');
   if (user) {
     useAuthStore.setState({
@@ -47,5 +47,3 @@ const rehydrateAuthState = () => {
     });
   }
 };
-
-rehydrateAuthState();

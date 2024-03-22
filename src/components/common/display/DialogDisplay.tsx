@@ -14,14 +14,21 @@ type DialogProps = {
   trigger: string | ReactNode;
   title: string | ReactNode;
   children: ReactNode;
-  className?: string;
+  classNameContent?: string;
+  classNameTrigger?: string;
 };
 
-export const DialogDisplay = ({ trigger, className, children, title }: DialogProps) => {
+export const DialogDisplay = ({
+  trigger,
+  classNameTrigger,
+  classNameContent,
+  children,
+  title,
+}: DialogProps) => {
   return (
     <Dialog>
-      <DialogTrigger>{trigger}</DialogTrigger>
-      <DialogContent className={className}>
+      <DialogTrigger className={classNameTrigger}>{trigger}</DialogTrigger>
+      <DialogContent className={classNameContent}>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{children}</DialogDescription>

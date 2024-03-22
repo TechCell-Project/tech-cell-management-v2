@@ -1,7 +1,8 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { AuthLogin } from '@/modules/auth/models';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form, useToast } from '@/components/ui';
@@ -17,6 +18,7 @@ import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Routes } from '@/constants/enum';
+import LoadingPage from '@/app/loading';
 
 const loginValidateSchema: yup.ObjectSchema<AuthLogin> = yup.object({
   emailOrUsername: yup.string().required('Vui lòng nhập thông tin!'),
@@ -69,16 +71,25 @@ export const SignIn = () => {
     },
   });
 
-  if (isSignedIn) {
-    push(Routes.Dashboard);
-  }
+  useEffect(() => {
+    if (isSignedIn) {
+      const timeout = setTimeout(() => {
+        push(Routes.Dashboard);
+      }, 300);
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  }, [isSignedIn, push]);
 
-  return (
+  return isSignedIn ? (
+    <LoadingPage loading />
+  ) : (
     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
       <Image
         width={100}
         height={50}
-        src={theme === 'light' ? '/images/logo-red.png' : '/images/logo-white.png'}
+        src={theme === 'dark' ? '/images/logo-white.png' : '/images/logo-red.png'}
         alt="techcell-logo"
       />
       <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mb-1">
