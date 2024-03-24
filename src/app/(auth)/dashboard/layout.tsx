@@ -7,7 +7,7 @@ const DashboardLayout = ({ children }: Readonly<{ children: React.ReactNode }>) 
   return (
     <ProtectedProvider>
       <Suspense fallback={<LoadingPage loading />}>
-        <Sidebar />
+        <Sidebar>{children}</Sidebar>
       </Suspense>
     </ProtectedProvider>
   );

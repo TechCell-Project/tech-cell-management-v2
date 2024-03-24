@@ -40,6 +40,8 @@ export const SignIn = () => {
     formState: { isSubmitting },
     handleSubmit,
     control,
+    getValues,
+    setValue,
   } = signInForm;
 
   const { mutateAsync } = useMutation({
@@ -102,16 +104,24 @@ export const SignIn = () => {
           <TextInput<AuthLogin>
             name="emailOrUsername"
             label="Email hoặc tên người dùng"
-            control={control}
             className="mb-5"
+            formReturn={{
+              control,
+              getValues,
+              setValue,
+            }}
           />
           <TextInput<AuthLogin>
             name="password"
             label="Mật khẩu"
-            control={control}
             className="mb-4"
             inputAttributes={{
               type: 'password',
+            }}
+            formReturn={{
+              control,
+              getValues,
+              setValue,
             }}
           />
 
@@ -119,7 +129,7 @@ export const SignIn = () => {
             <ForgotPassword />
           </div>
 
-          <Button type="submit" className="w-full my-5" isLoading={isSubmitting}>
+          <Button type="submit" className="w-full my-5" isLoading={isSubmitting} variant="red">
             Đăng nhập
           </Button>
 

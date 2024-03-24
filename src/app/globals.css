@@ -4,6 +4,9 @@
 
 @layer base {
   :root {
+    --red-background: '#ee4949';
+    --red-light-background: 'rgba(238, 73, 73, 0.08)';
+
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 

@@ -1,11 +1,93 @@
 'use client';
 
-type SelectInputProps = {
-  
-}
+import {
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui';
+import { ReactNode } from 'react';
+import { Control, FieldPath, FieldValues } from 'react-hook-form';
 
-export const SelectInput = () => {
+/**
+ * Options interface defines the structure for options used in SelectInput component.
+ * @property {string} label - The label of the option.
+ * @property {string} value - The value of the option.
+ */
+type Options = { label: string; value: string };
+
+/**
+ * SelectInputProps defines the props for the SelectInput component.
+ * @template TFieldValue - Type extending FieldValues for the control.
+ * @property {FieldPath<TFieldValue>} name - The name/path of the field in the form.
+ * @property {string} label - The label for the select input field.
+ * @property {Control<TFieldValue, any>} control - The control object provided by React Hook Form.
+ * @property {string | ReactNode} [description] - Optional description or additional information for the input field.
+ * @property {string} [className] - Optional class name for styling purposes.
+ * @property {Options[]} options - Array of options for the select input field.
+ * @property {string} [placeholder] - Optional placeholder text for the select input.
+ * @property {boolean} [disabled] - Optional disabled the select input.
+ */
+type SelectInputProps<TFieldValue extends FieldValues> = {
+  name: FieldPath<TFieldValue>;
+  label: string;
+  control: Control<TFieldValue, any>;
+  description?: string | ReactNode;
+  className?: string;
+  options: Options[];
+  placeholder?: string;
+  disabled?: boolean;
+};
+
+/**
+ * SelectInput is a component used for rendering a select input field.
+ * It integrates with React Hook Form for form management.
+ * @template TFieldValue - Type extending FieldValues for the control.
+ * @param {SelectInputProps<TFieldValue>} props - Props object for the SelectInput component.
+ * @returns {JSX.Element} - Returns the JSX element for the select input field.
+ */
+export const SelectInput = <TFieldValue extends FieldValues>({
+  name,
+  label,
+  control,
+  description,
+  className,
+  options,
+  placeholder = 'Chọn',
+  disabled,
+}: SelectInputProps<TFieldValue>): JSX.Element => {
   return (
-    <></>
-  )
-}
+    <FormField
+      control={control}
+      name={name}
+      render={({ field, fieldState: { error } }) => (
+        <FormItem className={className}>
+          <FormLabel className="text-[13px]">{label}</FormLabel>
+          <Select onValueChange={field.onChange} defaultValue={field.value} disabled={disabled}>
+            <FormControl>
+              <SelectTrigger className={`${error && 'border-[#ee4949]'}`}>
+                <SelectValue placeholder={placeholder} />
+              </SelectTrigger>
+            </FormControl>
+            <SelectContent>
+              {options.map(({ label, value }) => (
+                <SelectItem key={label} value={value}>
+                  {label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <FormDescription>{description}</FormDescription>
+          <FormMessage className="text-[13px]" />
+        </FormItem>
+      )}
+    />
+  );
+};

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { Routes } from '@/constants/enum';
 import { NavLinkProps, ROUTES, ROUTES_UTILS } from '@/constants/routes';
 import { useTheme } from 'next-themes';
@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { NavLink, NavLinkAction, NavLinkCollapse } from './nav-link';
 import { Separator } from '../ui/separator';
 import { ModeToggle } from '../utils';
+import { AvatarPopover } from './AvatarPopover';
 
 const RenderRoutes = ({ routes }: { routes: NavLinkProps[] }) => {
   return routes.map((route) => {
@@ -37,7 +38,7 @@ const RenderRoutes = ({ routes }: { routes: NavLinkProps[] }) => {
   });
 };
 
-export const Sidebar = () => {
+export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
   const [openToggle, setOpenToggle] = useState<boolean>(false);
   const { theme } = useTheme();
 
@@ -72,7 +73,7 @@ export const Sidebar = () => {
               </button>
               <Link href={Routes.Dashboard} className="flex ms-2 md:me-24">
                 <Image
-                  width={120}
+                  width={110}
                   height={50}
                   src={theme === 'dark' ? '/images/logo-white.png' : '/images/logo-red.png'}
                   alt="techcell-logo"
@@ -80,10 +81,9 @@ export const Sidebar = () => {
               </Link>
             </div>
 
-            <div className="flex items-center">
-              <div className="flex items-center ms-3">
-                <ModeToggle />
-              </div>
+            <div className="flex items-center gap-6">
+              <AvatarPopover />
+              <ModeToggle />
             </div>
           </div>
         </div>
@@ -106,6 +106,8 @@ export const Sidebar = () => {
           </ul>
         </div>
       </aside>
+
+      <div className="p-4 sm:ml-64 pt-20 min-h-screen">{children}</div>
     </>
   );
 };

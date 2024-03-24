@@ -20,3 +20,13 @@ export enum ApiTags {
   Users = '/users',
   Notifications = '/notifications',
 }
+
+export enum Roles {
+  Customer = 'Customer',
+  Staff = 'Staff',
+  Manager = 'Manager',
+  Sales = 'Sales',
+  Accountant = 'Accountant',
+  DataEntry = 'DataEntry',
+  Warehouse = 'Warehouse',
+}
