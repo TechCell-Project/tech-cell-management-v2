@@ -1,7 +1,5 @@
 'use client';
 
-import { ChangeEventHandler, InputHTMLAttributes, ReactNode, memo, useState } from 'react';
-import { FieldPath, FieldValues } from 'react-hook-form';
 import {
   FormControl,
   FormDescription,
@@ -9,58 +7,60 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  Input,
+  Textarea,
 } from '@/components/ui';
+import { ChangeEventHandler, ReactNode, TextareaHTMLAttributes, memo, useState } from 'react';
+import { FieldPath, FieldValues } from 'react-hook-form';
 import { FormReturn } from './form.type';
 
 /**
- * TextInputProps defines the props for the TextInput component.
+ * TextareaInputProps defines the props for the TextareaInput component.
  *
  * @template T - Type extending FieldValues for the control.
  * @property {FieldPath<T>} name - The name/path of the field in the form.
- * @property {string} label - The label for the text input field.
+ * @property {string} label - The label for the textarea input field.
  * @property {string | ReactNode} [description] - Optional description or additional information for the input field.
  * @property {string} [className] - Optional class name for styling purposes.
- * @property {InputHTMLAttributes<HTMLInputElement>} [inputAttributes] - Optional additional attributes for the input element.
+ * @property {TextareaHTMLAttributes<HTMLTextAreaElement>} [textareaAttributes] - Optional additional attributes for the textarea element.
  * @property {FormReturn<T>} formReturn - Object containing necessary form control functions and properties.
  * @property {boolean} [isDebounce] - Optional boolean indicating whether debouncing is enabled for input value changes.
- * @property {ChangeEventHandler<HTMLInputElement>} [onChange] - Optional onchange function for the text input.
+ * @property {ChangeEventHandler<HTMLTextAreaElement>} [onChange] - Optional onchange function for the textarea input.
  */
-type TextInputProps<T extends FieldValues> = {
+type TextareaInputProps<T extends FieldValues> = {
   name: FieldPath<T>;
   label: string;
   description?: string | ReactNode;
   className?: string;
-  inputAttributes?: InputHTMLAttributes<HTMLInputElement>;
+  textareaAttributes?: TextareaHTMLAttributes<HTMLTextAreaElement>;
   formReturn: FormReturn<T>;
   isDebounce?: boolean;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: ChangeEventHandler<HTMLTextAreaElement>;
 };
 
 /**
- * TextInput is a component used for rendering a text input field.
+ * TextareaInput is a component used for rendering a textarea input field.
  * It integrates with React Hook Form for form management.
  *
  * @template T - Type extending FieldValues for the control.
- * @param {TextInputProps<T>} props - Props object for the TextInput component.
- * @returns {JSX.Element} - Returns the JSX element for the text input field.
+ * @param {TextareaInputProps<T>} props - Props object for the TextareaInput component.
+ * @returns {JSX.Element} - Returns the JSX element for the textarea input field.
  */
-const TextInput = <T extends FieldValues>({
+const TextareaInput = <T extends FieldValues>({
   name,
   label,
   description,
   className,
-  inputAttributes,
+  textareaAttributes,
   formReturn,
   isDebounce,
   onChange,
-}: TextInputProps<T>): JSX.Element => {
+}: TextareaInputProps<T>): JSX.Element => {
   const { getValues, setValue, control } = formReturn;
 
   const [initValue, setInitValue] = useState<string>(getValues(name) ?? '');
   const [time, setTime] = useState<any>();
 
-  const handleChange: ChangeEventHandler<HTMLInputElement> =
+  const handleChange: ChangeEventHandler<HTMLTextAreaElement> =
     onChange ??
     ((e) => {
       setInitValue(e.target.value);
@@ -80,12 +80,12 @@ const TextInput = <T extends FieldValues>({
         <FormItem className={className}>
           <FormLabel className="text-[13px]">{label}</FormLabel>
           <FormControl>
-            <Input
+            <Textarea
               {...field}
-              {...inputAttributes}
+              {...textareaAttributes}
               value={initValue}
               onChange={handleChange}
-              className={`${error && 'border-[#ee4949]'}`}
+              className={`${error && 'border-[#ee4949]'} resize-none`}
             />
           </FormControl>
           <FormDescription>{description}</FormDescription>
@@ -96,8 +96,8 @@ const TextInput = <T extends FieldValues>({
   );
 };
 
-const MemoizedTextInput = memo(TextInput) as <T extends FieldValues>(
-  props: TextInputProps<T>,
+const MemoizedTextareaInput = memo(TextareaInput) as <T extends FieldValues>(
+  props: TextareaInputProps<T>,
 ) => JSX.Element;
 
-export { MemoizedTextInput as TextInput };
+export { MemoizedTextareaInput as TextareaInput };

@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui';
-import { ReactNode } from 'react';
+import { ReactNode, memo } from 'react';
 import { Control, FieldPath, FieldValues } from 'react-hook-form';
 
 /**
@@ -25,6 +25,7 @@ type Options = { label: string; value: string };
 
 /**
  * SelectInputProps defines the props for the SelectInput component.
+ *
  * @template TFieldValue - Type extending FieldValues for the control.
  * @property {FieldPath<TFieldValue>} name - The name/path of the field in the form.
  * @property {string} label - The label for the select input field.
@@ -34,6 +35,7 @@ type Options = { label: string; value: string };
  * @property {Options[]} options - Array of options for the select input field.
  * @property {string} [placeholder] - Optional placeholder text for the select input.
  * @property {boolean} [disabled] - Optional disabled the select input.
+ * @property {(value: string): string } [onChange] - Optional onchange function for the select input.
  */
 type SelectInputProps<TFieldValue extends FieldValues> = {
   name: FieldPath<TFieldValue>;
@@ -44,16 +46,18 @@ type SelectInputProps<TFieldValue extends FieldValues> = {
   options: Options[];
   placeholder?: string;
   disabled?: boolean;
+  onChange?: (value: string) => void;
 };
 
 /**
  * SelectInput is a component used for rendering a select input field.
  * It integrates with React Hook Form for form management.
+ *
  * @template TFieldValue - Type extending FieldValues for the control.
  * @param {SelectInputProps<TFieldValue>} props - Props object for the SelectInput component.
  * @returns {JSX.Element} - Returns the JSX element for the select input field.
  */
-export const SelectInput = <TFieldValue extends FieldValues>({
+const SelectInput = <TFieldValue extends FieldValues>({
   name,
   label,
   control,
@@ -62,6 +66,7 @@ export const SelectInput = <TFieldValue extends FieldValues>({
   options,
   placeholder = 'Chọn',
   disabled,
+  onChange,
 }: SelectInputProps<TFieldValue>): JSX.Element => {
   return (
     <FormField
@@ -70,7 +75,13 @@ export const SelectInput = <TFieldValue extends FieldValues>({
       render={({ field, fieldState: { error } }) => (
         <FormItem className={className}>
           <FormLabel className="text-[13px]">{label}</FormLabel>
-          <Select onValueChange={field.onChange} defaultValue={field.value} disabled={disabled}>
+          <Select
+            onValueChange={(e) => {
+              onChange ? onChange(e) : field.onChange(e);
+            }}
+            defaultValue={field.value}
+            disabled={disabled}
+          >
             <FormControl>
               <SelectTrigger className={`${error && 'border-[#ee4949]'}`}>
                 <SelectValue placeholder={placeholder} />
@@ -91,3 +102,9 @@ export const SelectInput = <TFieldValue extends FieldValues>({
     />
   );
 };
+
+const MemoizedSelectInput = memo(SelectInput) as <T extends FieldValues>(
+  props: SelectInputProps<T>,
+) => JSX.Element;
+
+export { MemoizedSelectInput as SelectInput };
