@@ -15,13 +15,7 @@ import {
 } from '@/components/ui';
 import { ReactNode, memo } from 'react';
 import { Control, FieldPath, FieldValues } from 'react-hook-form';
-
-/**
- * Options interface defines the structure for options used in SelectInput component.
- * @property {string} label - The label of the option.
- * @property {string} value - The value of the option.
- */
-type Options = { label: string; value: string };
+import { Options } from './form.type';
 
 /**
  * SelectInputProps defines the props for the SelectInput component.

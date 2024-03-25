@@ -3,6 +3,7 @@ import { Control, FieldValues, UseFormGetValues, UseFormSetValue } from 'react-h
 /**
  * FormReturn is a type that encapsulates the necessary functions and objects
  * returned by React Hook Form for managing form state.
+ * 
  * @template T - Type extending FieldValues for the form control.
  * @property {UseFormGetValues<T>} getValues - A function to retrieve the current values of the form fields.
  * @property {UseFormSetValue<T>} setValue - A function to set the value of a form field programmatically.
@@ -13,3 +14,10 @@ export type FormReturn<T extends FieldValues> = {
   setValue: UseFormSetValue<T>;
   control: Control<T, any>;
 };
+
+/**
+ * Options interface defines the structure for options.
+ * @property {string} label - The label of the option.
+ * @property {string} value - The value of the option.
+ */
+export type Options = { label: string; value: string };

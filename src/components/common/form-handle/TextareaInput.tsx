@@ -9,7 +9,14 @@ import {
   FormMessage,
   Textarea,
 } from '@/components/ui';
-import { ChangeEventHandler, ReactNode, TextareaHTMLAttributes, memo, useState } from 'react';
+import {
+  ChangeEventHandler,
+  ReactNode,
+  TextareaHTMLAttributes,
+  memo,
+  useRef,
+  useState,
+} from 'react';
 import { FieldPath, FieldValues } from 'react-hook-form';
 import { FormReturn } from './form.type';
 
@@ -58,17 +65,18 @@ const TextareaInput = <T extends FieldValues>({
   const { getValues, setValue, control } = formReturn;
 
   const [initValue, setInitValue] = useState<string>(getValues(name) ?? '');
-  const [time, setTime] = useState<any>();
+  const timeRef = useRef<NodeJS.Timeout>();
 
   const handleChange: ChangeEventHandler<HTMLTextAreaElement> =
     onChange ??
-    ((e) => {
-      setInitValue(e.target.value);
+    (({ target }) => {
+      setInitValue(target.value);
+
       if (isDebounce) {
-        clearTimeout(time);
-        setTime(setTimeout(() => setValue(name, e.target.value as any), 400));
+        if (timeRef.current) clearTimeout(timeRef.current);
+        timeRef.current = setTimeout(() => setValue(name, target.value as any), 400);
       } else {
-        setValue(name, e.target.value as any);
+        setValue(name, target.value as any);
       }
     });
 
