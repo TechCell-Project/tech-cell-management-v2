@@ -17,3 +17,5 @@ export * from './table';
 export * from './pagination';
 export * from './input-otp';
 export * from './textarea';
+export * from './tabs';
+export * from './sheet';

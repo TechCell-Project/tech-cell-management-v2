@@ -8,8 +8,8 @@ import {
   PopoverTrigger,
   Separator,
 } from '../ui';
-import { getRoleViVN } from '@/utilities/func.util';
 import { LogOut } from 'lucide-react';
+import { convertRoleViVN } from '@/utilities/convert.util';
 
 export const AvatarPopover = () => {
   const { user, logout } = useAuthStore();
@@ -20,14 +20,14 @@ export const AvatarPopover = () => {
         <PopoverTrigger asChild>
           <Avatar className="cursor-pointer">
             <AvatarImage src={user.avatar.url} alt="avatar" />
-            <AvatarFallback>Null</AvatarFallback>
+            <AvatarFallback>Avatar</AvatarFallback>
           </Avatar>
         </PopoverTrigger>
         <PopoverContent className="w-64">
           <h4 className="text-lg font-semibold">{`${user.firstName} ${user.lastName}`}</h4>
-          <p className="text-sm">{getRoleViVN[user.role]}</p>
+          <p className="text-sm">{convertRoleViVN[user.role]}</p>
 
-          <Separator className='my-4'/>
+          <Separator className="my-4" />
 
           <button
             type="button"
@@ -35,9 +35,7 @@ export const AvatarPopover = () => {
             onClick={logout}
           >
             <LogOut size={16} />
-            <span className="flex-1 ms-4 text-left text-sm font-medium">
-              Đăng xuất
-            </span>
+            <span className="flex-1 ms-4 text-left text-sm font-medium">Đăng xuất</span>
           </button>
         </PopoverContent>
       </Popover>

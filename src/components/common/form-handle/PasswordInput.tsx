@@ -46,7 +46,7 @@ export const PasswordInput = <T extends FieldValues>({
                 {...field}
                 {...inputAttributes}
                 onChange={field.onChange}
-                className={`${error && 'border-[#ee4949]'}`}
+                className={`${error && 'border-[#ee4949]'} hide-password-toggle`}
                 type={showPassword ? 'text' : 'password'}
               />
               <Button

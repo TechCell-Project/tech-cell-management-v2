@@ -1,12 +1,21 @@
 'use client';
 
 import { useState } from 'react';
-import { DialogDisplay } from '@/components/common/display';
+import { DialogDisplay, TabsDisplay } from '@/components/common/display';
 import { UserRoundSearch } from 'lucide-react';
+import { UserInfo } from './UserInfo';
+import { AddressInfo } from './AddressInfo';
+import { ChangePassword } from './ChangePassword';
+
+const tabs = [
+  { value: 'user-info', name: 'Thông tin', component: <UserInfo /> },
+  { value: 'address-info', name: 'Địa chỉ', component: <AddressInfo /> },
+  { value: 'change-pw', name: 'Đổi mật khẩu', component: <ChangePassword /> },
+];
 
 export const Profile = () => {
   const [open, setOpen] = useState<boolean>(false);
-  
+
   return (
     <DialogDisplay
       trigger={
@@ -25,7 +34,7 @@ export const Profile = () => {
       open={open}
       setOpen={setOpen}
     >
-      <></>
+      <TabsDisplay tabs={tabs} className='mt-4' />
     </DialogDisplay>
   );
 };

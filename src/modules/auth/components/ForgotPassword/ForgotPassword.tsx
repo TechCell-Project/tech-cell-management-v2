@@ -12,6 +12,7 @@ import { AuthVerifyForgotPassword } from '../../models';
 import { forgotPwValidateSchema } from './validate-schema';
 
 export const ForgotPassword = memo(() => {
+  const [loadingGetOtp, setLoadingGetOtp] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const { toast } = useToast();
 
@@ -39,7 +40,6 @@ export const ForgotPassword = memo(() => {
   }, [control, getValues, setValue, trigger]);
 
   const { mutateAsync } = useMutation({
-    mutationKey: ['auth-forgot-pw'],
     mutationFn: (values: AuthVerifyForgotPassword) => verifyForgotPasswordApi(values),
     onSuccess: () => {
       toast({
@@ -58,21 +58,30 @@ export const ForgotPassword = memo(() => {
   });
 
   const handleGetOtp = (email: string) => {
-    forgotPasswordApi(email)
-      .then(() =>
-        toast({
-          variant: 'success',
-          title: 'Gửi mã thành công!',
-          description: 'Vui lòng kiểm tra tin gửi đến',
-        }),
-      )
-      .catch(() =>
-        toast({
-          variant: 'destructive',
-          title: 'Gửi mã thất bại!',
-          description: 'Vui lòng kiểm tra lại email',
-        }),
-      );
+    if (!email) {
+      toast({
+        variant: 'destructive',
+        title: 'Vui lòng nhập email!',
+      });
+    } else {
+      setLoadingGetOtp(true);
+      forgotPasswordApi(email)
+        .then(() =>
+          toast({
+            variant: 'success',
+            title: 'Gửi mã thành công!',
+            description: 'Vui lòng kiểm tra tin gửi đến',
+          }),
+        )
+        .catch(() =>
+          toast({
+            variant: 'destructive',
+            title: 'Gửi mã thất bại!',
+            description: 'Vui lòng kiểm tra lại email',
+          }),
+        )
+        .finally(() => setLoadingGetOtp(false));
+    }
   };
 
   return (
@@ -84,17 +93,18 @@ export const ForgotPassword = memo(() => {
     >
       <Form {...forgotPwForm}>
         <form onSubmit={handleSubmit((data) => mutateAsync(data))} className="mt-5">
-          <div className="flex w-full items-end space-x-2">
+          <div className="flex w-full items-baseline space-x-2">
             <TextInput<AuthVerifyForgotPassword>
               name="email"
               formReturn={formReturn}
               label="Email"
-              className="w-full"
+              className="w-full relative mt-3 [&>label]:absolute [&>label]:top-[-18px]"
             />
             <Button
               variant="outline"
               type="button"
               onClick={() => handleGetOtp(getValues('email'))}
+              isLoading={loadingGetOtp}
             >
               Lấy mã OTP
             </Button>
@@ -105,6 +115,7 @@ export const ForgotPassword = memo(() => {
             label="Mã OTP"
             control={control}
             className="mt-4"
+            length={6}
           />
 
           <PasswordInput<AuthVerifyForgotPassword>
@@ -125,12 +136,7 @@ export const ForgotPassword = memo(() => {
             <Button variant="ghost" type="button" onClick={() => setOpen((prev) => !prev)}>
               Đóng
             </Button>
-            <Button
-              type="submit"
-              variant="red"
-              isLoading={isSubmitting}
-              onClick={(e) => e.stopPropagation()}
-            >
+            <Button type="submit" variant="red" isLoading={isSubmitting}>
               Xác nhận
             </Button>
           </div>

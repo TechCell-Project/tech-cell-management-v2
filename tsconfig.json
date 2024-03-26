@@ -31,12 +31,21 @@
       "~auth/*": [
         "./src/modules/auth/*"
       ],
+      "~address/*": [
+        "./src/modules/address/*"
+      ],
+      "~notifications/*": [
+        "./src/modules/notifications/*"
+      ],
+      "~profile/*": [
+        "./src/modules/profile/*"
+      ],
+      "~stats/*": [
+        "./src/modules/stats/*"
+      ],
       "~user-mnt/*": [
         "./src/modules/user-mnt/*"
       ],
-      "~address/*": [
-        "./src/modules/address/*"
-      ]
     }
   },
   "include": [

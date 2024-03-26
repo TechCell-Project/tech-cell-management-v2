@@ -32,7 +32,10 @@ export const DialogDisplay = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className={classNameTrigger}>{trigger}</DialogTrigger>
-      <DialogContent className={`${classNameContent} overflow-y-scroll max-h-screen`}>
+      <DialogContent
+        className={`${classNameContent} overflow-y-scroll overflow-x-hidden max-h-screen no-scrollbar`}
+        onInteractOutside={(e) => e.preventDefault()}
+      >
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{children}</DialogDescription>

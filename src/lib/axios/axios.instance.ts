@@ -1,7 +1,7 @@
 import axios, { HttpStatusCode, type AxiosInstance, type InternalAxiosRequestConfig } from 'axios';
 import { getOneSessionStorage, setOneSessionStorage } from '@/utilities/session.util';
 import { ApiTags } from '@/constants/enum';
-import { User } from '@/modules/user-mnt/models/user.model';
+import { User } from '~user-mnt/models';
 
 export const axiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API,

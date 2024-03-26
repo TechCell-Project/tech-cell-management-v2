@@ -4,7 +4,15 @@ import { rehydrateAuthState } from '@/modules/auth/store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactNode, useEffect } from 'react';
 
-const queryClient = new QueryClient();
+const MINUTE = 1000 * 60;
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      gcTime: 10 * MINUTE,
+    },
+  },
+});
 
 /**
  * AppProvider Component
