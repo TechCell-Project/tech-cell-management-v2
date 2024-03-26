@@ -76,7 +76,7 @@ export const CheckboxInput = <TFieldValue extends FieldValues>({
             </FormControl>
             <div className="space-y-1 leading-none">
               <FormLabel>{label}</FormLabel>
-              <FormDescription>{description}</FormDescription>
+              {description && <FormDescription>{description}</FormDescription>}
             </div>
           </FormItem>
         ) : (

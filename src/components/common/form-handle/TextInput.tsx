@@ -55,7 +55,7 @@ const TextInput = <T extends FieldValues>({
   isDebounce = false,
   onChange,
 }: TextInputProps<T>): JSX.Element => {
-  const { getValues, setValue, control } = formReturn;
+  const { getValues, setValue, control, trigger } = formReturn;
 
   const [initValue, setInitValue] = useState<string>(getValues(name) ?? '');
   const timeRef = useRef<NodeJS.Timeout>();
@@ -67,9 +67,13 @@ const TextInput = <T extends FieldValues>({
 
       if (isDebounce) {
         if (timeRef.current) clearTimeout(timeRef.current);
-        timeRef.current = setTimeout(() => setValue(name, target.value as any), 400);
+        timeRef.current = setTimeout(() => {
+          setValue(name, target.value as any);
+          trigger(name);
+        }, 400);
       } else {
         setValue(name, target.value as any);
+        trigger(name);
       }
     });
 
@@ -81,15 +85,24 @@ const TextInput = <T extends FieldValues>({
         <FormItem className={className}>
           <FormLabel className="text-[13px]">{label}</FormLabel>
           <FormControl>
-            <Input
-              {...field}
-              {...inputAttributes}
-              value={initValue}
-              onChange={handleChange}
-              className={`${error && 'border-[#ee4949]'}`}
-            />
+            {!isDebounce ? (
+              <Input
+                {...field}
+                {...inputAttributes}
+                onChange={(e) => (onChange ? onChange(e) : field.onChange(e))}
+                className={`${error && 'border-[#ee4949]'}`}
+              />
+            ) : (
+              <Input
+                {...field}
+                {...inputAttributes}
+                value={initValue}
+                onChange={handleChange}
+                className={`${error && 'border-[#ee4949]'}`}
+              />
+            )}
           </FormControl>
-          <FormDescription>{description}</FormDescription>
+          {description && <FormDescription>{description}</FormDescription>}
           <FormMessage className="text-[13px]" />
         </FormItem>
       )}

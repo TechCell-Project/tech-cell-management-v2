@@ -1,9 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import { DialogDisplay } from '@/components/common/display';
 import { UserRoundSearch } from 'lucide-react';
 
 export const Profile = () => {
+  const [open, setOpen] = useState<boolean>(false);
+  
   return (
     <DialogDisplay
       trigger={
@@ -19,6 +22,8 @@ export const Profile = () => {
       }
       title="Thông tin cá nhân"
       classNameTrigger="w-full"
+      open={open}
+      setOpen={setOpen}
     >
       <></>
     </DialogDisplay>

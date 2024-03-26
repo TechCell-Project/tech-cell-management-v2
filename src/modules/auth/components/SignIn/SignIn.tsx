@@ -1,29 +1,24 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { AuthLogin } from '@/modules/auth/models';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form, useToast } from '@/components/ui';
-import { TextInput } from '@/components/common/form-handle';
+import { FormReturn, PasswordInput, TextInput } from '@/components/common/form-handle';
 import { Button } from '@/components/ui/button';
 import { useMutation } from '@tanstack/react-query';
 import { loginApi } from '@/modules/auth/apis';
 import { useAuthStore } from '@/modules/auth/store';
 import { setOneSessionStorage } from '@/utilities/session.util';
-import * as yup from 'yup';
 import { ForgotPassword } from '../ForgotPassword/ForgotPassword';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Routes } from '@/constants/enum';
 import LoadingPage from '@/app/loading';
-
-const loginValidateSchema: yup.ObjectSchema<AuthLogin> = yup.object({
-  emailOrUsername: yup.string().required('Vui lòng nhập thông tin!'),
-  password: yup.string().required('Vui lòng nhập thông tin!'),
-});
+import { loginValidateSchema } from './validate-schema';
 
 export const SignIn = () => {
   const { toast } = useToast();
@@ -42,7 +37,17 @@ export const SignIn = () => {
     control,
     getValues,
     setValue,
+    trigger,
   } = signInForm;
+
+  const formReturn: FormReturn<AuthLogin> = useMemo(() => {
+    return {
+      control,
+      getValues,
+      setValue,
+      trigger,
+    };
+  }, [control, getValues, setValue, trigger]);
 
   const { mutateAsync } = useMutation({
     mutationKey: ['auth-login'],
@@ -105,42 +110,31 @@ export const SignIn = () => {
             name="emailOrUsername"
             label="Email hoặc tên người dùng"
             className="mb-5"
-            formReturn={{
-              control,
-              getValues,
-              setValue,
-            }}
+            formReturn={formReturn}
           />
-          <TextInput<AuthLogin>
+          <PasswordInput<AuthLogin>
             name="password"
             label="Mật khẩu"
+            control={control}
             className="mb-4"
-            inputAttributes={{
-              type: 'password',
-            }}
-            formReturn={{
-              control,
-              getValues,
-              setValue,
-            }}
           />
 
-          <div className="w-full flex justify-end">
-            <ForgotPassword />
-          </div>
-
-          <Button type="submit" className="w-full my-5" isLoading={isSubmitting} variant="red">
+          <Button type="submit" className="w-full mt-4" isLoading={isSubmitting} variant="red">
             Đăng nhập
           </Button>
-
-          <p className="text-center text-sm font-medium mt-3">
-            Trang chủ:{' '}
-            <Link href="https://techcell.cloud/" className="font-semibold underline">
-              https://techcell.cloud/
-            </Link>
-          </p>
         </form>
       </Form>
+
+      <div className="w-full flex justify-center mt-0">
+        <ForgotPassword />
+      </div>
+
+      <p className="text-center text-sm font-medium">
+        Trang chủ:{' '}
+        <Link href="https://techcell.cloud/" className="font-semibold underline">
+          https://techcell.cloud/
+        </Link>
+      </p>
     </div>
   );
 };

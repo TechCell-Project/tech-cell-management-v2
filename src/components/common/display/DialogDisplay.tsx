@@ -16,6 +16,8 @@ type DialogProps = {
   children: ReactNode;
   classNameContent?: string;
   classNameTrigger?: string;
+  open: boolean;
+  setOpen: (open: boolean) => void;
 };
 
 export const DialogDisplay = ({
@@ -24,11 +26,13 @@ export const DialogDisplay = ({
   classNameContent,
   children,
   title,
+  open,
+  setOpen,
 }: DialogProps) => {
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className={classNameTrigger}>{trigger}</DialogTrigger>
-      <DialogContent className={classNameContent}>
+      <DialogContent className={`${classNameContent} overflow-y-scroll max-h-screen`}>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{children}</DialogDescription>

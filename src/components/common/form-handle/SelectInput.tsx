@@ -89,7 +89,7 @@ const SelectInput = <TFieldValue extends FieldValues>({
               ))}
             </SelectContent>
           </Select>
-          <FormDescription>{description}</FormDescription>
+          {description && <FormDescription>{description}</FormDescription>}
           <FormMessage className="text-[13px]" />
         </FormItem>
       )}

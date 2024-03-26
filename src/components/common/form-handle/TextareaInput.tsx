@@ -96,7 +96,7 @@ const TextareaInput = <T extends FieldValues>({
               className={`${error && 'border-[#ee4949]'} resize-none`}
             />
           </FormControl>
-          <FormDescription>{description}</FormDescription>
+          {description && <FormDescription>{description}</FormDescription>}
           <FormMessage className="text-[13px]" />
         </FormItem>
       )}
