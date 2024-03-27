@@ -77,6 +77,7 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
                   height={50}
                   src={theme === 'dark' ? '/images/logo-white.png' : '/images/logo-red.png'}
                   alt="techcell-logo"
+                  priority
                 />
               </Link>
             </div>

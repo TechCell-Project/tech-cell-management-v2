@@ -1,8 +1,8 @@
 import * as yup from 'yup';
 import { FIELD_REQUIRED } from '@/constants/utils';
-import { ProfileChangePassword } from '~profile/models';
+import { AuthChangePassword } from '~auth/models';
 
-export const changePwValidateSchema: yup.ObjectSchema<ProfileChangePassword> = yup.object({
+export const changePwValidateSchema: yup.ObjectSchema<AuthChangePassword> = yup.object({
   oldPassword: yup.string().required(FIELD_REQUIRED),
   newPassword: yup
     .string()

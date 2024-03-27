@@ -1,4 +1,4 @@
-export class ProfileChangePassword {
+export class AuthChangePassword {
   oldPassword: string = '';
   newPassword: string = '';
   reNewPassword: string = '';

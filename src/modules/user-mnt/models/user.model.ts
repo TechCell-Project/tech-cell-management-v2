@@ -3,19 +3,20 @@ import { Address } from '~address/models';
 import { ActivityLog } from './user-activity-log.model';
 import { Roles } from '@/constants/enum';
 
+type UserProvider = 'google' | 'facebook' | 'apple' | 'email';
+
 export class User extends Timestamp {
   _id: string = '';
   email: string = '';
   emailVerified: boolean = false;
-  role: Roles = Roles.Manager;
-  userName: string = '';
-  avatar: ImageObj = new ImageObj();
-  avatarPublicId?: string = '';
-  address: Address[] = [];
-  accessToken: string = '';
-  refreshToken: string = '';
+  provider: UserProvider = 'email';
+  socialId: string = '';
   firstName: string = '';
   lastName: string = '';
+  userName: string = '';
+  role: Roles = Roles.Manager;
+  avatar?: ImageObj;
+  address?: Address[] = [];
   block?: {
     isBlocked?: boolean;
     activityLogs?: ActivityLog[];

@@ -30,7 +30,7 @@ export const Profile = () => {
         </button>
       }
       title="Thông tin cá nhân"
-      classNameTrigger="w-full"
+      classTrigger="w-full"
       open={open}
       setOpen={setOpen}
     >

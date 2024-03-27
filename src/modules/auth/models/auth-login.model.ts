@@ -1,4 +1,4 @@
 export class AuthLogin {
-  emailOrUsername: string = '';
+  email: string = '';
   password: string = '';
 }

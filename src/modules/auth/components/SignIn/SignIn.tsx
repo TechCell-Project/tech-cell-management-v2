@@ -12,7 +12,7 @@ import { useMutation } from '@tanstack/react-query';
 import { loginApi } from '@/modules/auth/apis';
 import { useAuthStore } from '@/modules/auth/store';
 import { setOneSessionStorage } from '@/utilities/session.util';
-import { ForgotPassword } from '../ForgotPassword/ForgotPassword';
+import { ForgotPassword } from '../ForgotPassword';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -98,6 +98,7 @@ export const SignIn = () => {
         height={50}
         src={theme === 'dark' ? '/images/logo-white.png' : '/images/logo-red.png'}
         alt="techcell-logo"
+        priority
       />
       <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mb-1">
         Đăng nhập
@@ -107,12 +108,12 @@ export const SignIn = () => {
       <Form {...signInForm}>
         <form onSubmit={handleSubmit((data) => mutateAsync(data))}>
           <TextInput<AuthLogin>
-            name="emailOrUsername"
+            name="email"
             label="Email hoặc tên người dùng"
             className="mb-5"
             formReturn={formReturn}
           />
-          
+
           <PasswordInput<AuthLogin>
             name="password"
             label="Mật khẩu"

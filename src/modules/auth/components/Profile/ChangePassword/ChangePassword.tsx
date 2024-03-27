@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { ProfileChangePassword } from '~profile/models';
+import { AuthChangePassword } from '~auth/models';
 import { Button, Form, useToast } from '@/components/ui';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { changePwValidateSchema } from './validate-schema';
@@ -10,9 +10,9 @@ import { PasswordInput } from '@/components/common/form-handle';
 export const ChangePassword = () => {
   const { toast } = useToast();
 
-  const changePasswordForm = useForm<ProfileChangePassword>({
+  const changePasswordForm = useForm<AuthChangePassword>({
     resolver: yupResolver(changePwValidateSchema),
-    defaultValues: new ProfileChangePassword(),
+    defaultValues: new AuthChangePassword(),
   });
 
   const {
@@ -23,7 +23,7 @@ export const ChangePassword = () => {
   } = changePasswordForm;
 
   const { mutateAsync } = useMutation({
-    mutationFn: (values: ProfileChangePassword) => changePasswordApi(values),
+    mutationFn: (values: AuthChangePassword) => changePasswordApi(values),
     onSuccess: () => {
       toast({
         variant: 'success',
@@ -44,17 +44,17 @@ export const ChangePassword = () => {
     <Form {...changePasswordForm}>
       <form onSubmit={handleSubmit((data) => mutateAsync(data))}>
         <div className="mt-3 flex flex-col gap-4">
-          <PasswordInput<ProfileChangePassword>
+          <PasswordInput<AuthChangePassword>
             name="oldPassword"
             label="Mật khẩu cũ"
             control={control}
           />
-          <PasswordInput<ProfileChangePassword>
+          <PasswordInput<AuthChangePassword>
             name="newPassword"
             label="Mật khẩu mới"
             control={control}
           />
-          <PasswordInput<ProfileChangePassword>
+          <PasswordInput<AuthChangePassword>
             name="reNewPassword"
             label="Nhập lại mật khẩu"
             control={control}
