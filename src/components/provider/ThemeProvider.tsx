@@ -10,7 +10,7 @@ import { type ThemeProviderProps } from 'next-themes/dist/types';
  * from Next.js themes library. Forwards props to the underlying NextThemesProvider.
  *
  * @param {Object} children - ReactNode representing the child components.
- * @param {Object} props - Additional props forwarded to the NextThemesProvider component.
+ * @prop {Readonly<ThemeProviderProps>} props - Additional props forwarded to the NextThemesProvider component.
  * @returns {JSX.Element} - JSX element containing the child components wrapped with the theme provider.
  */
 

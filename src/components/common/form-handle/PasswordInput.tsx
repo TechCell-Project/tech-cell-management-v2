@@ -14,6 +14,17 @@ import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { InputHTMLAttributes, ReactNode, useState } from 'react';
 import { Control, FieldPath, FieldValues } from 'react-hook-form';
 
+/**
+ * PasswordInputProps defines the props for the PasswordInput component.
+ *
+ * @template T - Type extending FieldValues for the control.
+ * @property {FieldPath<T>} name - The name/path of the field in the form.
+ * @property {string} label - The label for the text input field.
+ * @property {string | ReactNode} [description] - Optional description or additional information for the input field.
+ * @property {Control<T, any>} control - An object containing the form control methods and properties provided by React Hook Form.
+ * @property {string} [className] - Optional class name for styling purposes.
+ * @property {InputHTMLAttributes<HTMLInputElement>} [inputAttributes] - Optional additional attributes for the input element.
+ */
 type PasswordInputProps<T extends FieldValues> = {
   name: FieldPath<T>;
   label: string;
@@ -23,6 +34,14 @@ type PasswordInputProps<T extends FieldValues> = {
   inputAttributes?: InputHTMLAttributes<HTMLInputElement>;
 };
 
+/**
+ * PasswordInput is a component used for rendering a text password input field.
+ * It integrates with React Hook Form for form management.
+ *
+ * @template T - Type extending FieldValues for the control.
+ * @param {PasswordInputProps<T>} props - Props object for the PasswordInput component.
+ * @returns {JSX.Element} - Returns the JSX element for the text password input field.
+ */
 export const PasswordInput = <T extends FieldValues>({
   name,
   label,
