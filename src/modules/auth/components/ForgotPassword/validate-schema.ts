@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { AuthVerifyForgotPassword } from '../../models';
+import { AuthVerifyForgotPassword } from '~auth/models';
 import { FIELD_REQUIRED } from '@/constants/utils';
 
 export const forgotPwValidateSchema: yup.ObjectSchema<AuthVerifyForgotPassword> = yup.object({

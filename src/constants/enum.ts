@@ -22,11 +22,11 @@ export enum ApiTags {
 }
 
 export enum Roles {
-  Customer = 'Customer',
-  Staff = 'Staff',
-  Manager = 'Manager',
-  Sales = 'Sales',
-  Accountant = 'Accountant',
-  DataEntry = 'DataEntry',
+  Customer = 'customer',
+  Staff = 'staff',
+  Manager = 'manager',
+  Sales = 'sales',
+  Accountant = 'accountant',
+  DataEntry = 'dataEntry',
   Warehouse = 'Warehouse',
 }

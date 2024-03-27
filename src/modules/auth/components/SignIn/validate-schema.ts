@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { AuthLogin } from '../../models';
+import { AuthLogin } from '~auth/models';
 
 export const loginValidateSchema: yup.ObjectSchema<AuthLogin> = yup.object({
   emailOrUsername: yup.string().required('Vui lòng nhập thông tin!'),

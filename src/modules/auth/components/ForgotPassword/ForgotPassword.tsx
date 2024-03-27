@@ -7,8 +7,8 @@ import { FormReturn, OTPInput, PasswordInput, TextInput } from '@/components/com
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
-import { forgotPasswordApi, verifyForgotPasswordApi } from '../../apis';
-import { AuthVerifyForgotPassword } from '../../models';
+import { forgotPasswordApi, verifyForgotPasswordApi } from '~auth/apis';
+import { AuthVerifyForgotPassword } from '~auth/models';
 import { forgotPwValidateSchema } from './validate-schema';
 
 export const ForgotPassword = memo(() => {

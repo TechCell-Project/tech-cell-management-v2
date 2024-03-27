@@ -23,7 +23,6 @@ const queryClient = new QueryClient({
  * @param {Object} children - ReactNode representing the child components.
  * @returns {JSX.Element} - JSX element containing the child components.
  */
-
 export const AppProvider = ({ children }: Readonly<{ children: ReactNode }>): JSX.Element => {
   useEffect(() => {
     rehydrateAuthState();

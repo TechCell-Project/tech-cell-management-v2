@@ -13,7 +13,6 @@ import { type ThemeProviderProps } from 'next-themes/dist/types';
  * @prop {Readonly<ThemeProviderProps>} props - Additional props forwarded to the NextThemesProvider component.
  * @returns {JSX.Element} - JSX element containing the child components wrapped with the theme provider.
  */
-
 export const ThemeProvider = ({
   children,
   ...props

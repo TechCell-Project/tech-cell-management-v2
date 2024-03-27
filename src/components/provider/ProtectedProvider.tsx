@@ -13,7 +13,6 @@ import LoadingPage from '@/app/loading';
  * @param {Object} children - ReactNode representing the child components.
  * @returns {JSX.Element} - JSX element containing the child components.
  */
-
 export const ProtectedProvider = ({ children }: Readonly<{ children: ReactNode }>): JSX.Element => {
   const { isSignedIn } = useAuthStore();
   const { push } = useRouter();
