@@ -9,7 +9,7 @@ import {
   LogOut,
   ShoppingCart,
 } from 'lucide-react';
-import { Profile } from '@/modules/auth/components/Profile';
+import { Profile } from '@/modules/auth/components';
 import { useAuthStore } from '@/modules/auth/store';
 
 export type NavLinkProps = {
