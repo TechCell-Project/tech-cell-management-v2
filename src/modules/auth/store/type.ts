@@ -1,7 +1,7 @@
-import type { User } from '~user-mnt/models';
+import { AuthLoginResponse } from '../models';
 
 export type AuthState = {
-  user?: User;
+  user?: AuthLoginResponse;
   isLoading: boolean;
   isSignedIn: boolean;
 };
@@ -9,7 +9,7 @@ export type AuthState = {
 export type AuthAction = {
   fetching: () => void;
   fetched: () => void;
-  setUser: (user: User) => void;
+  setUser: (user: AuthLoginResponse) => void;
   logout: () => void;
 };
 

@@ -37,9 +37,6 @@
       "~notifications/*": [
         "./src/modules/notifications/*"
       ],
-      "~profile/*": [
-        "./src/modules/profile/*"
-      ],
       "~stats/*": [
         "./src/modules/stats/*"
       ],

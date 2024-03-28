@@ -1,10 +1,15 @@
 import { ApiTags } from '@/constants/enum';
 import { axiosInstance } from '@/lib/axios';
 import type { User } from '~user-mnt/models';
-import { AuthChangePassword, AuthLogin, AuthVerifyForgotPassword } from '../models';
+import {
+  AuthChangePassword,
+  AuthLogin,
+  AuthLoginResponse,
+  AuthVerifyForgotPassword,
+} from '../models';
 
 export const loginApi = (payload: AuthLogin) =>
-  axiosInstance.post<User>(`${ApiTags.Auth}/email/login`, payload);
+  axiosInstance.post<AuthLoginResponse>(`${ApiTags.Auth}/email/login`, payload);
 
 export const meApi = () => axiosInstance.get<User>(`${ApiTags.Auth}/me`);
 

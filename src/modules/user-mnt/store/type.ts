@@ -9,6 +9,7 @@ export type UserState = {
 export type UserAction = {
   getListSuccess: (payload: PaginationResponse<User>) => void;
   getOneSucess: (payload: User) => void;
+  reset: () => void;
 };
 
 export type UserStore = UserState & UserAction;

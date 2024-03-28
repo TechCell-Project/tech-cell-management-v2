@@ -9,7 +9,7 @@ const initialState: UserState = {
   user: undefined,
 };
 
-export const useUseStore = create<UserStore>()(
+export const useUserStore = create<UserStore>()(
   immer((set) => ({
     ...initialState,
     getListSuccess: (payload: PaginationResponse<User>) => {
@@ -21,6 +21,9 @@ export const useUseStore = create<UserStore>()(
       set((state) => {
         state.user = payload;
       });
+    },
+    reset: () => {
+      set(initialState);
     },
   })),
 );

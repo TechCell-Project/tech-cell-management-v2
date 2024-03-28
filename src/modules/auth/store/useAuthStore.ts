@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import { AuthState, AuthStore } from './type';
-import type { User } from '~user-mnt/models';
 import { getOneSessionStorage, removeOneSessionStorage } from '@/utilities/session.util';
+import { AuthLoginResponse } from '../models';
 
 const initialState: AuthState = {
   user: undefined,
@@ -23,7 +23,7 @@ export const useAuthStore = create<AuthStore>()(
         state.isLoading = false;
       });
     },
-    setUser: (user: User) => {
+    setUser: (user: AuthLoginResponse) => {
       set((state) => {
         state.isLoading = false;
         state.isSignedIn = true;
@@ -38,12 +38,12 @@ export const useAuthStore = create<AuthStore>()(
 );
 
 export const rehydrateAuthState = () => {
-  const user = getOneSessionStorage<User>('user', 'object');
+  const user = getOneSessionStorage<AuthLoginResponse>('user', 'object');
   if (user) {
     useAuthStore.setState({
       isLoading: false,
       isSignedIn: true,
-      user: user as User,
+      user: user as AuthLoginResponse,
     });
   }
 };
