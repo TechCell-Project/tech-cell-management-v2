@@ -1,7 +1,7 @@
 import axios, { HttpStatusCode, type AxiosInstance, type InternalAxiosRequestConfig } from 'axios';
 import { getOneSessionStorage, setOneSessionStorage } from '@/utilities/session.util';
 import { ApiTags } from '@/constants/enum';
-import { User } from '~user-mnt/models';
+import { AuthLoginResponse } from '~auth/models';
 
 export const axiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API,
@@ -10,9 +10,9 @@ export const axiosInstance: AxiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const user = getOneSessionStorage<User>('user', 'object');
+    const user = getOneSessionStorage<AuthLoginResponse>('user', 'object');
     if (user) {
-      config.headers.Authorization = `Bearer ${(user as User).accessToken}`;
+      config.headers.Authorization = `Bearer ${(user as AuthLoginResponse).accessToken}`;
     }
     return config;
   },
@@ -26,18 +26,27 @@ axiosInstance.interceptors.response.use(
     const status = error.response?.status;
 
     if (status === HttpStatusCode.Unauthorized) {
-      const user = getOneSessionStorage<User>('user', 'object');
+      const user = getOneSessionStorage<AuthLoginResponse>('user', 'object');
 
       if (!user) {
         return Promise.reject(error);
       }
 
       try {
-        const { data } = await axiosInstance.post<User>(`${ApiTags.Auth}/refresh-token`, {
-          data: { refreshToken: (user as User).refreshToken },
+        const { data } = await axiosInstance.post<Omit<AuthLoginResponse, 'user'>>(
+          `${ApiTags.Auth}/refresh`,
+          {
+            data: { refreshToken: (user as AuthLoginResponse).refreshToken },
+          },
+        );
+
+        setOneSessionStorage<AuthLoginResponse>('user', {
+          ...(user as AuthLoginResponse),
+          accessToken: data.accessToken,
+          refreshToken: data.refreshToken,
+          accessTokenExpires: data.accessTokenExpires,
         });
 
-        setOneSessionStorage<User>('user', data);
         prevRequest.headers.Authorization = `Bearer ${data.accessToken}`;
 
         return axiosInstance(prevRequest);

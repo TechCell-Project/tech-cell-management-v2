@@ -6,15 +6,15 @@
  */
 export const getOneSessionStorage = <T>(key: string, type: 'string' | 'object' = 'string') => {
   try {
-    const value = sessionStorage.getItem(key)
+    const value = sessionStorage.getItem(key);
     if (value) {
-      return type === 'object' ? (JSON.parse(value) as T) : value
+      return type === 'object' ? (JSON.parse(value) as T) : value;
     }
-    return null
+    return null;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 /**
  * Sets a single item into the session storage.
@@ -23,11 +23,11 @@ export const getOneSessionStorage = <T>(key: string, type: 'string' | 'object' =
  */
 export const setOneSessionStorage = <T>(key: string, payload: T) => {
   try {
-    sessionStorage.setItem(key, typeof payload === 'string' ? payload : JSON.stringify(payload))
+    sessionStorage.setItem(key, typeof payload === 'string' ? payload : JSON.stringify(payload));
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 /**
  * Removes a single item from the session storage based on the provided key.
@@ -35,8 +35,8 @@ export const setOneSessionStorage = <T>(key: string, payload: T) => {
  */
 export const removeOneSessionStorage = (key: string) => {
   try {
-    sessionStorage.removeItem(key)
+    sessionStorage.removeItem(key);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
