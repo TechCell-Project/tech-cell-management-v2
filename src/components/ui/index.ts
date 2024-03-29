@@ -15,7 +15,7 @@ export * from './separator';
 export * from './checkbox';
 export * from './table';
 export * from './pagination';
-export * from './input-otp';
+// export * from './input-otp';
 export * from './textarea';
 export * from './tabs';
 export * from './sheet';

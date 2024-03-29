@@ -1,8 +1,7 @@
 import { memo } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { Notifications, NotificationsReq, ReadType } from '../models';
+// import { useQuery } from '@tanstack/react-query';
+import { NotificationsReq, ReadType } from '../models';
 import { getNotificationsApi } from '../apis';
-import { PaginationResponse } from '@/common/model';
 import { NotificationsItem } from './NotificationsItem';
 
 type NotificationsTabProps = {
@@ -16,10 +15,10 @@ const getNotifications = async (params: NotificationsReq) => {
 };
 
 export const NotificationsTab = memo(({ type, onClose }: NotificationsTabProps) => {
-  const { data } = useQuery<PaginationResponse<Notifications>>({
-    queryKey: ['get-notifications', { type }],
-    queryFn: () => getNotifications(new NotificationsReq()),
-  });
+  // const { data } = useQuery({
+  //   queryKey: ['get-notifications', { type }],
+  //   queryFn: () => getNotifications(new NotificationsReq()),
+  // });
 
   return (
     <div className="mt-5">

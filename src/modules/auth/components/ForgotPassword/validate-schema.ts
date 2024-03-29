@@ -4,7 +4,6 @@ import { FIELD_REQUIRED } from '@/constants/utils';
 
 export const forgotPwValidateSchema: yup.ObjectSchema<AuthVerifyForgotPassword> = yup.object({
   email: yup.string().email('Email không hợp lệ').required(FIELD_REQUIRED),
-  otpCode: yup.string().length(6, 'Mã OTP gồm 6 số!').required(FIELD_REQUIRED),
   password: yup
     .string()
     .min(8, 'Mật khẩu có ít nhất 8 kí tự!')

@@ -3,7 +3,7 @@
 import { memo, useMemo, useState } from 'react';
 import { DialogDisplay } from '@/components/common/display';
 import { Button, Form, useToast } from '@/components/ui';
-import { FormReturn, OTPInput, PasswordInput, TextInput } from '@/components/common/form-handle';
+import { FormReturn, PasswordInput, TextInput } from '@/components/common/form-handle';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
@@ -109,14 +109,6 @@ export const ForgotPassword = memo(() => {
               Lấy mã OTP
             </Button>
           </div>
-
-          <OTPInput<AuthVerifyForgotPassword>
-            name="otpCode"
-            label="Mã OTP"
-            control={control}
-            className="mt-4"
-            length={6}
-          />
 
           <PasswordInput<AuthVerifyForgotPassword>
             name="password"
