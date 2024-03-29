@@ -4,7 +4,7 @@ import { Button, Form, useToast } from '@/components/ui';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { changePwValidateSchema } from './validate-schema';
 import { useMutation } from '@tanstack/react-query';
-import { changePasswordApi } from '@/modules/auth/apis';
+import { changePasswordApi } from '~auth/apis';
 import { PasswordInput } from '@/components/common/form-handle';
 
 export const ChangePassword = () => {

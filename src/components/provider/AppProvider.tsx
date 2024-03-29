@@ -1,9 +1,9 @@
 'use client';
 
-import { rehydrateAuthState } from '@/modules/auth/store';
+import { rehydrateAuthState } from '~auth/store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactNode, useEffect } from 'react';
-import { SocketProvider } from './SocketProvider';
+// import { SocketProvider } from './SocketProvider';
 
 const MINUTE = 1000 * 60;
 
@@ -31,7 +31,8 @@ export const AppProvider = ({ children }: Readonly<{ children: ReactNode }>): JS
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SocketProvider>{children}</SocketProvider>
+      {/* <SocketProvider>{children}</SocketProvider> */}
+      {children}
     </QueryClientProvider>
   );
 };

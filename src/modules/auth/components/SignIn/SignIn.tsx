@@ -3,14 +3,14 @@
 import { useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { AuthLogin } from '@/modules/auth/models';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form, useToast } from '@/components/ui';
 import { FormReturn, PasswordInput, TextInput } from '@/components/common/form-handle';
 import { Button } from '@/components/ui/button';
 import { useMutation } from '@tanstack/react-query';
-import { loginApi } from '@/modules/auth/apis';
-import { useAuthStore } from '@/modules/auth/store';
+import { AuthLogin } from '~auth/models';
+import { loginApi } from '~auth/apis';
+import { useAuthStore } from '~auth/store';
 import { setOneSessionStorage } from '@/utilities/session.util';
 import { ForgotPassword } from '../ForgotPassword';
 import { useTheme } from 'next-themes';

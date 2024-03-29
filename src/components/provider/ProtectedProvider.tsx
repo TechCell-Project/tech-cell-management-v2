@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect } from 'react';
-import { useAuthStore } from '@/modules/auth/store';
+import { useAuthStore } from '~auth/store';
 import { useRouter } from 'next/navigation';
 import { Routes } from '@/constants/enum';
 import LoadingPage from '@/app/loading';

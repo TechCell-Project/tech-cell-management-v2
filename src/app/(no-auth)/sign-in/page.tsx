@@ -1,6 +1,6 @@
 import LoadingPage from '@/app/loading';
 import { ModeToggle } from '@/components/utils';
-import { SignIn } from '@/modules/auth/components';
+import { SignIn } from '~auth/components';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 

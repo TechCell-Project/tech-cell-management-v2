@@ -9,8 +9,8 @@ import {
   LogOut,
   ShoppingCart,
 } from 'lucide-react';
-import { Profile } from '@/modules/auth/components/Profile';
-import { useAuthStore } from '@/modules/auth/store';
+import { Profile } from '~auth/components';
+import { useAuthStore } from '~auth/store';
 
 export type NavLinkProps = {
   href?: string;
