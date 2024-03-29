@@ -2,11 +2,12 @@ import type { Metadata } from 'next';
 import { quickSandFont } from '@/components/config';
 import { AppProvider, ThemeProvider } from '@/components/provider';
 import { Toaster } from '@/components/ui/toaster';
+import Favicon from '~public/images/favicon.ico';
+
+import '@/lib/dayjs';
+
 import './custom.css';
 import './globals.css';
-
-import Favicon from '~public/images/favicon.ico';
-import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Trang quản trị Techcell',

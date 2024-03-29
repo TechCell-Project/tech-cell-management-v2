@@ -10,6 +10,7 @@ import { NavLink, NavLinkAction, NavLinkCollapse } from './nav-link';
 import { Separator } from '../ui/separator';
 import { ModeToggle } from '../utils';
 import { AvatarPopover } from './AvatarPopover';
+import { Notifications } from '~notifications/components';
 
 const RenderRoutes = ({ routes }: { routes: NavLinkProps[] }) => {
   return routes.map((route) => {
@@ -82,8 +83,9 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
               </Link>
             </div>
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-5">
               <AvatarPopover />
+              <Notifications />
               <ModeToggle />
             </div>
           </div>

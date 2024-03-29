@@ -5,11 +5,11 @@ import { Suspense } from 'react';
 
 const DashboardLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <ProtectedProvider>
+    // <ProtectedProvider>
       <Suspense fallback={<LoadingPage loading />}>
         <Sidebar>{children}</Sidebar>
       </Suspense>
-    </ProtectedProvider>
+    // </ProtectedProvider>
   );
 };
 
