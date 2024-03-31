@@ -1,8 +1,8 @@
 import * as yup from 'yup';
-import { AuthVerifyForgotPassword } from '~auth/models';
+import { AuthResetPassword } from '~auth/models';
 import { FIELD_REQUIRED } from '@/constants/utils';
 
-export const forgotPwValidateSchema: yup.ObjectSchema<AuthVerifyForgotPassword> = yup.object({
+export const forgotPwValidateSchema: yup.ObjectSchema<AuthResetPassword> = yup.object({
   email: yup.string().email('Email không hợp lệ').required(FIELD_REQUIRED),
   password: yup
     .string()

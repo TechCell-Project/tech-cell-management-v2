@@ -1,9 +1,10 @@
 import type { District, Province, Ward } from './address-location.model';
 
 type AddressLocationLevel<T> = T | T[];
+type AddressNameType = 'home' | 'office' | 'other';
 
 export class Address {
-  addressName: string = '';
+  type: AddressNameType = 'home';
   customerName: string = '';
   phoneNumbers: string = '';
   provinceLevel: AddressLocationLevel<Province> = [];
