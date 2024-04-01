@@ -20,7 +20,7 @@ export const getSearchParams = <T extends { [key: string]: any }>(params: T): st
 
 /**
  * Checks if a value is an instance of a specified type.
- * 
+ *
  * @param {*} value - The value to be checked.
  * @param {Function} type - The constructor function representing the type to check against.
  * @returns {boolean} True if the value is an instance of the specified type, otherwise false.
@@ -28,4 +28,23 @@ export const getSearchParams = <T extends { [key: string]: any }>(params: T): st
  */
 export const isType = <T>(value: any, type: new (...args: any[]) => T): value is T => {
   return value instanceof type;
+};
+
+/**
+ * User Service Func - getShortName
+ */
+export const getShortName = (fullname: string) => {
+  if (!fullname || fullname.trim() === '') {
+    return '';
+  }
+  const words = fullname.split(' ');
+  let shortName = '';
+
+  for (const word of words) {
+    if (word) {
+      shortName += word[0];
+    }
+  }
+
+  return shortName.toUpperCase();
 };

@@ -3,14 +3,14 @@
 import { useState } from 'react';
 import { DialogDisplay, TabsDisplay } from '@/components/common/display';
 import { UserRoundSearch } from 'lucide-react';
-import { UserInfo } from './UserInfo';
-import { AddressInfo } from './AddressInfo';
-// import { ChangePassword } from './ChangePassword';
+import { UserInfo } from './UserInfo/UserInfo';
+import { AddressInfo } from './AddressInfo/AddressInfo';
+import { ChangePassword } from './ChangePassword/ChangePassword';
 
 const tabs = [
   { value: 'user-info', name: 'Thông tin', component: <UserInfo /> },
   { value: 'address-info', name: 'Địa chỉ', component: <AddressInfo /> },
-  // { value: 'change-pw', name: 'Đổi mật khẩu', component: <ChangePassword /> },
+  { value: 'change-pw', name: 'Đổi mật khẩu', component: <ChangePassword /> },
 ];
 
 export const Profile = () => {
@@ -31,6 +31,7 @@ export const Profile = () => {
       }
       title="Thông tin cá nhân"
       classTrigger="w-full"
+      classContent="max-w-[36rem]"
       open={open}
       setOpen={setOpen}
     >

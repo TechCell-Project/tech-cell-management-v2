@@ -10,6 +10,7 @@ import {
 } from '../ui';
 import { LogOut } from 'lucide-react';
 import { convertRoleViVN } from '@/utilities/convert.util';
+import { getShortName } from '@/utilities/func.util';
 
 export const AvatarPopover = () => {
   const { user: sessionUser, logout } = useAuthStore();
@@ -20,7 +21,9 @@ export const AvatarPopover = () => {
         <PopoverTrigger asChild>
           <Avatar className="cursor-pointer">
             <AvatarImage src={sessionUser.user.avatar?.url} alt="avatar" />
-            <AvatarFallback>Avatar</AvatarFallback>
+            <AvatarFallback>
+              {getShortName(`${sessionUser.user.firstName} ${sessionUser.user.lastName}`)}
+            </AvatarFallback>
           </Avatar>
         </PopoverTrigger>
         <PopoverContent className="w-64">

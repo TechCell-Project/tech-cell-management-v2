@@ -8,3 +8,7 @@ export class AuthUpdate {
   oldPassword: string = '';
   address: Address[] = [];
 }
+
+export type AuthUpdatePw = Pick<AuthUpdate, 'oldPassword' | 'password'> & {
+  re_password: string;
+};

@@ -1,18 +1,20 @@
 import { SheetDisplay, TabsDisplay } from '@/components/common/display';
 import { Button } from '@/components/ui';
 import { Bell } from 'lucide-react';
-import { memo, useMemo, useState } from 'react';
+import { forwardRef, memo, useMemo, useState } from 'react';
 import { NotificationsTab } from './NotificationsTab';
 
-const TriggerButton = ({ setOpen }: { setOpen: () => void }) => {
+const TriggerButton = forwardRef<HTMLButtonElement, { setOpen: () => void }>(({ setOpen }, ref) => {
   return (
-    <Button variant="outline" size="icon" className="relative" onClick={setOpen}>
+    <Button ref={ref} variant="outline" size="icon" className="relative" onClick={setOpen}>
       <Bell className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
       <span className="sr-only">Bell Notification</span>
       <span className="absolute top-[-4px] right-[-4px] bg-[#ee4949] rounded-full h-2 w-2"></span>
     </Button>
   );
-};
+});
+
+TriggerButton.displayName = 'TriggerButton';
 
 export const Notifications = memo(() => {
   const [open, setOpen] = useState<boolean>(false);
@@ -44,7 +46,7 @@ export const Notifications = memo(() => {
       open={open}
       setOpen={setOpen}
     >
-      <TabsDisplay tabs={tabs} className='mt-5'/>
+      <TabsDisplay tabs={tabs} className="mt-5" />
     </SheetDisplay>
   );
 });
