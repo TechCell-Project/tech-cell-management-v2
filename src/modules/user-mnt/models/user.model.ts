@@ -18,7 +18,7 @@ export class User extends Timestamp {
   avatar?: ImageObj;
   address?: Address[] = [];
   block?: {
-    isBlocked?: boolean;
-    activityLogs?: ActivityLog[];
+    isBlocked: boolean;
+    activityLogs: ActivityLog[];
   };
 }

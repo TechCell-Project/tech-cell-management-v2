@@ -12,3 +12,5 @@ export class AuthUpdate {
 export type AuthUpdatePw = Pick<AuthUpdate, 'oldPassword' | 'password'> & {
   re_password: string;
 };
+
+export type AuthUpdateInfo = Pick<AuthUpdate, 'firstName' | 'lastName' | 'userName'>;

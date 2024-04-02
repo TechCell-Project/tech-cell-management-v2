@@ -27,7 +27,10 @@ export const ChangePassword = () => {
   } = updatePwForm;
 
   const { mutateAsync } = useMutation({
-    mutationFn: (values: Partial<AuthUpdate>) => patchMeApi(values),
+    mutationFn: (values: Partial<AuthUpdate>) => {
+      console.log(values)
+      return patchMeApi(values)
+    },
     onSuccess: () => {
       toast({
         variant: 'success',
@@ -47,7 +50,7 @@ export const ChangePassword = () => {
   return (
     <Form {...updatePwForm}>
       <form onSubmit={handleSubmit((data) => mutateAsync(data))}>
-        <div className="mt-3 flex flex-col gap-4">
+        <div className="mt-5 flex flex-col gap-4">
           <PasswordInput<AuthUpdatePw> name="oldPassword" label="Mật khẩu cũ" control={control} />
           <PasswordInput<AuthUpdatePw> name="password" label="Mật khẩu mới" control={control} />
           <PasswordInput<AuthUpdatePw>

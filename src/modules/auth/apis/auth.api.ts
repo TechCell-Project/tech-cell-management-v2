@@ -24,4 +24,4 @@ export const resetPasswordApi = (payload: AuthResetPassword) =>
 export const getMeApi = () => axiosInstance.get<User>(`${ApiTags.Auth}/me`);
 
 export const patchMeApi = (payload: Partial<AuthUpdate>) =>
-  axiosInstance.patch(`${ApiTags.Auth}/me`, payload);
+  axiosInstance.patch<User>(`${ApiTags.Auth}/me`, payload);

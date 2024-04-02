@@ -4,12 +4,10 @@ import { useState } from 'react';
 import { DialogDisplay, TabsDisplay } from '@/components/common/display';
 import { UserRoundSearch } from 'lucide-react';
 import { UserInfo } from './UserInfo/UserInfo';
-import { AddressInfo } from './AddressInfo/AddressInfo';
 import { ChangePassword } from './ChangePassword/ChangePassword';
 
 const tabs = [
   { value: 'user-info', name: 'Thông tin', component: <UserInfo /> },
-  { value: 'address-info', name: 'Địa chỉ', component: <AddressInfo /> },
   { value: 'change-pw', name: 'Đổi mật khẩu', component: <ChangePassword /> },
 ];
 
