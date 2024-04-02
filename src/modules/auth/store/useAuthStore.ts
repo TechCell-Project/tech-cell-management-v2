@@ -3,6 +3,7 @@ import { immer } from 'zustand/middleware/immer';
 import { AuthState, AuthStore } from './type';
 import { getOneSessionStorage, removeOneSessionStorage } from '@/utilities/session.util';
 import { AuthLoginResponse } from '../models';
+import { logoutApi } from '../apis';
 
 const initialState: AuthState = {
   user: undefined,
@@ -33,6 +34,7 @@ export const useAuthStore = create<AuthStore>()(
     logout: () => {
       set(initialState);
       removeOneSessionStorage('user');
+      logoutApi().then();
     },
   })),
 );

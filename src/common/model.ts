@@ -19,6 +19,6 @@ export class PaginationResponse<T> {
 
 export class PaginationRequest {
   page: number = 1;
-  pageSize: number = 10;
+  limit: number = 10;
   keyword?: string;
 }

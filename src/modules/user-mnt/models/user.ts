@@ -1,6 +1,6 @@
 import { ImageObj, Timestamp } from '@/common/model';
 import { Address } from '~address/models';
-import { ActivityLog } from './user-activity-log.model';
+import { ActivityLog } from './user-activity-log';
 import { Roles } from '@/constants/enum';
 
 type UserProvider = 'google' | 'facebook' | 'apple' | 'email';

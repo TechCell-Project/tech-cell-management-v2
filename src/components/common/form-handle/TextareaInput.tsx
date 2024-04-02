@@ -62,7 +62,7 @@ const TextareaInput = <T extends FieldValues>({
   isDebounce,
   onChange,
 }: TextareaInputProps<T>): JSX.Element => {
-  const { getValues, setValue, control } = formReturn;
+  const { getValues, setValue, control, trigger } = formReturn;
 
   const [initValue, setInitValue] = useState<string>(getValues(name) ?? '');
   const timeRef = useRef<NodeJS.Timeout>();
@@ -74,7 +74,10 @@ const TextareaInput = <T extends FieldValues>({
 
       if (isDebounce) {
         if (timeRef.current) clearTimeout(timeRef.current);
-        timeRef.current = setTimeout(() => setValue(name, target.value as any), 400);
+        timeRef.current = setTimeout(() => {
+          setValue(name, target.value as any);
+          trigger(name);
+        }, 400);
       } else {
         setValue(name, target.value as any);
       }

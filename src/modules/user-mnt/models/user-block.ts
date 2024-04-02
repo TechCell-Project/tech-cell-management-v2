@@ -1,4 +1,6 @@
+import { ActivityLogBlock } from './user-activity-log';
+
 export class UserBlock {
-  reason: string = '';
-  note?: string;
+  isBlocked: boolean = false;
+  activityLogs: ActivityLogBlock = new ActivityLogBlock();
 }

@@ -1,4 +1,4 @@
-import type { District, Province, Ward } from './address-location.model';
+import type { District, Province, Ward } from './address-location';
 
 type AddressLocationLevel<T> = T | T[];
 type AddressNameType = 'home' | 'office' | 'other';

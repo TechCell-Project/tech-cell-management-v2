@@ -1,2 +1,2 @@
-export * from './address-location.model';
-export * from './address.model';
+export * from './address-location';
+export * from './address';
