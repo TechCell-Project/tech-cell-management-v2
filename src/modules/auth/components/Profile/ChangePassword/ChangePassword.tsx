@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { AuthUpdate, AuthUpdatePw } from '~auth/models';
-import { Button, Form, useToast } from '@/components/ui';
+import { Button, Form, Separator, useToast } from '@/components/ui';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { changePwValidateSchema } from './validate-schema';
 import { useMutation } from '@tanstack/react-query';
@@ -28,8 +28,8 @@ export const ChangePassword = () => {
 
   const { mutateAsync } = useMutation({
     mutationFn: (values: Partial<AuthUpdate>) => {
-      console.log(values)
-      return patchMeApi(values)
+      console.log(values);
+      return patchMeApi(values);
     },
     onSuccess: () => {
       toast({
@@ -50,7 +50,10 @@ export const ChangePassword = () => {
   return (
     <Form {...updatePwForm}>
       <form onSubmit={handleSubmit((data) => mutateAsync(data))}>
-        <div className="mt-5 flex flex-col gap-4">
+        <h3 className="mt-5 mb-3 text-[16px] font-semibold">Đổi mật khẩu</h3>
+        <Separator className="my-6" />
+        
+        <div className="flex flex-col gap-4">
           <PasswordInput<AuthUpdatePw> name="oldPassword" label="Mật khẩu cũ" control={control} />
           <PasswordInput<AuthUpdatePw> name="password" label="Mật khẩu mới" control={control} />
           <PasswordInput<AuthUpdatePw>

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { quickSandFont } from '@/components/config';
 import { AppProvider, ThemeProvider } from '@/components/provider';
-import { Toaster } from '@/components/ui/toaster';
+import { TooltipProvider, Toaster } from '@/components/ui';
 import Favicon from '~public/images/favicon.ico';
 
 import '@/lib/dayjs';
@@ -41,7 +41,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <main className="w-full">{children}</main>
+            <TooltipProvider delayDuration={100}>
+              <main className="w-full">{children}</main>
+            </TooltipProvider>
             <Toaster />
           </ThemeProvider>
         </body>

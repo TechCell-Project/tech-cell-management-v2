@@ -30,3 +30,9 @@ export enum Roles {
   DataEntry = 'dataEntry',
   Warehouse = 'Warehouse',
 }
+
+export enum TypeAddress {
+  Home = 'home',
+  Office = 'office',
+  Other = 'other',
+}

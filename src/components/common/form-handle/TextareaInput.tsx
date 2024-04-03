@@ -80,6 +80,7 @@ const TextareaInput = <T extends FieldValues>({
         }, 400);
       } else {
         setValue(name, target.value as any);
+        trigger(name);
       }
     });
 
@@ -91,13 +92,22 @@ const TextareaInput = <T extends FieldValues>({
         <FormItem className={className}>
           <FormLabel className="text-[13px]">{label}</FormLabel>
           <FormControl>
-            <Textarea
-              {...field}
-              {...textareaAttributes}
-              value={initValue}
-              onChange={handleChange}
-              className={`${error && 'border-[#ee4949]'} resize-none`}
-            />
+            {!isDebounce ? (
+              <Textarea
+                {...field}
+                {...textareaAttributes}
+                onChange={(e) => (onChange ? onChange(e) : field.onChange(e))}
+                className={`${error && 'border-[#ee4949]'}`}
+              />
+            ) : (
+              <Textarea
+                {...field}
+                {...textareaAttributes}
+                value={initValue}
+                onChange={handleChange}
+                className={`${error && 'border-[#ee4949]'} resize-none`}
+              />
+            )}
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage className="text-[13px]" />

@@ -46,7 +46,7 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
   return (
     <>
       <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-        <div className="px-3 py-3 lg:px-5 lg:pl-3">
+        <div className="px-3 py-3 lg:px-[22px]">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start rtl:justify-end">
               <button
@@ -72,7 +72,7 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
                   ></path>
                 </svg>
               </button>
-              <Link href={Routes.Dashboard} className="flex ms-2 md:me-24">
+              <Link href={Routes.Dashboard} className="flex md:me-24">
                 <Image
                   width={110}
                   height={50}
@@ -110,7 +110,7 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
         </div>
       </aside>
 
-      <div className="p-4 sm:ml-64 pt-20 min-h-screen">{children}</div>
+      <div className="py-4 px-3 lg:px-[22px] sm:ml-64 pt-20 min-h-screen">{children}</div>
     </>
   );
 };

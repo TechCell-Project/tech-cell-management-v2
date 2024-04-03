@@ -10,15 +10,15 @@ export class ImageObj {
 }
 
 export class PaginationResponse<T> {
-  page: number = 0;
-  pageSize: number = 0;
-  totalPage: number = 0;
-  totalRecord: number = 0;
+  // page: number = 0;
+  // pageSize: number = 0;
+  // totalPage: number = 0;
+  // totalRecord: number = 0;
   data: T[] = [];
+  hasNextPage: boolean = false
 }
 
 export class PaginationRequest {
   page: number = 1;
   limit: number = 10;
-  keyword?: string;
 }

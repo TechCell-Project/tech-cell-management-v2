@@ -1,18 +1,19 @@
 'use client';
 
-import { TextDisplay } from '@/components/common/display';
+import dayjs from 'dayjs';
+import { useForm } from 'react-hook-form';
+import { TextDisplay, TooltipDisplay } from '@/components/common/display';
 import { Button, Form, Separator, useToast } from '@/components/ui';
-import { AuthLoginResponse, AuthUpdate, AuthUpdateInfo } from '~auth/models';
-import { useAuthStore } from '~auth/store';
 import { convertRoleViVN } from '@/utilities/convert.util';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
 import { updateInfoValidateSchema } from './validate-schema';
+import { setOneSessionStorage } from '@/utilities/session.util';
 import { TextInput } from '@/components/common/form-handle';
 import { useMutation } from '@tanstack/react-query';
+import { AuthLoginResponse, AuthUpdate, AuthUpdateInfo } from '~auth/models';
+import { useAuthStore } from '~auth/store';
 import { getMeApi, patchMeApi } from '~auth/apis';
-import { setOneSessionStorage } from '@/utilities/session.util';
-import dayjs from 'dayjs';
+import { CircleCheckBig } from 'lucide-react';
 
 export const UserInfo = () => {
   const { user: sessionUser, setUser } = useAuthStore();
@@ -76,12 +77,18 @@ export const UserInfo = () => {
         <h3 className="mt-5 mb-3 text-[16px] font-semibold">Ảnh đại diện</h3>
         <Separator className="my-6" />
 
-        <h3 className="mt-5 mb-3 text-[16px] font-semibold">Người dùng</h3>
+        <div className="mt-5 mb-3 flex justify-start items-center gap-4">
+          <h3 className="text-[16px] font-semibold">Người dùng</h3>
+          <TooltipDisplay
+            trigger={<CircleCheckBig className="h-[1rem] w-[1rem]" color="#ee4949" />}
+            content="Tài khoản đã xác nhận email"
+          />
+        </div>
         <div className="grid grid-cols-2 gap-x-5 gap-y-1">
           <TextDisplay label="Email" content={sessionUser.user.email} />
           <TextDisplay label="Chức vụ" content={convertRoleViVN[sessionUser.user.role]} />
           <TextDisplay
-            label="Trạng thái TK"
+            label="Trạng thái"
             content={sessionUser.user.block?.isBlocked ? 'Bị chặn' : 'Hoạt động'}
           />
         </div>

@@ -6,9 +6,15 @@ import { PaginationRequest } from '@/common/model';
 // type UserStatus = 'blocked' | 'unblocked' | 'all';
 // type EmailVerified = 'verified' | 'unverified' | 'all';
 
-export class UserSearcn extends PaginationRequest {
+export class UserSearch extends PaginationRequest {
   filters?: string;
   sort?: string;
+
+  constructor(page: number, limit: number) {
+    super();
+    this.page = page;
+    this.limit = limit;
+  }
   // order_field?: OrderField;
   // sort_order?: SortOrder;
   // status?: UserStatus;

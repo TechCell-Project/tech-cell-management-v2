@@ -19,3 +19,5 @@ export * from './pagination';
 export * from './textarea';
 export * from './tabs';
 export * from './sheet';
+export * from './badge';
+export * from './tooltip';

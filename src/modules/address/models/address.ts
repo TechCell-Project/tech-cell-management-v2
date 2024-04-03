@@ -1,10 +1,10 @@
+import { TypeAddress } from '@/constants/enum';
 import type { District, Province, Ward } from './address-location';
 
 type AddressLocationLevel<T> = T | T[];
-type AddressNameType = 'home' | 'office' | 'other';
 
 export class Address {
-  type: AddressNameType = 'home';
+  type: TypeAddress = TypeAddress.Home;
   customerName: string = '';
   phoneNumbers: string = '';
   provinceLevel: AddressLocationLevel<Province> = [];

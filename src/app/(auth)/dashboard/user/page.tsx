@@ -1,5 +1,7 @@
+import { UserTable } from '~user-mnt/components';
+
 const UserPage = () => {
-  return <>User</>;
+  return <UserTable />;
 };
 
 export default UserPage;
