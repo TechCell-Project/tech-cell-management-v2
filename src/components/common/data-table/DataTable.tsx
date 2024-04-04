@@ -10,6 +10,7 @@ import {
 } from '@tanstack/react-table';
 import DataTablePagination from './DataTablePagination';
 import DataTableColumnVis from './DataTableColumnVis';
+import DataTableLoading from './DataTableLoading';
 
 type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
@@ -21,6 +22,8 @@ type DataTableProps<TData, TValue> = {
 
 type TableHelperProps = {
   titleNoResult?: string;
+  isLoading?: boolean;
+  rowCountLoading?: number;
 };
 
 export const DataTable = <TData, TValue>({
@@ -30,6 +33,8 @@ export const DataTable = <TData, TValue>({
   limit,
   hasNextPage,
   titleNoResult = 'Không tìm thấy kết quả nào.',
+  isLoading,
+  rowCountLoading = 3,
 }: DataTableProps<TData, TValue> & TableHelperProps) => {
   const table = useReactTable<TData>({
     data,
@@ -40,8 +45,8 @@ export const DataTable = <TData, TValue>({
 
   return (
     <>
+      {/* Column visibility */}
       <div className="w-full flex justify-end">
-        {/* Column visibility */}
         <DataTableColumnVis table={table} />
       </div>
 
@@ -63,25 +68,29 @@ export const DataTable = <TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
+          {isLoading ? (
+            <DataTableLoading table={table} rowCountLoading={rowCountLoading} />
+          ) : (
+            <TableBody>
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={columns.length} className="h-24 text-center">
+                    {titleNoResult}
+                  </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  {titleNoResult}
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
+              )}
+            </TableBody>
+          )}
         </Table>
       </div>
 

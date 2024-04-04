@@ -1,5 +1,5 @@
 import axios, { HttpStatusCode, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
-import axiosRetry from 'axios-retry';
+// import axiosRetry from 'axios-retry';
 import { getOneSessionStorage, setOneSessionStorage } from '@/utilities/session.util';
 import { AuthLoginResponse } from '~auth/models';
 import { refreshAction } from '~auth/actions';
@@ -9,29 +9,28 @@ export const axiosInstance: AxiosInstance = axios.create({
   timeout: 5000,
 });
 
-axiosRetry(axiosInstance, {
-  retries: 3,
-  retryDelay: (retryCount) => retryCount * 1000,
-  retryCondition: (error) =>
-    axiosRetry.isNetworkOrIdempotentRequestError(error) || axiosRetry.isSafeRequestError(error),
-});
+// axiosRetry(axiosInstance, {
+//   retries: 3,
+//   retryDelay: (retryCount) => retryCount * 1000,
+//   retryCondition: (error) =>
+//     axiosRetry.isNetworkOrIdempotentRequestError(error) || axiosRetry.isSafeRequestError(error),
+// });
 
 axiosInstance.interceptors.request.use(
-  async (config: InternalAxiosRequestConfig) => {
+  (config: InternalAxiosRequestConfig) => {
     const user = getOneSessionStorage<AuthLoginResponse>('user', 'object');
 
     if (user) {
-      if (Date.now() > (user as AuthLoginResponse).accessTokenExpires) {
-        const data = await refreshAction((user as AuthLoginResponse).refreshToken);
+      // if (Date.now() > (user as AuthLoginResponse).accessTokenExpires) {
+      //   const data = await refreshAction((user as AuthLoginResponse).refreshToken);
 
-        setOneSessionStorage<AuthLoginResponse>('user', {
-          ...(user as AuthLoginResponse),
-          accessToken: data.accessToken,
-          refreshToken: data.refreshToken,
-          accessTokenExpires: data.accessTokenExpires,
-        });
-      }
-
+      //   setOneSessionStorage<AuthLoginResponse>('user', {
+      //     ...(user as AuthLoginResponse),
+      //     accessToken: data.accessToken,
+      //     refreshToken: data.refreshToken,
+      //     accessTokenExpires: data.accessTokenExpires,
+      //   });
+      // }
       config.headers.Authorization = `Bearer ${(user as AuthLoginResponse).accessToken}`;
     }
     return config;

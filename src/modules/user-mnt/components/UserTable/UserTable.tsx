@@ -44,7 +44,7 @@ export const UserTable = () => {
   const {
     data: dataUsers,
     isSuccess,
-    isFetched,
+    isLoading,
   } = useQuery({
     queryKey: ['users', searchParams.toString() + `&filters=${roles}`],
     queryFn: () => getListUserApi(searchParams.toString() + `&filters=${roles}`),
@@ -54,7 +54,7 @@ export const UserTable = () => {
     getListSuccess(dataUsers.data);
   }
 
-  if (isFetched && page && limit) {
+  if (page && limit) {
     return (
       <DataTable
         columns={columns}
@@ -62,6 +62,7 @@ export const UserTable = () => {
         page={Number(page)}
         limit={Number(limit)}
         hasNextPage={listUser?.hasNextPage as boolean}
+        isLoading={isLoading}
       />
     );
   }
