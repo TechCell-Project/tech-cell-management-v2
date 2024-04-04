@@ -37,7 +37,7 @@ type SelectInputProps<TFieldValue extends FieldValues> = {
   control: Control<TFieldValue, any>;
   description?: string | ReactNode;
   className?: string;
-  options: Options[];
+  options: Options<string>[];
   placeholder?: string;
   disabled?: boolean;
   onChange?: (value: string) => void;

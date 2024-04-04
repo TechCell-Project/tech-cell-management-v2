@@ -35,7 +35,7 @@ type CheckboxInputProps<TFieldValue extends FieldValues> = {
   className?: string;
   disabled?: boolean;
   type?: 'boolean' | 'array';
-  options?: Options[];
+  options?: Options<any>[];
   onChange?: (checked: CheckedState) => void;
 };
 

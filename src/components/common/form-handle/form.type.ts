@@ -24,7 +24,9 @@ export type FormReturn<T extends FieldValues> = {
 
 /**
  * Options interface defines the structure for options.
+ * 
+ * @template TValue - Type defined for field 'value'.
  * @property {string} label - The label of the option.
- * @property {string} value - The value of the option.
+ * @property {TValue} value - The value of the option.
  */
-export type Options = { label: string; value: string };
+export type Options<TValue> = { label: string; value: TValue };
