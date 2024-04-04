@@ -4,7 +4,9 @@ export enum Routes {
   Product = '/dashboard/product',
   Category = '/dashboard/product-utilities/category',
   Attribute = '/dashboard/product-utilities/attribute',
-  User = '/dashboard/user',
+  // User = '/dashboard/user',
+  UserCustomer = '/dashboard/user/customer',
+  UserStaff = '/dashboard/user/staff',
   Order = '/dashboard/order',
 }
 
@@ -28,7 +30,7 @@ export enum Roles {
   Sales = 'sales',
   Accountant = 'accountant',
   DataEntry = 'dataEntry',
-  Warehouse = 'Warehouse',
+  Warehouse = 'warehouse',
 }
 
 export enum TypeAddress {

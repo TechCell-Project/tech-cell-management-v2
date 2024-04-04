@@ -6,9 +6,11 @@ import { changePwValidateSchema } from './validate-schema';
 import { useMutation } from '@tanstack/react-query';
 import { patchMeApi } from '~auth/apis';
 import { PasswordInput } from '@/components/common/form-handle';
+import { useAuthStore } from '~auth/store';
 
 export const ChangePassword = () => {
   const { toast } = useToast();
+  const { logout } = useAuthStore();
 
   const updatePwForm = useForm<AuthUpdatePw>({
     resolver: yupResolver(changePwValidateSchema),
@@ -23,20 +25,16 @@ export const ChangePassword = () => {
     handleSubmit,
     control,
     formState: { isSubmitting },
-    reset,
   } = updatePwForm;
 
   const { mutateAsync } = useMutation({
-    mutationFn: (values: Partial<AuthUpdate>) => {
-      console.log(values);
-      return patchMeApi(values);
-    },
+    mutationFn: (values: Partial<AuthUpdate>) => patchMeApi(values),
     onSuccess: () => {
       toast({
         variant: 'success',
         title: 'Thay đổi mật khẩu thành công!',
       });
-      reset();
+      logout();
     },
     onError: () => {
       toast({
@@ -52,7 +50,7 @@ export const ChangePassword = () => {
       <form onSubmit={handleSubmit((data) => mutateAsync(data))}>
         <h3 className="mt-5 mb-3 text-[16px] font-semibold">Đổi mật khẩu</h3>
         <Separator className="my-6" />
-        
+
         <div className="flex flex-col gap-4">
           <PasswordInput<AuthUpdatePw> name="oldPassword" label="Mật khẩu cũ" control={control} />
           <PasswordInput<AuthUpdatePw> name="password" label="Mật khẩu mới" control={control} />

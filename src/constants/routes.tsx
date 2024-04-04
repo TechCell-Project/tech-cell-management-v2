@@ -57,9 +57,18 @@ export const ROUTES: NavLinkProps[] = [
     icon: <ShoppingCart size={18} />,
   },
   {
-    href: Routes.User,
     title: 'Tài khoản',
     icon: <CircleUserRound size={18} />,
+    childrenNav: [
+      {
+        href: Routes.UserCustomer,
+        title: 'Khách hàng',
+      },
+      {
+        href: Routes.UserStaff,
+        title: 'Nhân viên',
+      },
+    ],
   },
 ];
 

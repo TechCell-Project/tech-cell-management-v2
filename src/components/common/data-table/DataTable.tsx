@@ -1,18 +1,6 @@
 'use client';
 
-import {
-  Button,
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui';
 import {
   ColumnDef,
   flexRender,
@@ -20,10 +8,15 @@ import {
   useReactTable,
   getPaginationRowModel,
 } from '@tanstack/react-table';
+import DataTablePagination from './DataTablePagination';
+import DataTableColumnVis from './DataTableColumnVis';
 
 type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  page: number;
+  limit: number;
+  hasNextPage: boolean;
 };
 
 type TableHelperProps = {
@@ -33,6 +26,9 @@ type TableHelperProps = {
 export const DataTable = <TData, TValue>({
   columns,
   data,
+  page,
+  limit,
+  hasNextPage,
   titleNoResult = 'Không tìm thấy kết quả nào.',
 }: DataTableProps<TData, TValue> & TableHelperProps) => {
   const table = useReactTable<TData>({
@@ -46,30 +42,7 @@ export const DataTable = <TData, TValue>({
     <>
       <div className="w-full flex justify-end">
         {/* Column visibility */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="redLight" className="ml-auto mb-5">
-              Cột hiển thị
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <DataTableColumnVis table={table} />
       </div>
 
       {/* Table */}
@@ -80,7 +53,7 @@ export const DataTable = <TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} className='font-bold'>
+                    <TableHead key={header.id} className="font-bold">
                       {header.isPlaceholder
                         ? null
                         : flexRender(header.column.columnDef.header, header.getContext())}
@@ -113,24 +86,7 @@ export const DataTable = <TData, TValue>({
       </div>
 
       {/* Pagination  */}
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-      </div>
+      <DataTablePagination page={page} limit={limit} hasNextPage={hasNextPage} />
     </>
   );
 };

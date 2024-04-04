@@ -13,7 +13,6 @@ import { loginApi } from '~auth/apis';
 import { useAuthStore } from '~auth/store';
 import { setOneSessionStorage } from '@/utilities/session.util';
 import { ForgotPassword } from '../ForgotPassword';
-import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Routes } from '@/constants/enum';
@@ -23,7 +22,6 @@ import { loginValidateSchema } from './validate-schema';
 export const SignIn = () => {
   const { toast } = useToast();
   const { fetching, fetched, setUser, isSignedIn } = useAuthStore();
-  const { theme } = useTheme();
   const { push } = useRouter();
 
   const signInForm = useForm<AuthLogin>({
@@ -96,7 +94,7 @@ export const SignIn = () => {
       <Image
         width={100}
         height={50}
-        src={theme === 'dark' ? '/images/logo-white.png' : '/images/logo-red.png'}
+        src='/images/logo-red.png'
         alt="techcell-logo"
         priority
       />

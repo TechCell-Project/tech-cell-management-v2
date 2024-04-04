@@ -3,3 +3,4 @@ export * from './TabsDisplay';
 export * from './TextDisplay';
 export * from './SheetDisplay';
 export * from './TooltipDisplay';
+export * from './DropdownDisplay';

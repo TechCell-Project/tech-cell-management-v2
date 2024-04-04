@@ -2,45 +2,67 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { getListUserApi } from '../../apis';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { User, UserSearch } from '../../models';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useUserStore } from '../../store';
 import { getSearchParams } from '@/utilities/func.util';
-import { Routes } from '@/constants/enum';
 import { DataTable } from '@/components/common/data-table';
 import { columns } from './columns';
+import { Roles, Routes } from '@/constants/enum';
+
+const rolesStaff: string[] = Object.values(Roles).filter((role) => role !== Roles.Customer);
+const rolesCustomer: string[] = [Roles.Customer];
 
 export const UserTable = () => {
-  const { listUser, getListSuccess } = useUserStore();
+  const { listUser, getListSuccess, reset } = useUserStore();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const roleParams: string[] = pathname === Routes.UserCustomer ? rolesCustomer : rolesStaff;
 
   const page = searchParams.get('page');
   const limit = searchParams.get('limit');
+  const roles = JSON.stringify({ roles: roleParams });
+
+  const getParams = useMemo(() => {
+    return getSearchParams(new UserSearch(Number(page) || 1, Number(limit) || 10));
+  }, [page, limit]);
 
   useEffect(() => {
     if (!page && !limit) {
-      router.replace(
-        Routes.User + '?' + getSearchParams(new UserSearch(Number(page) || 1, Number(limit) || 10)),
-      );
+      router.push(pathname + '?' + getParams);
     }
-  }, [router]);
+
+    return () => {
+      reset();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const {
     data: dataUsers,
     isSuccess,
     isFetched,
   } = useQuery({
-    queryKey: ['users', searchParams.toString()],
-    queryFn: () => getListUserApi(searchParams.toString()),
+    queryKey: ['users', searchParams.toString() + `&filters=${roles}`],
+    queryFn: () => getListUserApi(searchParams.toString() + `&filters=${roles}`),
   });
 
   if (isSuccess) {
     getListSuccess(dataUsers.data);
   }
 
-  if (isFetched) {
-    return <DataTable columns={columns} data={listUser?.data as User[] ?? []} />;
+  if (isFetched && page && limit) {
+    return (
+      <DataTable
+        columns={columns}
+        data={(listUser?.data as User[]) ?? []}
+        page={Number(page)}
+        limit={Number(limit)}
+        hasNextPage={listUser?.hasNextPage as boolean}
+      />
+    );
   }
 };

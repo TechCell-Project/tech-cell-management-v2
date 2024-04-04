@@ -3,7 +3,6 @@
 import { ReactNode, useState } from 'react';
 import { Routes } from '@/constants/enum';
 import { NavLinkProps, ROUTES, ROUTES_UTILS } from '@/constants/routes';
-import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
 import { NavLink, NavLinkAction, NavLinkCollapse } from './nav-link';
@@ -41,7 +40,6 @@ const RenderRoutes = ({ routes }: { routes: NavLinkProps[] }) => {
 
 export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
   const [openToggle, setOpenToggle] = useState<boolean>(false);
-  const { theme } = useTheme();
 
   return (
     <>
@@ -76,7 +74,7 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
                 <Image
                   width={110}
                   height={50}
-                  src={theme === 'dark' ? '/images/logo-white.png' : '/images/logo-red.png'}
+                  src='/images/logo-red.png'
                   alt="techcell-logo"
                   priority
                 />
