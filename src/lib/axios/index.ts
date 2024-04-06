@@ -1,5 +1,5 @@
 import axios, { HttpStatusCode, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
-// import axiosRetry from 'axios-retry';
+import axiosRetry from 'axios-retry';
 import { getOneSessionStorage, setOneSessionStorage } from '@/utilities/session.util';
 import { AuthLoginResponse } from '~auth/models';
 import { refreshAction } from '~auth/actions';
@@ -9,12 +9,12 @@ export const axiosInstance: AxiosInstance = axios.create({
   timeout: 5000,
 });
 
-// axiosRetry(axiosInstance, {
-//   retries: 3,
-//   retryDelay: (retryCount) => retryCount * 1000,
-//   retryCondition: (error) =>
-//     axiosRetry.isNetworkOrIdempotentRequestError(error) || axiosRetry.isSafeRequestError(error),
-// });
+axiosRetry(axiosInstance, {
+  retries: 3,
+  retryDelay: (retryCount) => retryCount * 1000,
+  retryCondition: (error) =>
+    axiosRetry.isNetworkOrIdempotentRequestError(error) || axiosRetry.isSafeRequestError(error),
+});
 
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
