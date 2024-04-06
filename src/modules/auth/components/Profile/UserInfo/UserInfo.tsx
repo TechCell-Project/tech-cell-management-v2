@@ -14,6 +14,7 @@ import { AuthLoginResponse, AuthUpdate, AuthUpdateInfo } from '~auth/models';
 import { useAuthStore } from '~auth/store';
 import { getMeApi, patchMeApi } from '~auth/apis';
 import { CircleCheckBig } from 'lucide-react';
+import { FORMAT_DATE } from '@/constants/utils';
 
 export const UserInfo = () => {
   const { user: sessionUser, setUser } = useAuthStore();
@@ -97,11 +98,11 @@ export const UserInfo = () => {
         <div className="grid grid-cols-2 gap-x-5 gap-y-1">
           <TextDisplay
             label="Ngày tạo"
-            content={dayjs(sessionUser.user.createdAt).format('DD/MM/YYYY h:mm A')}
+            content={dayjs(sessionUser.user.createdAt).format(FORMAT_DATE)}
           />
           <TextDisplay
             label="Ngày cập nhật"
-            content={dayjs(sessionUser.user.updatedAt).format('DD/MM/YYYY h:mm A')}
+            content={dayjs(sessionUser.user.updatedAt).format(FORMAT_DATE)}
           />
         </div>
         <Separator className="my-6" />
