@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from '@/components/ui';
 import { ReactNode, memo } from 'react';
-import { Control, FieldPath, FieldValues } from 'react-hook-form';
+import { FieldPath, FieldValues, useFormContext } from 'react-hook-form';
 import { Options } from './form.type';
 
 /**
@@ -23,7 +23,6 @@ import { Options } from './form.type';
  * @template TFieldValue - Type extending FieldValues for the control.
  * @property {FieldPath<TFieldValue>} name - The name/path of the field in the form.
  * @property {string} label - The label for the select input field.
- * @property {Control<TFieldValue, any>} control - The control object provided by React Hook Form.
  * @property {string | ReactNode} [description] - Optional description or additional information for the input field.
  * @property {string} [className] - Optional class name for styling purposes.
  * @property {Options[]} options - Array of options for the select input field.
@@ -34,7 +33,6 @@ import { Options } from './form.type';
 type SelectInputProps<TFieldValue extends FieldValues> = {
   name: FieldPath<TFieldValue>;
   label: string;
-  control: Control<TFieldValue, any>;
   description?: string | ReactNode;
   className?: string;
   options: Options<string>[];
@@ -54,7 +52,6 @@ type SelectInputProps<TFieldValue extends FieldValues> = {
 const SelectInput = <TFieldValue extends FieldValues>({
   name,
   label,
-  control,
   description,
   className,
   options,
@@ -62,6 +59,8 @@ const SelectInput = <TFieldValue extends FieldValues>({
   disabled,
   onChange,
 }: SelectInputProps<TFieldValue>): JSX.Element => {
+  const { control } = useFormContext<TFieldValue>();
+
   return (
     <FormField
       control={control}
@@ -83,7 +82,7 @@ const SelectInput = <TFieldValue extends FieldValues>({
             </FormControl>
             <SelectContent>
               {options.map(({ label, value }) => (
-                <SelectItem key={label} value={value}>
+                <SelectItem key={label} value={value} className="cursor-pointer">
                   {label}
                 </SelectItem>
               ))}

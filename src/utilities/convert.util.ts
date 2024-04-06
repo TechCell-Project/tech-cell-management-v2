@@ -2,7 +2,6 @@ import { Roles, TypeAddress } from '@/constants/enum';
 
 export const convertRoleViVN: { [key: string]: string } = {
   [Roles.Customer]: 'Khách hàng',
-  [Roles.Staff]: 'Nhân viên',
   [Roles.Manager]: 'Quản lý',
   [Roles.Accountant]: 'Kế toán',
   [Roles.DataEntry]: 'Nhân viên nhập liệu',

@@ -48,7 +48,7 @@ export const UserDetails = memo(({ user, trigger }: UserDetailsProps) => {
         </>
       )}
 
-      <Separator className="my-6" />
+      <Separator className="my-6 h-[0.5px]" />
 
       <h3 className="mt-5 mb-3 text-[16px] font-semibold">Khác</h3>
       <div className="grid grid-cols-2 gap-x-5 gap-y-1">

@@ -59,13 +59,13 @@ export const UserInfo = () => {
 
       toast({
         variant: 'success',
-        title: 'Thay đổi thông tin thành công thành công!',
+        title: 'Thay đổi thông tin thành công!',
       });
     },
     onError: () => {
       toast({
         variant: 'destructive',
-        title: 'Thay đổi thông tin thất bại',
+        title: 'Thay đổi thông tin thất bại!',
         description: 'Vui lòng thử lại sau',
       });
     },

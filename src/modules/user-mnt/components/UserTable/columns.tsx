@@ -5,6 +5,7 @@ import type { User } from '~user-mnt/models';
 import { UserDetails } from '../UserDetails/UserDetails';
 import { Button } from '@/components/ui';
 import { MoreHorizontal } from 'lucide-react';
+import { UserChangeRole } from '../UserChangeRole/UserChangeRole';
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -54,8 +55,10 @@ export const columns: ColumnDef<User>[] = [
               },
             },
             {
-              content: 'Đổi vai trò',
-              onClick: () => {},
+              content: <UserChangeRole user={result} trigger="Đổi vai trò" />,
+              onClick: (e) => {
+                e.preventDefault();
+              },
             },
             {
               content: result.block?.isBlocked ? 'Bỏ chặn' : 'Chặn',
