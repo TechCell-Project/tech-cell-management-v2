@@ -30,6 +30,15 @@ export const UserTable = () => {
     return getSearchParams(new UserSearch(Number(page) || 1, Number(limit) || 10));
   }, [page, limit]);
 
+  const {
+    data: dataUsers,
+    isSuccess,
+    isLoading,
+  } = useQuery({
+    queryKey: ['users', searchParams.toString(), roles],
+    queryFn: () => getListUserApi(searchParams.toString() + `&filters=${roles}`),
+  });
+
   useEffect(() => {
     if (!page && !limit) {
       router.push(pathname + '?' + getParams);
@@ -39,31 +48,20 @@ export const UserTable = () => {
       reset();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const {
-    data: dataUsers,
-    isSuccess,
-    isLoading,
-  } = useQuery({
-    queryKey: ['users', searchParams.toString() + `&filters=${roles}`],
-    queryFn: () => getListUserApi(searchParams.toString() + `&filters=${roles}`),
-  });
+  }, [page, limit]);
 
   if (isSuccess) {
     getListSuccess(dataUsers.data);
   }
 
-  if (page && limit) {
-    return (
-      <DataTable
-        columns={columns}
-        data={(listUser?.data as User[]) ?? []}
-        page={Number(page)}
-        limit={Number(limit)}
-        hasNextPage={listUser?.hasNextPage as boolean}
-        isLoading={isLoading}
-      />
-    );
-  }
+  return (
+    <DataTable
+      columns={columns}
+      data={(listUser?.data as User[]) ?? []}
+      page={Number(page)}
+      limit={Number(limit)}
+      hasNextPage={listUser?.hasNextPage as boolean}
+      isLoading={isLoading}
+    />
+  );
 };

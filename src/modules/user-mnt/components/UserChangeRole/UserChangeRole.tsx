@@ -10,7 +10,7 @@ import { CHANGE_ROLE_OPTIONS } from '@/constants/options';
 import { convertRoleViVN } from '@/utilities/convert.util';
 import { useMutation } from '@tanstack/react-query';
 import { patchOneUserApi } from '../../apis';
-import { useUserStore } from '../../store';
+import { usePathname, useRouter } from 'next/navigation';
 
 type UserChangeRoleProps = {
   user: User;
@@ -21,9 +21,10 @@ type ChangeRoleForm = Pick<UserUpdate, 'role'>;
 
 export const UserChangeRole = memo(({ trigger, user }: UserChangeRoleProps) => {
   const [open, setOpen] = useState<boolean>(false);
+  const router = useRouter()
+  const pathname = usePathname();
 
   const { toast } = useToast();
-  const { updateUserInList } = useUserStore();
 
   const changeRoleForm = useForm<ChangeRoleForm>({
     resolver: yupResolver(changeRoleValidateSchema),
@@ -44,7 +45,7 @@ export const UserChangeRole = memo(({ trigger, user }: UserChangeRoleProps) => {
         variant: 'success',
         title: 'Thay đổi chức vụ thành công!',
       });
-      updateUserInList(response.data);
+      router.replace(pathname)
       setOpen(false);
     },
     onError: () => {
