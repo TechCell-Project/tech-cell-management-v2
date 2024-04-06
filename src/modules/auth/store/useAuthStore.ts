@@ -33,8 +33,9 @@ export const useAuthStore = create<AuthStore>()(
     },
     logout: () => {
       set(initialState);
-      removeOneSessionStorage('user');
-      logoutApi().then();
+      logoutApi().then(() => {
+        removeOneSessionStorage('user');
+      });
     },
   })),
 );
