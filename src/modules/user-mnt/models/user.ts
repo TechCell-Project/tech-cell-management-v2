@@ -13,7 +13,6 @@ export class User extends Timestamp {
   socialId: string = '';
   firstName: string = '';
   lastName: string = '';
-  userName: string = '';
   role: Roles = Roles.Manager;
   avatar?: ImageObj;
   address?: Address[] = [];

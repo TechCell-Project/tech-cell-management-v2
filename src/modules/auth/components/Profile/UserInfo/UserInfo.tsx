@@ -24,7 +24,6 @@ export const UserInfo = () => {
     defaultValues: {
       firstName: sessionUser?.user.firstName ?? '',
       lastName: sessionUser?.user.lastName ?? '',
-      userName: sessionUser?.user.userName ?? '',
     },
   });
 
@@ -123,11 +122,6 @@ export const UserInfo = () => {
             <div className="grid grid-cols-2 gap-x-5 gap-y-4">
               <TextInput<AuthUpdateInfo> label="Họ" name="lastName" formReturn={formReturn} />
               <TextInput<AuthUpdateInfo> label="Tên" name="firstName" formReturn={formReturn} />
-              <TextInput<AuthUpdateInfo>
-                label="Tên người dùng"
-                name="userName"
-                formReturn={formReturn}
-              />
             </div>
 
             <div className="w-full flex justify-end mt-6">

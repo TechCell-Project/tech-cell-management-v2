@@ -1,20 +1,10 @@
-import { DropdownDisplay, DropdownDisplayItemProps } from '@/components/common/display';
-import { Button } from '@/components/ui';
+import { DropdownDisplay } from '@/components/common/display';
 import { convertRoleViVN } from '@/utilities/convert.util';
 import { ColumnDef } from '@tanstack/react-table';
-import { MoreHorizontal } from 'lucide-react';
 import type { User } from '~user-mnt/models';
-
-const actions: DropdownDisplayItemProps[] = [
-  {
-    content: 'Xem chi tiết',
-    onClick: () => {},
-  },
-  {
-    content: 'Chặn người dùng',
-    onClick: () => {},
-  },
-];
+import { UserDetails } from '../UserDetails/UserDetails';
+import { Button } from '@/components/ui';
+import { MoreHorizontal } from 'lucide-react';
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -23,12 +13,13 @@ export const columns: ColumnDef<User>[] = [
     accessorFn: (row) => `${row.firstName} ${row.lastName}`,
   },
   {
-    accessorKey: 'userName',
-    header: 'Tên người dùng',
-  },
-  {
     accessorKey: 'email',
     header: 'Email',
+  },
+  {
+    id: 'status',
+    header: 'Trạng thái',
+    accessorFn: (row) => (row?.block?.isBlocked ? 'Bị chặn' : 'Hoạt động'),
   },
   {
     id: 'role',
@@ -49,7 +40,28 @@ export const columns: ColumnDef<User>[] = [
             </Button>
           }
           label="Thao tác"
-          items={actions}
+          items={[
+            {
+              content: 'Copy ID',
+              onClick: () => {
+                navigator.clipboard.writeText(result._id);
+              },
+            },
+            {
+              content: <UserDetails user={result} trigger="Xem chi tiết" />,
+              onClick: (e) => {
+                e.preventDefault();
+              },
+            },
+            {
+              content: 'Đổi vai trò',
+              onClick: () => {},
+            },
+            {
+              content: result.block?.isBlocked ? 'Bỏ chặn' : 'Chặn',
+              onClick: () => {},
+            },
+          ]}
         />
       );
     },
