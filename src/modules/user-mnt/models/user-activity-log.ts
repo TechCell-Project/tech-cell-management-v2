@@ -1,3 +1,5 @@
+import { BlockActivityLogDto } from '@techcell/node-sdk';
+
 export class ActivityLog {
   action: string = '';
   actionAt: string = '';
@@ -6,7 +8,7 @@ export class ActivityLog {
   note: string = '';
 }
 
-export class ActivityLogBlock {
-  reason: string = '';
+export class ActivityLogBlock implements BlockActivityLogDto {
+  reason = '';
   note?: string;
 }
