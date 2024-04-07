@@ -1,23 +1,16 @@
-import { ImageObj, Timestamp } from '@/common/model';
-import { Address } from '~address/models';
-import { ActivityLog } from './user-activity-log';
-import { Roles } from '@/constants/enum';
+import { Timestamp } from '@/common/model';
+import { User as UserDto, UserProviderEnum, UserRoleEnum } from '@techcell/node-sdk';
 
-type UserProvider = 'google' | 'facebook' | 'apple' | 'email';
-
-export class User extends Timestamp {
-  _id: string = '';
-  email: string = '';
+export class User extends Timestamp implements UserDto {
+  _id = '';
+  email = '';
   emailVerified: boolean = false;
-  provider: UserProvider = 'email';
-  socialId: string = '';
-  firstName: string = '';
-  lastName: string = '';
-  role: Roles = Roles.Manager;
-  avatar?: ImageObj;
-  address?: Address[] = [];
-  block?: {
-    isBlocked: boolean;
-    activityLogs: ActivityLog[];
-  };
+  provider: UserProviderEnum = UserProviderEnum.Email;
+  socialId = '';
+  firstName = '';
+  lastName = '';
+  role = UserRoleEnum.Manager;
+  avatar = undefined;
+  address = undefined;
+  block = undefined;
 }

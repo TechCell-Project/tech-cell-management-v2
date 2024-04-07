@@ -9,10 +9,11 @@ import { useUserStore } from '../../store';
 import { getSearchParams } from '@/utilities/func.util';
 import { DataTable } from '@/components/common/data-table';
 import { columns } from './columns';
-import { Roles, Routes } from '@/constants/enum';
+import { Routes } from '@/constants/enum';
+import { UserRoleEnum } from '@techcell/node-sdk';
 
-const rolesStaff: string[] = Object.values(Roles).filter((role) => role !== Roles.Customer);
-const rolesCustomer: string[] = [Roles.Customer];
+const rolesStaff: string[] = Object.values(UserRoleEnum).filter((role) => role !== UserRoleEnum.Customer);
+const rolesCustomer: string[] = [UserRoleEnum.Customer];
 
 export const UserTable = () => {
   const { listUser, getListSuccess, reset } = useUserStore();
@@ -43,12 +44,14 @@ export const UserTable = () => {
     if (!page && !limit) {
       router.push(pathname + '?' + getParams);
     }
+  }, [page, limit, router, pathname, getParams]);
 
+  useEffect(() => {
     return () => {
       reset();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, limit]);
+  }, []);
 
   if (isSuccess) {
     getListSuccess(dataUsers.data);

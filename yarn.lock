@@ -1491,6 +1491,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@techcell/node-sdk@npm:0.0.1-2e10dda":
+  version: 0.0.1-2e10dda
+  resolution: "@techcell/node-sdk@npm:0.0.1-2e10dda"
+  dependencies:
+    axios: "npm:^1.6.1"
+  checksum: 10c0/5bc810690e7d319e11e198805c5c02d2b3126069701d840df9f0c5d7adea1f04424941e24ba175d9f93c6e0abdd0c1fe493d940998f50e310ff6b62a418e8c6b
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.12":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
@@ -1967,7 +1976,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.6.8":
+"axios@npm:^1.6.1, axios@npm:^1.6.8":
   version: 1.6.8
   resolution: "axios@npm:1.6.8"
   dependencies:
@@ -5571,6 +5580,7 @@ __metadata:
     "@tanstack/eslint-plugin-query": "npm:^5.27.7"
     "@tanstack/react-query": "npm:^5.28.4"
     "@tanstack/react-table": "npm:^8.15.0"
+    "@techcell/node-sdk": "npm:0.0.1-2e10dda"
     "@types/lodash": "npm:^4.17.0"
     "@types/node": "npm:^20"
     "@types/react": "npm:^18"
