@@ -8,6 +8,7 @@ export enum Routes {
   UserCustomer = '/dashboard/user/customer',
   UserStaff = '/dashboard/user/staff',
   Order = '/dashboard/order',
+  ResetPassword = '/reset-password',
 }
 
 export enum ApiTags {

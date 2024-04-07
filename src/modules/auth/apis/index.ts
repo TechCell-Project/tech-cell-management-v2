@@ -1,7 +1,13 @@
 import { ApiTags } from '@/constants/enum';
 import { axiosInstance } from '@/lib/axios';
 import type { User } from '~user-mnt/models';
-import { AuthLogin, AuthLoginResponse, AuthResetPassword, AuthUpdate } from '../models';
+import {
+  AuthForgotPw,
+  AuthLogin,
+  AuthLoginResponse,
+  AuthResetPassword,
+  AuthUpdate,
+} from '../models';
 
 export const loginApi = (payload: AuthLogin) =>
   axiosInstance.post<AuthLoginResponse>(`${ApiTags.Auth}/email/login`, payload);
@@ -15,8 +21,8 @@ export const refreshApi = (refreshToken: string) =>
     },
   });
 
-export const forgotPasswordApi = (email: string) =>
-  axiosInstance.post(`${ApiTags.Auth}/forgot/password`, { email });
+export const forgotPasswordApi = (payload: AuthForgotPw) =>
+  axiosInstance.post(`${ApiTags.Auth}/forgot/password`, payload);
 
 export const resetPasswordApi = (payload: AuthResetPassword) =>
   axiosInstance.post(`${ApiTags.Auth}/reset/password`, payload);
