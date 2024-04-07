@@ -12,7 +12,7 @@ import {
 } from '@/components/ui';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { InputHTMLAttributes, ReactNode, useState } from 'react';
-import { Control, FieldPath, FieldValues } from 'react-hook-form';
+import { FieldPath, FieldValues, useFormContext } from 'react-hook-form';
 
 /**
  * PasswordInputProps defines the props for the PasswordInput component.
@@ -21,14 +21,12 @@ import { Control, FieldPath, FieldValues } from 'react-hook-form';
  * @property {FieldPath<T>} name - The name/path of the field in the form.
  * @property {string} label - The label for the text input field.
  * @property {string | ReactNode} [description] - Optional description or additional information for the input field.
- * @property {Control<T, any>} control - An object containing the form control methods and properties provided by React Hook Form.
  * @property {string} [className] - Optional class name for styling purposes.
  * @property {InputHTMLAttributes<HTMLInputElement>} [inputAttributes] - Optional additional attributes for the input element.
  */
 type PasswordInputProps<T extends FieldValues> = {
   name: FieldPath<T>;
   label: string;
-  control: Control<T, any>;
   description?: string | ReactNode;
   className?: string;
   inputAttributes?: InputHTMLAttributes<HTMLInputElement>;
@@ -45,11 +43,11 @@ type PasswordInputProps<T extends FieldValues> = {
 export const PasswordInput = <T extends FieldValues>({
   name,
   label,
-  control,
   description,
   className,
   inputAttributes,
 }: PasswordInputProps<T>): JSX.Element => {
+  const { control } = useFormContext<T>();
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (

@@ -23,7 +23,6 @@ export const ChangePassword = () => {
 
   const {
     handleSubmit,
-    control,
     formState: { isSubmitting },
   } = updatePwForm;
 
@@ -52,13 +51,9 @@ export const ChangePassword = () => {
         <Separator className="my-6" />
 
         <div className="flex flex-col gap-4">
-          <PasswordInput<AuthUpdatePw> name="oldPassword" label="Mật khẩu cũ" control={control} />
-          <PasswordInput<AuthUpdatePw> name="password" label="Mật khẩu mới" control={control} />
-          <PasswordInput<AuthUpdatePw>
-            name="re_password"
-            label="Nhập lại mật khẩu"
-            control={control}
-          />
+          <PasswordInput<AuthUpdatePw> name="oldPassword" label="Mật khẩu cũ" />
+          <PasswordInput<AuthUpdatePw> name="password" label="Mật khẩu mới" />
+          <PasswordInput<AuthUpdatePw> name="re_password" label="Nhập lại mật khẩu" />
         </div>
 
         <div className="w-full flex justify-end mt-6">

@@ -1,9 +1,8 @@
 'use client';
 
-import { memo, useMemo, useState } from 'react';
+import { memo, useState } from 'react';
 import { DialogDisplay } from '@/components/common/display';
 import { Button, Form, useToast } from '@/components/ui';
-import { FormReturn, PasswordInput, TextInput } from '@/components/common/form-handle';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AuthResetPassword } from '~auth/models';
@@ -26,15 +25,6 @@ export const ForgotPassword = memo(() => {
     setValue,
     trigger,
   } = forgotPwForm;
-
-  const formReturn: FormReturn<AuthResetPassword> = useMemo(() => {
-    return {
-      control,
-      getValues,
-      setValue,
-      trigger,
-    };
-  }, [control, getValues, setValue, trigger]);
 
   return (
     <DialogDisplay

@@ -17,8 +17,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { FieldPath, FieldValues } from 'react-hook-form';
-import { FormReturn } from './form.type';
+import { FieldPath, FieldValues, useFormContext } from 'react-hook-form';
 
 /**
  * TextareaInputProps defines the props for the TextareaInput component.
@@ -29,7 +28,6 @@ import { FormReturn } from './form.type';
  * @property {string | ReactNode} [description] - Optional description or additional information for the input field.
  * @property {string} [className] - Optional class name for styling purposes.
  * @property {TextareaHTMLAttributes<HTMLTextAreaElement>} [textareaAttributes] - Optional additional attributes for the textarea element.
- * @property {FormReturn<T>} formReturn - Object containing necessary form control functions and properties.
  * @property {boolean} [isDebounce] - Optional boolean indicating whether debouncing is enabled for input value changes.
  * @property {ChangeEventHandler<HTMLTextAreaElement>} [onChange] - Optional onchange function for the textarea input.
  */
@@ -39,7 +37,6 @@ type TextareaInputProps<T extends FieldValues> = {
   description?: string | ReactNode;
   className?: string;
   textareaAttributes?: TextareaHTMLAttributes<HTMLTextAreaElement>;
-  formReturn: FormReturn<T>;
   isDebounce?: boolean;
   onChange?: ChangeEventHandler<HTMLTextAreaElement>;
 };
@@ -58,11 +55,10 @@ const TextareaInput = <T extends FieldValues>({
   description,
   className,
   textareaAttributes,
-  formReturn,
   isDebounce,
   onChange,
 }: TextareaInputProps<T>): JSX.Element => {
-  const { getValues, setValue, control, trigger } = formReturn;
+  const { getValues, setValue, control, trigger } = useFormContext<T>();
 
   const [initValue, setInitValue] = useState<string>(getValues(name) ?? '');
   const timeRef = useRef<NodeJS.Timeout>();

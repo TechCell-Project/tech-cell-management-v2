@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form, useToast } from '@/components/ui';
-import { FormReturn, PasswordInput, TextInput } from '@/components/common/form-handle';
+import { PasswordInput, TextInput } from '@/components/common/form-handle';
 import { Button } from '@/components/ui/button';
 import { useMutation } from '@tanstack/react-query';
 import { AuthLogin } from '~auth/models';
@@ -32,20 +32,7 @@ export const SignIn = () => {
   const {
     formState: { isSubmitting },
     handleSubmit,
-    control,
-    getValues,
-    setValue,
-    trigger,
   } = signInForm;
-
-  const formReturn: FormReturn<AuthLogin> = useMemo(() => {
-    return {
-      control,
-      getValues,
-      setValue,
-      trigger,
-    };
-  }, [control, getValues, setValue, trigger]);
 
   const { mutateAsync } = useMutation({
     mutationKey: ['auth-login'],
@@ -109,13 +96,11 @@ export const SignIn = () => {
             name="email"
             label="Email hoặc tên người dùng"
             className="mb-5"
-            formReturn={formReturn}
           />
 
           <PasswordInput<AuthLogin>
             name="password"
             label="Mật khẩu"
-            control={control}
             className="mb-4"
           />
 

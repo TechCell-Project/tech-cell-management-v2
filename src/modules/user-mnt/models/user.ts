@@ -1,5 +1,11 @@
-import { Timestamp } from '@/common/model';
-import { User as UserDto, UserProviderEnum, UserRoleEnum } from '@techcell/node-sdk';
+import { ImageObj, Timestamp } from '@/common/model';
+import {
+  UserAddressSchema,
+  UserBlockSchema,
+  User as UserDto,
+  UserProviderEnum,
+  UserRoleEnum,
+} from '@techcell/node-sdk';
 
 export class User extends Timestamp implements UserDto {
   _id = '';
@@ -10,7 +16,7 @@ export class User extends Timestamp implements UserDto {
   firstName = '';
   lastName = '';
   role = UserRoleEnum.Manager;
-  avatar = undefined;
-  address = undefined;
-  block = undefined;
+  avatar?: ImageObj;
+  address?: UserAddressSchema[] = [];
+  block?: UserBlockSchema;
 }

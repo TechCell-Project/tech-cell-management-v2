@@ -1,11 +1,13 @@
+import { AvatarSchema } from "@techcell/node-sdk";
+
 export class Timestamp {
   createdAt: string = '';
   updatedAt: string = '';
 }
 
-export class ImageObj {
-  publicId: string = '';
-  url: string = '';
+export class ImageObj implements AvatarSchema {
+  publicId = '';
+  url = '';
   isThumbnail?: boolean = false;
 }
 

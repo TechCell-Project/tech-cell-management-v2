@@ -30,19 +30,8 @@ export const UserInfo = () => {
 
   const {
     handleSubmit,
-    control,
     formState: { isSubmitting, isDirty },
-    getValues,
-    setValue,
-    trigger,
   } = updateInfoForm;
-
-  const formReturn = {
-    control,
-    getValues,
-    setValue,
-    trigger,
-  };
 
   const { mutateAsync } = useMutation({
     mutationFn: (values: Partial<AuthUpdate>) => patchMeApi(values),
@@ -121,8 +110,8 @@ export const UserInfo = () => {
           >
             <h3 className="mt-5 mb-3 text-[16px] font-semibold">Chỉnh sửa</h3>
             <div className="grid grid-cols-2 gap-x-5 gap-y-4">
-              <TextInput<AuthUpdateInfo> label="Họ" name="lastName" formReturn={formReturn} />
-              <TextInput<AuthUpdateInfo> label="Tên" name="firstName" formReturn={formReturn} />
+              <TextInput<AuthUpdateInfo> label="Họ" name="lastName" />
+              <TextInput<AuthUpdateInfo> label="Tên" name="firstName" />
             </div>
 
             <div className="w-full flex justify-end mt-6">

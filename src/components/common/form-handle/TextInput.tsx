@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEventHandler, InputHTMLAttributes, ReactNode, memo, useState, useRef } from 'react';
-import { FieldPath, FieldValues } from 'react-hook-form';
+import { FieldPath, FieldValues, useFormContext } from 'react-hook-form';
 import {
   FormControl,
   FormDescription,
@@ -11,7 +11,6 @@ import {
   FormMessage,
   Input,
 } from '@/components/ui';
-import { FormReturn } from './form.type';
 
 /**
  * TextInputProps defines the props for the TextInput component.
@@ -22,7 +21,6 @@ import { FormReturn } from './form.type';
  * @property {string | ReactNode} [description] - Optional description or additional information for the input field.
  * @property {string} [className] - Optional class name for styling purposes.
  * @property {InputHTMLAttributes<HTMLInputElement>} [inputAttributes] - Optional additional attributes for the input element.
- * @property {FormReturn<T>} formReturn - Object containing necessary form control functions and properties.
  * @property {boolean} [isDebounce] - Optional boolean indicating whether debouncing is enabled for input value changes.
  * @property {ChangeEventHandler<HTMLInputElement>} [onChange] - Optional onchange function for the text input.
  */
@@ -32,7 +30,6 @@ type TextInputProps<T extends FieldValues> = {
   description?: string | ReactNode;
   className?: string;
   inputAttributes?: InputHTMLAttributes<HTMLInputElement>;
-  formReturn: FormReturn<T>;
   isDebounce?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 };
@@ -51,11 +48,10 @@ const TextInput = <T extends FieldValues>({
   description,
   className,
   inputAttributes,
-  formReturn,
   isDebounce = false,
   onChange,
 }: TextInputProps<T>): JSX.Element => {
-  const { getValues, setValue, control, trigger } = formReturn;
+  const { getValues, setValue, control, trigger } = useFormContext();
 
   const [initValue, setInitValue] = useState<string>(getValues(name) ?? '');
   const timeRef = useRef<NodeJS.Timeout>();

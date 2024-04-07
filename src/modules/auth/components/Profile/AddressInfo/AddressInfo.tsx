@@ -18,7 +18,7 @@ export const AddressInfo = () => {
               <div className="grid grid-cols-2 gap-x-5 gap-y-1" key={add.type}>
                 <TextDisplay label="Loại" content={convertTypeAddress[add.type]} />
                 <TextDisplay label="Tên" content={add.customerName} />
-                <TextDisplay label="SĐT" content={add.phoneNumbers} />
+                {/* <TextDisplay label="SĐT" content={add.phoneNumbers} /> */}
                 <TextDisplay label="Chi tiết" content={add.detail} />
               </div>
             </>

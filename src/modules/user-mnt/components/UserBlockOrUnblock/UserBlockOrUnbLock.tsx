@@ -7,7 +7,7 @@ type UserBlockOrUnblockProps = {
 };
 
 export const UserBlockOrUnblock = memo(({ trigger, user }: UserBlockOrUnblockProps) => {
-  const [open, setOpen] = useState();
+  const [open, setOpen] = useState<boolean>(false);
 
   return <></>;
 });
