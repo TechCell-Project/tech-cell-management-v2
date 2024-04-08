@@ -36,22 +36,27 @@ const DataTablePagination = memo(({ page, limit, hasNextPage }: DataTablePaginat
     return [
       {
         content: '5',
+        key: '5',
         onClick: () => changePage('limit', 5),
       },
       {
         content: '10',
+        key: '10',
         onClick: () => changePage('limit', 10),
       },
       {
         content: '20',
+        key: '20',
         onClick: () => changePage('limit', 20),
       },
       {
         content: '30',
+        key: '30',
         onClick: () => changePage('limit', 30),
       },
       {
         content: '40',
+        key: '40',
         onClick: () => changePage('limit', 40),
       },
     ];
@@ -64,7 +69,7 @@ const DataTablePagination = memo(({ page, limit, hasNextPage }: DataTablePaginat
         <DropdownDisplay
           trigger={
             <Button variant="outline" className="h-9 px-3 flex items-center gap-4">
-              <span className='text-[13px]'>{limit}</span>
+              <span className="text-[13px]">{limit}</span>
               <span className="sr-only">Open menu</span>
               <ChevronsUpDown className="h-3 w-3" />
             </Button>

@@ -17,6 +17,7 @@ import {
  * @property {MouseEventHandler<HTMLDivElement>} onClick - The event handler function triggered when the dropdown item is clicked.
  */
 export type DropdownDisplayItemProps = {
+  key: string;
   content: string | ReactNode;
   onClick: MouseEventHandler<HTMLDivElement>;
 };
@@ -59,8 +60,12 @@ export const DropdownDisplay = ({
       <DropdownMenuContent align={align} className={className}>
         <DropdownMenuLabel>{label}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {items.map((item, i) => (
-          <DropdownMenuItem onClick={item.onClick} key={i} className="cursor-pointer">
+        {items.map((item) => (
+          <DropdownMenuItem
+            onClick={item.onClick}
+            key={item.key}
+            className="cursor-pointer [&>button]:w-full [&>button]:text-left"
+          >
             {item.content}
           </DropdownMenuItem>
         ))}

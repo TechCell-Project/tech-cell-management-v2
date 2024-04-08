@@ -2,7 +2,7 @@ import { ReactNode, memo, useState } from 'react';
 import { User, UserBlock, UserUpdate } from '../../models';
 import { DialogDisplay } from '@/components/common/display';
 import { useForm } from 'react-hook-form';
-import { Button, Form, useToast } from '@/components/ui';
+import { Button, Form, Textarea, useToast } from '@/components/ui';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { blockOrUnbValidateSchema } from './validate-schema';
 import { useMutation } from '@tanstack/react-query';
@@ -63,18 +63,20 @@ export const UserBlockOrUnblock = memo(({ trigger, user }: UserBlockOrUnblockPro
 
   return (
     <DialogDisplay trigger={trigger} title={trigger} open={open} setOpen={setOpen}>
+      <Textarea placeholder="Type your message here." id="message-2" />
       <Form {...blockOrUnblockForm}>
-        <form
-          onSubmit={handleSubmit((data) => mutateAsync(data as Partial<UserUpdate>))}
-          className="mt-3"
-        >
-          <TextareaInput label="Lý do" name="block.activityLogs.reason" />
+        <form className="mt-3">
+          <TextareaInput label="Lý do" name="block.activityLogs.reason" isDebounce/>
 
           <div className="w-full flex justify-end gap-4 mt-7">
             <Button variant="ghost" type="button" onClick={() => setOpen(false)}>
               Đóng
             </Button>
-            <Button type="submit" variant="red" isLoading={isSubmitting}>
+            <Button
+              onClick={handleSubmit((data) => mutateAsync(data as Partial<UserUpdate>))}
+              variant="red"
+              isLoading={isSubmitting}
+            >
               Xác nhận
             </Button>
           </div>
