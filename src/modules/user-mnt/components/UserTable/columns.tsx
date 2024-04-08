@@ -32,21 +32,17 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     id: 'action',
-    cell: ({ row }) => {
-      const result = row.original;
-
-      return (
-        <DropdownDisplay
-          trigger={
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          }
-          label="Thao tác"
-          items={columnsAction(result, (user as AuthLoginResponse).user._id)}
-        />
-      );
-    },
+    cell: ({ row }) => (
+      <DropdownDisplay
+        trigger={
+          <Button variant="ghost" className="h-8 w-8 p-0">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal className="h-4 w-4" />
+          </Button>
+        }
+        label="Thao tác"
+        items={columnsAction(row.original, (user as AuthLoginResponse).user._id)}
+      />
+    ),
   },
 ];

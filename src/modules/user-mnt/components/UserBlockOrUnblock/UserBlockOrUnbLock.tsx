@@ -1,5 +1,5 @@
-import { ReactNode, memo, useState } from 'react';
-import { User, UserBlock, UserUpdate } from '../../models';
+import { memo, useState } from 'react';
+import { UserActionProps, UserBlock, UserUpdate } from '../../models';
 import { DialogDisplay } from '@/components/common/display';
 import { useForm } from 'react-hook-form';
 import { Button, Form, Textarea, useToast } from '@/components/ui';
@@ -11,12 +11,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { BlockUserDtoActionEnum } from '@techcell/node-sdk';
 import { TextareaInput } from '@/components/common/form-handle';
 
-type UserBlockOrUnblockProps = {
-  user: User;
-  trigger: ReactNode | string;
-};
-
-export const UserBlockOrUnblock = memo(({ trigger, user }: UserBlockOrUnblockProps) => {
+export const UserBlockOrUnblock = memo(({ trigger, user }: UserActionProps) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const { toast } = useToast();
@@ -63,7 +58,6 @@ export const UserBlockOrUnblock = memo(({ trigger, user }: UserBlockOrUnblockPro
 
   return (
     <DialogDisplay trigger={trigger} title={trigger} open={open} setOpen={setOpen}>
-      <Textarea placeholder="Type your message here." id="message-2" />
       <Form {...blockOrUnblockForm}>
         <form className="mt-3">
           <TextareaInput label="Lý do" name="block.activityLogs.reason" isDebounce/>

@@ -1,5 +1,5 @@
-import { ReactNode, memo, useState } from 'react';
-import { User, UserUpdate } from '../../models';
+import { memo, useState } from 'react';
+import { UserActionProps, UserUpdate } from '../../models';
 import { DialogDisplay, TextDisplay } from '@/components/common/display';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,14 +12,9 @@ import { useMutation } from '@tanstack/react-query';
 import { patchOneUserApi } from '../../apis';
 import { usePathname, useRouter } from 'next/navigation';
 
-type UserChangeRoleProps = {
-  user: User;
-  trigger: ReactNode | string;
-};
-
 type ChangeRoleForm = Pick<UserUpdate, 'role'>;
 
-export const UserChangeRole = memo(({ trigger, user }: UserChangeRoleProps) => {
+export const UserChangeRole = memo(({ trigger, user }: UserActionProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const router = useRouter()
   const pathname = usePathname();

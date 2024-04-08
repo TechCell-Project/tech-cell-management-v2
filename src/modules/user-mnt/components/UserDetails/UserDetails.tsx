@@ -1,17 +1,12 @@
-import { ReactNode, memo, useState } from 'react';
+import { memo, useState } from 'react';
 import dayjs from 'dayjs';
 import { DialogDisplay, TextDisplay } from '@/components/common/display';
-import { User } from '../../models';
+import { UserActionProps } from '../../models';
 import { Button, Separator } from '@/components/ui';
 import { FORMAT_DATE } from '@/constants/utils';
 import { convertRoleViVN, convertTypeAddress } from '@/utilities/convert.util';
 
-type UserDetailsProps = {
-  user: User;
-  trigger: ReactNode | string;
-};
-
-export const UserDetails = memo(({ user, trigger }: UserDetailsProps) => {
+export const UserDetails = memo(({ user, trigger }: UserActionProps) => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
