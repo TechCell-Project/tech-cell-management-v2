@@ -1,9 +1,9 @@
-import { DropdownDisplay } from '@/components/common/display';
+import { DropdownDisplay, TooltipDisplay } from '@/components/common/display';
 import { convertRoleViVN } from '@/utilities/convert.util';
 import { ColumnDef } from '@tanstack/react-table';
 import type { User } from '~user-mnt/models';
 import { Button } from '@/components/ui';
-import { MoreHorizontal } from 'lucide-react';
+import { CircleCheckBig, MoreHorizontal } from 'lucide-react';
 import { getOneSessionStorage } from '@/utilities/session.util';
 import { AuthLoginResponse } from '~auth/models';
 import { columnsAction } from './columns-action';
@@ -17,8 +17,19 @@ export const columns: ColumnDef<User>[] = [
     accessorFn: (row) => `${row.firstName} ${row.lastName}`,
   },
   {
-    accessorKey: 'email',
+    id: 'email',
     header: 'Email',
+    cell: ({ row }) => (
+      <div className="flex justify-start items-center gap-2">
+        {row.original.email}{' '}
+        {row.original.emailVerified && (
+          <TooltipDisplay
+            trigger={<CircleCheckBig className="h-[1rem] w-[1rem]" color="#ee4949" />}
+            content="Tài khoản đã xác nhận email"
+          />
+        )}
+      </div>
+    ),
   },
   {
     id: 'status',

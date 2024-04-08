@@ -1,7 +1,7 @@
 import { Options } from '@/components/common/form-handle';
 import { UserRoleEnum } from '@techcell/node-sdk';
 
-export const CHANGE_ROLE_OPTIONS: Options<string>[] = [
+export const SELECT_ROLE_OPTIONS: Options<string>[] = [
   {
     label: 'Nhân viên bán hàng',
     value: UserRoleEnum.Sales,

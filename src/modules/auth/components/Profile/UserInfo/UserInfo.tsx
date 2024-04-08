@@ -68,10 +68,12 @@ export const UserInfo = () => {
 
         <div className="mt-5 mb-3 flex justify-start items-center gap-4">
           <h3 className="text-[16px] font-semibold">Người dùng</h3>
-          <TooltipDisplay
-            trigger={<CircleCheckBig className="h-[1rem] w-[1rem]" color="#ee4949" />}
-            content="Tài khoản đã xác nhận email"
-          />
+          {sessionUser.user.emailVerified && (
+            <TooltipDisplay
+              trigger={<CircleCheckBig className="h-[1rem] w-[1rem]" color="#ee4949" />}
+              content="Tài khoản đã xác nhận email"
+            />
+          )}
         </div>
         <div className="grid grid-cols-2 gap-x-5 gap-y-1">
           <TextDisplay label="Email" content={sessionUser.user.email} />

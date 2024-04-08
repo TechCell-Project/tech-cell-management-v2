@@ -11,8 +11,12 @@ import { DataTable } from '@/components/common/data-table';
 import { columns } from './columns';
 import { Routes } from '@/constants/enum';
 import { UserRoleEnum } from '@techcell/node-sdk';
+import { AddToggle } from '@/components/utils';
+import { UserCreate } from '../UserCreate/UserCreate';
 
-const rolesStaff: string[] = Object.values(UserRoleEnum).filter((role) => role !== UserRoleEnum.Customer);
+const rolesStaff: string[] = Object.values(UserRoleEnum).filter(
+  (role) => role !== UserRoleEnum.Customer,
+);
 const rolesCustomer: string[] = [UserRoleEnum.Customer];
 
 export const UserTable = () => {
@@ -58,13 +62,16 @@ export const UserTable = () => {
   }
 
   return (
-    <DataTable
-      columns={columns}
-      data={(listUser?.data as User[]) ?? []}
-      page={Number(page)}
-      limit={Number(limit)}
-      hasNextPage={listUser?.hasNextPage as boolean}
-      isLoading={isLoading}
-    />
+    <div className="mt-5">
+      <DataTable
+        columns={columns}
+        data={(listUser?.data as User[]) ?? []}
+        page={Number(page)}
+        limit={Number(limit)}
+        hasNextPage={listUser?.hasNextPage as boolean}
+        isLoading={isLoading}
+      />
+      <UserCreate trigger={<AddToggle />} />
+    </div>
   );
 };

@@ -2,7 +2,7 @@ import { memo, useState } from 'react';
 import { UserActionProps, UserBlock, UserUpdate } from '../../models';
 import { DialogDisplay } from '@/components/common/display';
 import { useForm } from 'react-hook-form';
-import { Button, Form, Textarea, useToast } from '@/components/ui';
+import { Button, Form, useToast } from '@/components/ui';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { blockOrUnbValidateSchema } from './validate-schema';
 import { useMutation } from '@tanstack/react-query';

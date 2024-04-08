@@ -24,6 +24,7 @@ type TableHelperProps = {
   titleNoResult?: string;
   isLoading?: boolean;
   rowCountLoading?: number;
+  isShowColumnVis?: boolean;
 };
 
 export const DataTable = <TData, TValue>({
@@ -35,6 +36,7 @@ export const DataTable = <TData, TValue>({
   titleNoResult = 'Không tìm thấy kết quả nào.',
   isLoading,
   rowCountLoading = 3,
+  isShowColumnVis = false,
 }: DataTableProps<TData, TValue> & TableHelperProps) => {
   const table = useReactTable<TData>({
     data,
@@ -46,9 +48,11 @@ export const DataTable = <TData, TValue>({
   return (
     <>
       {/* Column visibility */}
-      <div className="w-full flex justify-end">
-        <DataTableColumnVis table={table} />
-      </div>
+      {isShowColumnVis && (
+        <div className="w-full flex justify-end">
+          <DataTableColumnVis table={table} />
+        </div>
+      )}
 
       {/* Table */}
       <div className="rounded-md border">

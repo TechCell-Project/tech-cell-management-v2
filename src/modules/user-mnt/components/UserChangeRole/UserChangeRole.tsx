@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { changeRoleValidateSchema } from './validate-schema';
 import { Button, Form, useToast } from '@/components/ui';
 import { SelectInput } from '@/components/common/form-handle';
-import { CHANGE_ROLE_OPTIONS } from '@/constants/options';
+import { SELECT_ROLE_OPTIONS } from '@/constants/options';
 import { convertRoleViVN } from '@/utilities/convert.util';
 import { useMutation } from '@tanstack/react-query';
 import { patchOneUserApi } from '../../apis';
@@ -62,7 +62,7 @@ export const UserChangeRole = memo(({ trigger, user }: UserActionProps) => {
             className="mt-5 mb-3"
           />
 
-          <SelectInput<ChangeRoleForm> label="Chức vụ" name="role" options={CHANGE_ROLE_OPTIONS} />
+          <SelectInput<ChangeRoleForm> label="Chức vụ" name="role" options={SELECT_ROLE_OPTIONS} />
 
           <div className="w-full flex justify-end gap-4 mt-7">
             <Button variant="ghost" type="button" onClick={() => setOpen(false)}>
