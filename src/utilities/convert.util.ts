@@ -1,5 +1,5 @@
 import { TypeAddress } from '@/constants/enum';
-import { UserRoleEnum } from '@techcell/node-sdk';
+import { BlockUserDtoActionEnum, UserRoleEnum } from '@techcell/node-sdk';
 
 export const convertRoleViVN: { [key: string]: string } = {
   [UserRoleEnum.Customer]: 'Khách hàng',
@@ -14,4 +14,9 @@ export const convertTypeAddress: { [key: string]: string } = {
   [TypeAddress.Home]: 'Nhà',
   [TypeAddress.Office]: 'Văn phòng/Công ty',
   [TypeAddress.Other]: 'Khác',
+};
+
+export const convertBlockAction: { [key: string]: string } = {
+  [BlockUserDtoActionEnum.Block]: 'Chặn',
+  [BlockUserDtoActionEnum.Unblock]: 'Bỏ chặn',
 };

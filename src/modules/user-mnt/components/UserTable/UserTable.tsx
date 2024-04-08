@@ -29,7 +29,7 @@ export const UserTable = () => {
 
   const page = searchParams.get('page');
   const limit = searchParams.get('limit');
-  const roles = JSON.stringify({ roles: roleParams });
+  const params = JSON.stringify({ roles: roleParams });
 
   const getParams = useMemo(() => {
     return getSearchParams(new UserSearch(Number(page) || 1, Number(limit) || 10));
@@ -40,8 +40,12 @@ export const UserTable = () => {
     isSuccess,
     isLoading,
   } = useQuery({
-    queryKey: ['users', searchParams.toString(), roles],
-    queryFn: () => getListUserApi(searchParams.toString() + `&filters=${roles}`),
+    queryKey: ['users', params, page, limit],
+    queryFn: () => {
+      if (page && limit) {
+        return getListUserApi(searchParams.toString() + `&filters=${params}`);
+      }
+    },
   });
 
   useEffect(() => {
@@ -57,7 +61,7 @@ export const UserTable = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (isSuccess) {
+  if (isSuccess && dataUsers) {
     getListSuccess(dataUsers.data);
   }
 

@@ -108,7 +108,7 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
         </div>
       </aside>
 
-      <div className="py-4 px-3 lg:px-[22px] sm:ml-64 pt-20 min-h-screen">{children}</div>
+      <div className="py-4 px-3 lg:px-[22px] sm:ml-64 pt-20 min-h-screen relative">{children}</div>
     </>
   );
 };

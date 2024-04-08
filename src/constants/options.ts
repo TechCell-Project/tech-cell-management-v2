@@ -19,3 +19,46 @@ export const SELECT_ROLE_OPTIONS: Options<string>[] = [
     value: UserRoleEnum.Accountant,
   },
 ];
+
+export const REASON_BLOCK_OPTIONS: Options<string>[] = [
+  {
+    label: 'Gửi tin nhắn rác, quảng cáo, hoặc nội dung không phù hợp',
+    value: 'spam',
+  },
+  {
+    label: 'Bắt nạt, quấy rối, hoặc đe dọa người khác',
+    value: 'abuse',
+  },
+  {
+    label: 'Chia sẻ nội dung bạo lực, khiêu dâm, hoặc vi phạm bản quyền',
+    value: 'harmful-content',
+  },
+  {
+    label: 'Giả mạo người khác hoặc tạo tài khoản giả',
+    value: 'impersonate',
+  },
+  {
+    label: 'Cố gắng lừa đảo hoặc chiếm đoạt thông tin cá nhân',
+    value: 'scam',
+  },
+  {
+    label: 'Tham gia vào các hoạt động vi phạm pháp luật',
+    value: 'illegal-activity',
+  },
+  {
+    label: 'Sử dụng tên giả hoặc thông tin cá nhân không chính xác',
+    value: 'false-information',
+  },
+  {
+    label: 'Tạo nhiều tài khoản để thao túng hệ thống',
+    value: 'too-many-accounts',
+  },
+  {
+    label: 'Mua bán hoặc trao đổi tài khoản người dùng',
+    value: 'trading-accounts',
+  },
+  {
+    label: 'Lý do khác',
+    value: 'other',
+  },
+];

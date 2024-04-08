@@ -80,7 +80,7 @@ const SelectInput = <TFieldValue extends FieldValues>({
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>
-            <SelectContent>
+            <SelectContent className='overflow-y-auto max-h-[14rem]'>
               {options.map(({ label, value }) => (
                 <SelectItem key={label} value={value} className="cursor-pointer">
                   {label}
