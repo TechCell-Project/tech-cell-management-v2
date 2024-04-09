@@ -1,5 +1,5 @@
 import { Options } from '@/components/common/form-handle';
-import { UserRoleEnum } from '@techcell/node-sdk';
+import { CreateBrandDtoStatusEnum, UserRoleEnum } from '@techcell/node-sdk';
 
 export const SELECT_ROLE_OPTIONS: Options<string>[] = [
   {
@@ -60,5 +60,16 @@ export const REASON_BLOCK_OPTIONS: Options<string>[] = [
   {
     label: 'Lý do khác',
     value: 'other',
+  },
+];
+
+export const ACTIVE_BRAND_OPTIONS: Options<string>[] = [
+  {
+    label: 'Sử dụng thương hiệu',
+    value: CreateBrandDtoStatusEnum.Active,
+  },
+  {
+    label: 'Tạm ngưng thương hiệu',
+    value: CreateBrandDtoStatusEnum.Inactive,
   },
 ];

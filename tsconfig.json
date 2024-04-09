@@ -43,6 +43,9 @@
       "~user-mnt/*": [
         "./src/modules/user-mnt/*"
       ],
+      "~brand-mnt/*": [
+        "./src/modules/brand-mnt/*"
+      ],
     }
   },
   "include": [

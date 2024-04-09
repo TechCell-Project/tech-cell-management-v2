@@ -42,13 +42,13 @@ export const ROUTES: NavLinkProps[] = [
     icon: <PanelsLeftBottom size={18} />,
     childrenNav: [
       {
-        href: Routes.Category,
-        title: 'Thể loại',
+        href: Routes.UtilsBrand,
+        title: 'Thương hiệu',
       },
-      {
-        href: Routes.Attribute,
-        title: 'Thuộc tính',
-      },
+      // {
+      //   href: Routes.Attribute,
+      //   title: 'Thuộc tính',
+      // },
     ],
   },
   {

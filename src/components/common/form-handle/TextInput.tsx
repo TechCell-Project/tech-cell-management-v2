@@ -51,7 +51,7 @@ const TextInput = <T extends FieldValues>({
   isDebounce = false,
   onChange,
 }: TextInputProps<T>): JSX.Element => {
-  const { getValues, setValue, control, trigger } = useFormContext();
+  const { getValues, setValue, control, trigger } = useFormContext<T>();
 
   const [initValue, setInitValue] = useState<string>(getValues(name) ?? '');
   const timeRef = useRef<NodeJS.Timeout>();

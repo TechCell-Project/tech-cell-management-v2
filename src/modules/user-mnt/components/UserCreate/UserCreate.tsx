@@ -37,7 +37,7 @@ export const UserCreate = memo(({ trigger }: { trigger: ReactNode }) => {
         title: 'Thêm mới người dùng thành công!',
       });
 
-      reset();
+      reset(new UserCreateNew());
       setOpen(false);
 
       router.replace(pathname);
@@ -67,9 +67,14 @@ export const UserCreate = memo(({ trigger }: { trigger: ReactNode }) => {
             className="mb-3"
           />
 
-          <TextInput<UserCreateNew> label="Email" name="email" className="mb-3" />
+          <TextInput<UserCreateNew>
+            label="Email"
+            name="email"
+            className="mb-3"
+            description="Sử dụng định dạng @techcell.cloud"
+          />
 
-          <PasswordInput<UserCreateNew> label="Mật khẩu" name="password" className="mb-3" />
+          <PasswordInput<UserCreateNew> label="Mật khẩu" name="password" />
 
           <div className="w-full flex justify-end gap-4 mt-7">
             <Button variant="ghost" type="button" onClick={() => setOpen(false)}>
