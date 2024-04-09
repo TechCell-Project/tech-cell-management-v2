@@ -15,6 +15,7 @@ import { useAuthStore } from '~auth/store';
 import { getMeApi, patchMeApi } from '~auth/apis';
 import { CircleCheckBig } from 'lucide-react';
 import { FORMAT_DATE } from '@/constants/utils';
+import { getFieldChanges } from '@/utilities/func.util';
 
 export const UserInfo = () => {
   const { user: sessionUser, setUser } = useAuthStore();
@@ -101,12 +102,7 @@ export const UserInfo = () => {
         <Form {...updateInfoForm}>
           <form
             onSubmit={handleSubmit((data) => {
-              const values: Partial<AuthUpdate> = {};
-              for (const key in data) {
-                if ((data as any)[key] !== (sessionUser.user as any)[key]) {
-                  (values as any)[key] = (data as any)[key];
-                }
-              }
+              const values = getFieldChanges<AuthUpdate>(data, sessionUser.user);
               mutateAsync(values);
             })}
           >

@@ -30,6 +30,18 @@ export const isType = <T>(value: any, type: new (...args: any[]) => T): value is
   return value instanceof type;
 };
 
+export const getFieldChanges = <T>(payloadForm: any, payloadOrigin: any): Partial<T> => {
+  const output: Partial<T> = {};
+
+  for (const key in payloadForm) {
+    if (payloadForm[key] !== payloadOrigin[key]) {
+      (output as any)[key] = payloadForm[key];
+    }
+  }
+
+  return output;
+};
+
 /**
  * User Service Func - getShortName
  */

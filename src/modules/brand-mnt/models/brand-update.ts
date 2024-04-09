@@ -1,7 +1,14 @@
 import { UpdateBrandDto } from '@techcell/node-sdk';
+import { Brand } from './brand';
 
 export class BrandUpdate implements UpdateBrandDto {
-  name = undefined;
-  description = undefined;
-  status = undefined;
+  name = '';
+  description = '';
+  status: any = '';
+
+  constructor(brand: Brand) {
+    this.name = brand.name;
+    this.description = brand.description;
+    this.status = brand.status;
+  }
 }
