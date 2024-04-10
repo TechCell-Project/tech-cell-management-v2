@@ -15,11 +15,7 @@ export const loginApi = (payload: AuthLogin) =>
 export const logoutApi = () => axiosInstance.post(`${ApiTags.Auth}/logout`);
 
 export const refreshApi = (refreshToken: string) =>
-  axiosInstance.post<Omit<AuthLoginResponse, 'user'>>(`${ApiTags.Auth}/refresh`, undefined, {
-    headers: {
-      Authorization: `Bearer ${refreshToken}`,
-    },
-  });
+  axiosInstance.post<Omit<AuthLoginResponse, 'user'>>(`${ApiTags.Auth}/refresh`, { refreshToken });
 
 export const forgotPasswordApi = (payload: AuthForgotPw) =>
   axiosInstance.post(`${ApiTags.Auth}/forgot/password`, payload);

@@ -16,6 +16,7 @@ import { getMeApi, patchMeApi } from '~auth/apis';
 import { CircleCheckBig } from 'lucide-react';
 import { FORMAT_DATE } from '@/constants/utils';
 import { getFieldChanges } from '@/utilities/func.util';
+import { UserAvatar } from './UserAvatar';
 
 export const UserInfo = () => {
   const { user: sessionUser, setUser } = useAuthStore();
@@ -65,6 +66,7 @@ export const UserInfo = () => {
     return (
       <>
         <h3 className="mt-5 mb-3 text-[16px] font-semibold">Ảnh đại diện</h3>
+        <UserAvatar />
         <Separator className="my-6" />
 
         <div className="mt-5 mb-3 flex justify-start items-center gap-4">

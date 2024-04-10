@@ -46,6 +46,9 @@
       "~brand-mnt/*": [
         "./src/modules/brand-mnt/*"
       ],
+      "~images/*": [
+        "./src/modules/images/*"
+      ],
     }
   },
   "include": [

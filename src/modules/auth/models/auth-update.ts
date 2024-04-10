@@ -6,6 +6,7 @@ export class AuthUpdate {
   password: string = '';
   oldPassword: string = '';
   address: Address[] = [];
+  avatarImageId?: string;
 }
 
 export type AuthUpdatePw = Pick<AuthUpdate, 'oldPassword' | 'password'> & {

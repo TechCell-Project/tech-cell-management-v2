@@ -34,9 +34,9 @@ export const BrandDelete = memo(({ trigger, brand }: { trigger: ReactNode; brand
   });
 
   return (
-    <DialogDisplay trigger={trigger} title="Cập nhật thương hiệu" open={open} setOpen={setOpen}>
+    <DialogDisplay trigger={trigger} title="Xóa thương hiệu" open={open} setOpen={setOpen}>
       <div className="mt-3">
-        <p>
+        <p className='text-[15px]'>
           Bạn có chắc muốn xóa <b>{brand.name}</b>?
         </p>
         <div className="w-full flex justify-end gap-4 mt-7">
