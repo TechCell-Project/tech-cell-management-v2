@@ -2,18 +2,11 @@ import axios, { HttpStatusCode, AxiosInstance, InternalAxiosRequestConfig } from
 import axiosRetry from 'axios-retry';
 import { getOneSessionStorage, setOneSessionStorage } from '@/utilities/session.util';
 import { AuthLoginResponse } from '~auth/models';
-import { refreshAction } from '~auth/actions';
+import { refreshApi } from '@/modules/auth/apis';
 
 export const axiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API,
   timeout: 5000,
-});
-
-axiosRetry(axiosInstance, {
-  retries: 3,
-  retryDelay: (retryCount) => retryCount * 1000,
-  retryCondition: (error) =>
-    axiosRetry.isNetworkOrIdempotentRequestError(error) || axiosRetry.isSafeRequestError(error),
 });
 
 axiosInstance.interceptors.request.use(
@@ -49,7 +42,7 @@ axiosInstance.interceptors.response.use(
 
       if (user) {
         try {
-          const data = await refreshAction((user as AuthLoginResponse).refreshToken);
+          const { data } = await refreshApi((user as AuthLoginResponse).refreshToken);
 
           setOneSessionStorage<AuthLoginResponse>('user', {
             ...(user as AuthLoginResponse),
@@ -72,3 +65,10 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   },
 );
+
+axiosRetry(axiosInstance, {
+  retries: 3,
+  retryDelay: (retryCount) => retryCount * 1000,
+  retryCondition: (error) =>
+    axiosRetry.isNetworkOrIdempotentRequestError(error) || axiosRetry.isSafeRequestError(error),
+});
