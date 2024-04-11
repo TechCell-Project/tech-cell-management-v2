@@ -9,7 +9,7 @@ import { DialogDisplay } from '@/components/common/display';
 import { useMutation } from '@tanstack/react-query';
 import { postBrandApi } from '../../apis';
 import { SelectInput, TextInput } from '@/components/common/form-handle';
-import { ACTIVE_BRAND_OPTIONS } from '@/constants/options';
+import { STATUS_BRAND_OPTIONS } from '@/constants/options';
 
 export const BrandCreate = memo(({ trigger }: { trigger: ReactNode }) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -61,7 +61,7 @@ export const BrandCreate = memo(({ trigger }: { trigger: ReactNode }) => {
           <SelectInput<BrandCreateNew>
             label="Trạng thái"
             name="status"
-            options={ACTIVE_BRAND_OPTIONS}
+            options={STATUS_BRAND_OPTIONS}
           />
 
           <div className="w-full flex justify-end gap-4 mt-7">

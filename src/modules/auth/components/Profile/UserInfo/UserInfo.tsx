@@ -104,7 +104,7 @@ export const UserInfo = () => {
         <Form {...updateInfoForm}>
           <form
             onSubmit={handleSubmit((data) => {
-              const values = getFieldChanges<AuthUpdate>(data, sessionUser.user);
+              const values = getFieldChanges(data, sessionUser.user);
               mutateAsync(values);
             })}
           >

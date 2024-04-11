@@ -63,13 +63,13 @@ export const REASON_BLOCK_OPTIONS: Options<string>[] = [
   },
 ];
 
-export const ACTIVE_BRAND_OPTIONS: Options<string>[] = [
+export const STATUS_BRAND_OPTIONS: Options<string>[] = [
   {
-    label: 'Sử dụng thương hiệu',
+    label: 'Active',
     value: CreateBrandDtoStatusEnum.Active,
   },
   {
-    label: 'Tạm ngưng thương hiệu',
+    label: 'Inactive',
     value: CreateBrandDtoStatusEnum.Inactive,
   },
 ];

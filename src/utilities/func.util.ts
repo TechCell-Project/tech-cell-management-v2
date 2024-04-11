@@ -30,12 +30,22 @@ export const isType = <T>(value: any, type: new (...args: any[]) => T): value is
   return value instanceof type;
 };
 
-export const getFieldChanges = <T>(payloadForm: any, payloadOrigin: any): Partial<T> => {
+/**
+ * Gets the changes made to fields between two objects.
+ *
+ * @param payloadForm The current form data.
+ * @param payloadOrigin The original form data.
+ * @returns An object containing the changed fields.
+ */
+export const getFieldChanges = <T extends Record<string, any>>(
+  payloadForm: T,
+  payloadOrigin: T,
+): Partial<T> => {
   const output: Partial<T> = {};
 
   for (const key in payloadForm) {
-    if (payloadForm[key] !== payloadOrigin[key]) {
-      (output as any)[key] = payloadForm[key];
+    if (payloadForm.hasOwnProperty(key) && payloadForm[key] !== payloadOrigin[key]) {
+      output[key] = payloadForm[key];
     }
   }
 
@@ -59,4 +69,8 @@ export const getShortName = (fullname: string) => {
   }
 
   return shortName.toUpperCase();
+};
+
+export const capitallize = (str: string): string => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 };

@@ -4,7 +4,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { MoreHorizontal } from 'lucide-react';
 import { columnsAction } from './columns-action';
 import { Brand } from '../../models';
-import { BrandStatusEnum } from '@techcell/node-sdk';
+import { capitallize } from '@/utilities/func.util';
 
 export const columns: ColumnDef<Brand>[] = [
   {
@@ -18,7 +18,7 @@ export const columns: ColumnDef<Brand>[] = [
   {
     id: 'status',
     header: 'Trạng thái',
-    accessorFn: (row) => (row.status === BrandStatusEnum.Active ? 'Đang sử dụng' : 'Tạm ngưng'),
+    accessorFn: (row) => capitallize(row.status),
   },
   {
     id: 'action',

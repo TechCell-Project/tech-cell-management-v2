@@ -9,7 +9,7 @@ import { useMutation } from '@tanstack/react-query';
 import { patchBrandApi } from '../../apis';
 import { DialogDisplay } from '@/components/common/display';
 import { SelectInput, TextInput } from '@/components/common/form-handle';
-import { ACTIVE_BRAND_OPTIONS } from '@/constants/options';
+import { STATUS_BRAND_OPTIONS } from '@/constants/options';
 import { getFieldChanges } from '@/utilities/func.util';
 
 export const BrandUpdate = memo(({ trigger, brand }: { trigger: ReactNode; brand: Brand }) => {
@@ -59,7 +59,7 @@ export const BrandUpdate = memo(({ trigger, brand }: { trigger: ReactNode; brand
           <SelectInput<BrandUpdateDto>
             label="Trạng thái"
             name="status"
-            options={ACTIVE_BRAND_OPTIONS}
+            options={STATUS_BRAND_OPTIONS}
           />
 
           <div className="w-full flex justify-end gap-4 mt-7">
