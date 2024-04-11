@@ -62,7 +62,7 @@ export const BrandTable = () => {
   }
 
   return (
-    <div className="mt-5">
+    <div className="my-6">
       <DataTable
         columns={columns}
         data={(listBrand?.data as Brand[]) ?? []}

@@ -22,3 +22,4 @@ export * from './sheet';
 export * from './badge';
 export * from './tooltip';
 export * from './skeleton';
+export * from './breadcrumb';

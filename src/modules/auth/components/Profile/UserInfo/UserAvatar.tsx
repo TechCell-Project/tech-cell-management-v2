@@ -11,13 +11,15 @@ import { patchMeApi } from '~auth/apis';
 import { memo } from 'react';
 import { AuthLoginResponse } from '~auth/models';
 import { setOneSessionStorage } from '@/utilities/session.util';
+import HashLoader from 'react-spinners/HashLoader';
 
 export const UserAvatar = memo(() => {
-  const { user: sessionUser, setUser } = useAuthStore();
+  const { user: sessionUser, setUser, fetching, fetched, isLoading } = useAuthStore();
   const { toast } = useToast();
 
   const handleDrop = async (dropped: File[]) => {
     if (dropped.length > 0) {
+      fetching();
       const formData = new FormData();
       formData.append('images', dropped[0]);
 
@@ -26,7 +28,7 @@ export const UserAvatar = memo(() => {
         const { data: userResponse } = await patchMeApi({
           avatarImageId: imagesResponse.data[0].publicId,
         });
-        
+
         if (userResponse) {
           const newUser: AuthLoginResponse = {
             ...(sessionUser as AuthLoginResponse),
@@ -40,6 +42,8 @@ export const UserAvatar = memo(() => {
             variant: 'success',
             title: 'Tải ảnh thành công!',
           });
+
+          fetched();
         }
       } else {
         toast({
@@ -51,16 +55,26 @@ export const UserAvatar = memo(() => {
   };
 
   return (
-    <Dropzone onDrop={handleDrop} noClick={false} noKeyboard>
+    <Dropzone onDrop={handleDrop} noClick={isLoading} noKeyboard>
       {({ getRootProps, getInputProps }) => (
         <div {...getRootProps()} className="w-max">
           {sessionUser && (
-            <div className="relative w-max">
-              <Avatar className="cursor-pointer relative w-[75px] h-[75px]">
-                <AvatarImage src={sessionUser.user.avatar?.url} alt="avatar" />
+            <div className={`${isLoading && 'pointer-events-none'} relative w-max`}>
+              <Avatar className="cursor-pointer relative w-[90px] h-[90px] p-1 ring-2 ring-gray-300 dark:ring-gray-500">
+                <AvatarImage
+                  src={sessionUser.user.avatar?.url}
+                  alt="avatar"
+                  className="rounded-full"
+                />
                 <AvatarFallback>
                   {getShortName(`${sessionUser.user.firstName} ${sessionUser.user.lastName}`)}
                 </AvatarFallback>
+
+                {isLoading && (
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full flex justify-center items-center bg-[#ffffff7a]">
+                    <HashLoader color="#ee4949" loading={true} size={28} />
+                  </div>
+                )}
               </Avatar>
 
               <Button

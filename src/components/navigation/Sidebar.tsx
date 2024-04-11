@@ -10,6 +10,7 @@ import { Separator } from '../ui/separator';
 import { ModeToggle } from '../utils';
 import { AvatarPopover } from './AvatarPopover';
 import { Notifications } from '~notifications/components';
+import Breadcrumb from '../common/breadcrumb';
 
 const RenderRoutes = ({ routes }: { routes: NavLinkProps[] }) => {
   return routes.map((route) => {
@@ -74,7 +75,7 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
                 <Image
                   width={110}
                   height={50}
-                  src='/images/logo-red.png'
+                  src="/images/logo-red.png"
                   alt="techcell-logo"
                   priority
                 />
@@ -108,7 +109,10 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
         </div>
       </aside>
 
-      <div className="py-4 px-3 lg:px-[22px] sm:ml-64 pt-20 min-h-screen relative">{children}</div>
+      <div className="py-4 px-3 lg:px-[22px] sm:ml-64 pt-[82px] min-h-screen relative">
+        <Breadcrumb />
+        {children}
+      </div>
     </>
   );
 };

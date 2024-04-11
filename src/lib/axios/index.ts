@@ -6,7 +6,7 @@ import { refreshApi } from '@/modules/auth/apis';
 
 export const axiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API,
-  timeout: 5000,
+  timeout: 20000,
 });
 
 axiosInstance.interceptors.request.use(
