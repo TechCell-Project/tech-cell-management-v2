@@ -39,7 +39,7 @@ export const BrandTable = () => {
     isSuccess,
     isLoading,
   } = useQuery({
-    queryKey: ['users', page, limit],
+    queryKey: ['users', page, limit, filtersParam],
     queryFn: () => {
       if (page && limit) {
         return getListBrandApi(searchParams.toString());
