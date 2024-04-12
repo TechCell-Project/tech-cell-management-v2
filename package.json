@@ -31,7 +31,6 @@
     "@tanstack/react-table": "^8.15.0",
     "@techcell/node-sdk": "0.0.1-6983438",
     "axios": "^1.6.8",
-    "axios-retry": "^4.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^1.0.0",

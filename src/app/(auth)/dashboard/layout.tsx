@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 const DashboardLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <ProtectedProvider>
-      <Suspense fallback={<LoadingPage loading />}>
+      <Suspense fallback={<LoadingPage />}>
         <Sidebar>{children}</Sidebar>
       </Suspense>
     </ProtectedProvider>

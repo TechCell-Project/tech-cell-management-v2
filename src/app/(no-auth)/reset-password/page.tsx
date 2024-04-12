@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const ResetPasswordPage = () => {
   return (
-    <Suspense fallback={<LoadingPage loading />}>
+    <Suspense fallback={<LoadingPage />}>
       <section className="bg-gray-50 dark:bg-gray-900 w-full relative">
         <div className="absolute top-5 right-5">
           <ModeToggle />

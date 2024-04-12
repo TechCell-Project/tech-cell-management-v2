@@ -3,8 +3,6 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useBrandStore } from '../../store';
 import { useEffect, useMemo } from 'react';
-import { getSearchParams } from '@/utilities/func.util';
-import { BrandSearch } from '../../models/brand-search';
 import { useQuery } from '@tanstack/react-query';
 import { getListBrandApi } from '../../apis';
 import { columns } from './columns';
@@ -17,28 +15,30 @@ import { useForm } from 'react-hook-form';
 import { SelectInput } from '@/components/common/form-handle';
 import { STATUS_BRAND_OPTIONS } from '@/constants/options';
 import { FilterBrandsDto } from '@techcell/node-sdk';
+import { useSearchQueryParams, useSearchTable } from '@/hooks';
 
 export const BrandTable = () => {
   const { listBrand, getListSuccess, reset } = useBrandStore();
+  const { createQueryString } = useSearchQueryParams();
 
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const page = searchParams.get('page');
-  const limit = searchParams.get('limit');
-  const filtersParam = searchParams.get('filters');
+  const { page, limit, filters } = useSearchTable();
 
-  const getParams = useMemo(() => {
-    return getSearchParams(new BrandSearch(Number(page) || 1, Number(limit) || 10));
-  }, [page, limit]);
+  const filtersParsed = useMemo(() => {
+    if (filters) {
+      return JSON.parse(filters) as FilterBrandsDto;
+    }
+  }, [filters]);
 
   const {
     data: dataBrands,
     isSuccess,
     isLoading,
   } = useQuery({
-    queryKey: ['brands', page, limit, filtersParam],
+    queryKey: ['brands', page, limit, filters],
     queryFn: () => {
       if (page && limit) {
         return getListBrandApi(searchParams.toString());
@@ -48,20 +48,14 @@ export const BrandTable = () => {
 
   const searchBrandForm = useForm<FilterBrandsDto>({
     defaultValues: {
-      status: filtersParam ? [JSON.parse(filtersParam)?.status[0]] : [],
+      status: filtersParsed?.status ?? undefined,
     },
   });
 
   const {
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, isDirty },
   } = searchBrandForm;
-
-  useEffect(() => {
-    if (!page && !limit) {
-      router.push(pathname + '?' + getParams);
-    }
-  }, [page, limit, router, pathname, getParams]);
 
   useEffect(() => {
     return () => {
@@ -77,22 +71,25 @@ export const BrandTable = () => {
   return (
     <div className="my-6">
       <Form {...searchBrandForm}>
-        <div className="grid grid-cols-4 gap-x-5 gap-y-4 items-end mb-6">
-          <SelectInput label="Trạng thái" name="status[0]" options={STATUS_BRAND_OPTIONS} />
-          <Button
-            variant="redLight"
-            className="w-min"
-            isLoading={isSubmitting}
-            onClick={handleSubmit((data) => {
-              const params = new URLSearchParams(searchParams.toString());
-              params.set('filters', JSON.stringify(data));
-
-              router.replace(pathname + '?' + params.toString());
-            })}
-          >
-            Tìm kiếm
-          </Button>
-        </div>
+        <form
+          onSubmit={handleSubmit((data) => {
+            if (isDirty) {
+              const params = createQueryString('filters', JSON.stringify(data));
+              router.replace(pathname + '?' + params);
+            }
+          })}
+        >
+          <div className="grid grid-cols-4 gap-x-5 gap-y-4 items-end mb-6">
+            <SelectInput<FilterBrandsDto>
+              label="Trạng thái"
+              name={`status.${0}`}
+              options={STATUS_BRAND_OPTIONS}
+            />
+            <Button variant="redLight" className="w-min" isLoading={isSubmitting} type="submit">
+              Tìm kiếm
+            </Button>
+          </div>
+        </form>
       </Form>
 
       <DataTable

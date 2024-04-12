@@ -72,29 +72,31 @@ export const AttributeTable = () => {
   return (
     <div className="my-6">
       <Form {...searchAttributeForm}>
-        <div className="grid grid-cols-4 gap-x-5 gap-y-4 items-end mb-6">
-          <TextInput<FilterAttributeDto> label="Thông số" name="name" />
-          <TextInput<FilterAttributeDto> label="Label" name="label" />
-          <SelectInput<FilterAttributeDto>
-            label="Trạng thái"
-            name={`status.${0}`}
-            options={STATUS_ATTRIBUTE_OPTIONS}
-          />
-          
-          <Button
-            variant="redLight"
-            className="w-min"
-            isLoading={isSubmitting}
-            onClick={handleSubmit((data) => {
-              if (isDirty) {
-                const params = createQueryString('filters', JSON.stringify(data));
-                router.replace(pathname + '?' + params);
+        <form
+          onSubmit={handleSubmit((data) => {
+            if (isDirty) {
+              if (!data?.status?.[0]) {
+                delete data.status;
               }
-            })}
-          >
-            Tìm kiếm
-          </Button>
-        </div>
+              const params = createQueryString('filters', JSON.stringify(data));
+              router.replace(pathname + '?' + params);
+            }
+          })}
+        >
+          <div className="grid grid-cols-4 gap-x-5 gap-y-4 items-end mb-6">
+            <TextInput<FilterAttributeDto> label="Thông số" name="name" />
+            <TextInput<FilterAttributeDto> label="Label" name="label" />
+            <SelectInput<FilterAttributeDto>
+              label="Trạng thái"
+              name={`status.${0}`}
+              options={STATUS_ATTRIBUTE_OPTIONS}
+            />
+
+            <Button variant="redLight" className="w-min" isLoading={isSubmitting} type="submit">
+              Tìm kiếm
+            </Button>
+          </div>
+        </form>
       </Form>
 
       <DataTable

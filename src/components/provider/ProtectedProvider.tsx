@@ -28,5 +28,5 @@ export const ProtectedProvider = ({ children }: Readonly<{ children: ReactNode }
     }
   }, [isSignedIn, push]);
 
-  return !isSignedIn ? <LoadingPage loading /> : <>{children}</>;
+  return !isSignedIn ? <LoadingPage /> : <>{children}</>;
 };
