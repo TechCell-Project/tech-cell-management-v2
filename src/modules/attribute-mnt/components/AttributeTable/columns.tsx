@@ -17,6 +17,10 @@ export const columns: ColumnDef<Attribute>[] = [
     accessorFn: (row) => row?.unit ?? '',
   },
   {
+    accessorKey: 'label',
+    header: 'Label',
+  },
+  {
     accessorKey: 'description',
     header: 'Mô tả',
     size: 500,

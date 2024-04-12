@@ -1,22 +1,36 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useAttributeStore } from '../../store';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getListAttributeApi } from '../../apis';
 import { DataTable } from '@/components/common/data-table';
 import { columns } from './columns';
 import { Attribute } from '../../models';
-import { useSearchTable } from '@/hooks';
+import { useSearchQueryParams, useSearchTable } from '@/hooks';
 import { AttributeCreate } from '../AttributeCreate';
 import { AddToggle } from '@/components/utils';
+import { useForm } from 'react-hook-form';
+import { FilterAttributeDto } from '@techcell/node-sdk';
+import { Button, Form } from '@/components/ui';
+import { SelectInput, TextInput } from '@/components/common/form-handle';
+import { STATUS_ATTRIBUTE_OPTIONS } from '@/constants/options';
 
 export const AttributeTable = () => {
   const { listAttribute, getListSuccess, reset } = useAttributeStore();
+  const { createQueryString } = useSearchQueryParams();
 
+  const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const { page, limit, filters } = useSearchTable();
+
+  const filtersParsed = useMemo(() => {
+    if (filters) {
+      return JSON.parse(filters) as FilterAttributeDto;
+    }
+  }, [filters]);
 
   const {
     data: dataAttributes,
@@ -31,6 +45,19 @@ export const AttributeTable = () => {
     },
   });
 
+  const searchAttributeForm = useForm<FilterAttributeDto>({
+    defaultValues: {
+      name: filtersParsed?.name ?? undefined,
+      label: filtersParsed?.label ?? undefined,
+      status: filtersParsed?.status ?? undefined,
+    },
+  });
+
+  const {
+    handleSubmit,
+    formState: { isSubmitting, isDirty },
+  } = searchAttributeForm;
+
   useEffect(() => {
     return () => {
       reset();
@@ -44,6 +71,32 @@ export const AttributeTable = () => {
 
   return (
     <div className="my-6">
+      <Form {...searchAttributeForm}>
+        <div className="grid grid-cols-4 gap-x-5 gap-y-4 items-end mb-6">
+          <TextInput<FilterAttributeDto> label="Thông số" name="name" />
+          <TextInput<FilterAttributeDto> label="Label" name="label" />
+          <SelectInput<FilterAttributeDto>
+            label="Trạng thái"
+            name={`status.${0}`}
+            options={STATUS_ATTRIBUTE_OPTIONS}
+          />
+          
+          <Button
+            variant="redLight"
+            className="w-min"
+            isLoading={isSubmitting}
+            onClick={handleSubmit((data) => {
+              if (isDirty) {
+                const params = createQueryString('filters', JSON.stringify(data));
+                router.replace(pathname + '?' + params);
+              }
+            })}
+          >
+            Tìm kiếm
+          </Button>
+        </div>
+      </Form>
+
       <DataTable
         columns={columns}
         data={(listAttribute?.data as Attribute[]) ?? []}

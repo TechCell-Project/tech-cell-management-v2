@@ -10,7 +10,7 @@ import {
 } from '@/components/ui';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { LINKS_ROUTE, LinksRouteType } from './link';
 import { Home } from 'lucide-react';
 
@@ -42,12 +42,11 @@ const Breadcrumb = () => {
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
-          
+
           {generateBreadcrumb.paths.map((path, index) => (
-            <>
+            <React.Fragment key={path.href}>
               {path.href !== pathname ? (
                 <BreadcrumbItem
-                  key={path.href}
                   className={`${path.disabled && 'cursor-not-allowed pointer-events-none'}`}
                 >
                   <BreadcrumbLink>
@@ -55,12 +54,12 @@ const Breadcrumb = () => {
                   </BreadcrumbLink>
                 </BreadcrumbItem>
               ) : (
-                <BreadcrumbItem key={path.href}>
+                <BreadcrumbItem>
                   <BreadcrumbPage className="font-semibold">{path.name}</BreadcrumbPage>
                 </BreadcrumbItem>
               )}
               {index < generateBreadcrumb.length - 1 && <BreadcrumbSeparator />}
-            </>
+            </React.Fragment>
           ))}
         </BreadcrumbList>
       </BreadcrumbRoot>

@@ -1,5 +1,9 @@
 import { Options } from '@/components/common/form-handle';
-import { CreateBrandDtoStatusEnum, UserRoleEnum } from '@techcell/node-sdk';
+import {
+  CreateBrandDtoStatusEnum,
+  FilterAttributeDtoStatusEnum,
+  UserRoleEnum,
+} from '@techcell/node-sdk';
 
 export const SELECT_ROLE_OPTIONS: Options<string>[] = [
   {
@@ -71,5 +75,16 @@ export const STATUS_BRAND_OPTIONS: Options<string>[] = [
   {
     label: 'Inactive',
     value: CreateBrandDtoStatusEnum.Inactive,
+  },
+];
+
+export const STATUS_ATTRIBUTE_OPTIONS: Options<string>[] = [
+  {
+    label: 'Avaiable',
+    value: FilterAttributeDtoStatusEnum.Available,
+  },
+  {
+    label: 'Deleted',
+    value: FilterAttributeDtoStatusEnum.Deleted,
   },
 ];
