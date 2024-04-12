@@ -8,9 +8,9 @@ export const getOneBrandApi = (id: string) => axiosInstance.get<Brand>(`${ApiTag
 export const getListBrandApi = (params: string) =>
   axiosInstance.get<PaginationResponse<Brand>>(`${ApiTags.BrandMnt}?${params}`);
 
-export const postBrandApi = (payload: BrandCreateNew) => axiosInstance.post(ApiTags.BrandMnt, payload);
+export const postOneBrandApi = (payload: BrandCreateNew) => axiosInstance.post(ApiTags.BrandMnt, payload);
 
-export const patchBrandApi = (id: string, payload: Partial<BrandUpdate>) =>
+export const patchOneBrandApi = (id: string, payload: Partial<BrandUpdate>) =>
   axiosInstance.patch(`${ApiTags.BrandMnt}/${id}`, payload);
 
-export const deleteBrandApi = (id: string) => axiosInstance.delete(`${ApiTags.BrandMnt}/${id}`);
+export const deleteOneBrandApi = (id: string) => axiosInstance.delete(`${ApiTags.BrandMnt}/${id}`);

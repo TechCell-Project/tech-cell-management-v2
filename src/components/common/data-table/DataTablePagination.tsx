@@ -1,8 +1,9 @@
 import { Button } from '@/components/ui';
 import { ChevronsUpDown, MoveLeft, MoveRight } from 'lucide-react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { memo, useCallback, useMemo } from 'react';
 import { DropdownDisplay, DropdownDisplayItemProps } from '../display';
+import { useSearchQueryParams } from '@/hooks';
 
 type DataTablePaginationProps = {
   page: number;
@@ -13,17 +14,7 @@ type DataTablePaginationProps = {
 const DataTablePagination = memo(({ page, limit, hasNextPage }: DataTablePaginationProps) => {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams],
-  );
+  const { createQueryString } = useSearchQueryParams();
 
   const changePage = useCallback(
     (param: string, page: number) => {

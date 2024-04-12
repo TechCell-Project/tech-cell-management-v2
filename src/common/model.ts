@@ -1,4 +1,3 @@
-
 export class Timestamp {
   createdAt: string = '';
   updatedAt: string = '';
@@ -12,10 +11,21 @@ export class ImageObj {
 
 export class PaginationResponse<T> {
   data: T[] = [];
-  hasNextPage: boolean = false
+  hasNextPage: boolean = false;
 }
 
 export class PaginationRequest {
   page: number = 1;
   limit: number = 10;
+}
+
+export class SearchRequest extends PaginationRequest {
+  filters?: string;
+  sorts?: string;
+
+  constructor(page: number, limit: number) {
+    super();
+    this.page = page || 1;
+    this.limit = limit || 10;
+  }
 }

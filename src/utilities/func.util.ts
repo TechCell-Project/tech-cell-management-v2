@@ -74,3 +74,12 @@ export const getShortName = (fullname: string) => {
 export const capitallize = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+export const convertToSnakeCase = (input: string): string => {
+  const normalized = input.normalize('NFD');
+  const withoutAccents = normalized.replace(/[\u0300-\u036f]/g, '');
+  return withoutAccents
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '');
+};

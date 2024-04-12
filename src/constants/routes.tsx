@@ -45,10 +45,10 @@ export const ROUTES: NavLinkProps[] = [
         href: Routes.UtilsBrand,
         title: 'Thương hiệu',
       },
-      // {
-      //   href: Routes.Attribute,
-      //   title: 'Thuộc tính',
-      // },
+      {
+        href: Routes.UtilsAttribute,
+        title: 'Thông số',
+      },
     ],
   },
   {

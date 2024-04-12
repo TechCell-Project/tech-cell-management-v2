@@ -1,8 +1,9 @@
 import { DropdownDisplayItemProps } from '@/components/common/display';
 import { User } from '../../models';
-import { UserDetails } from '../UserDetails/UserDetails';
-import { UserChangeRole } from '../UserChangeRole/UserChangeRole';
-import { UserBlockOrUnblock } from '../UserBlockOrUnblock/UserBlockOrUnbLock';
+import { UserDetails } from '../UserDetails';
+import { UserChangeRole } from '../UserChangeRole';
+import { UserBlockOrUnblock } from '../UserBlockOrUnblock';
+import { UserRoleEnum } from '@techcell/node-sdk';
 
 export const columnsAction = (user: User, currentUserId: string): DropdownDisplayItemProps[] => {
   if (user._id === currentUserId) {
@@ -33,7 +34,10 @@ export const columnsAction = (user: User, currentUserId: string): DropdownDispla
       },
     },
     {
-      content: <UserChangeRole user={user} trigger="Đổi vai trò" />,
+      content:
+        user.role !== UserRoleEnum.Customer ? (
+          <UserChangeRole user={user} trigger="Đổi vai trò" />
+        ) : undefined,
       key: 'change-role-action',
       onClick: (e) => {
         e.preventDefault();

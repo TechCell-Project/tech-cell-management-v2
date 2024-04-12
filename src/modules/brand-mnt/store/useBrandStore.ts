@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { BrandState, BrandStore } from './type';
 import { immer } from 'zustand/middleware/immer';
 import { PaginationResponse } from '@/common/model';
-import { Brand } from '@techcell/node-sdk';
+import { Brand } from '../models';
 
 const initialState: BrandState = {
   listBrand: undefined,

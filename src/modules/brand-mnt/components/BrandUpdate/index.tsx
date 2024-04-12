@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { createBrandValidateSchema } from '../BrandCreate/validate-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
-import { patchBrandApi } from '../../apis';
+import { patchOneBrandApi } from '../../apis';
 import { DialogDisplay } from '@/components/common/display';
 import { SelectInput, TextInput } from '@/components/common/form-handle';
 import { STATUS_BRAND_OPTIONS } from '@/constants/options';
@@ -30,7 +30,7 @@ export const BrandUpdate = memo(({ trigger, brand }: { trigger: ReactNode; brand
   } = updateBrandForm;
 
   const { mutateAsync } = useMutation({
-    mutationFn: (values: Partial<BrandUpdateDto>) => patchBrandApi(brand._id, values),
+    mutationFn: (values: Partial<BrandUpdateDto>) => patchOneBrandApi(brand._id, values),
     onSuccess: () => {
       toast({
         variant: 'success',

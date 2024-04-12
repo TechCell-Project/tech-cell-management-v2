@@ -28,7 +28,6 @@ export const BrandTable = () => {
   const page = searchParams.get('page');
   const limit = searchParams.get('limit');
   const filtersParam = searchParams.get('filters');
-  // const sortsParam = searchParams.get('sorts');
 
   const getParams = useMemo(() => {
     return getSearchParams(new BrandSearch(Number(page) || 1, Number(limit) || 10));
@@ -39,7 +38,7 @@ export const BrandTable = () => {
     isSuccess,
     isLoading,
   } = useQuery({
-    queryKey: ['users', page, limit, filtersParam],
+    queryKey: ['brands', page, limit, filtersParam],
     queryFn: () => {
       if (page && limit) {
         return getListBrandApi(searchParams.toString());

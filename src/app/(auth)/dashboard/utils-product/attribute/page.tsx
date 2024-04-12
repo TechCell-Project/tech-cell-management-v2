@@ -1,5 +1,7 @@
+import { AttributeTable } from '~attribute-mnt/components';
+
 const AttributePage = () => {
-  return <>Attribute</>;
+  return <AttributeTable />;
 };
 
 export default AttributePage;

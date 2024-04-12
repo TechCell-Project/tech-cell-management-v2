@@ -7,7 +7,7 @@ import { createBrandValidateSchema } from './validate-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { DialogDisplay } from '@/components/common/display';
 import { useMutation } from '@tanstack/react-query';
-import { postBrandApi } from '../../apis';
+import { postOneBrandApi } from '../../apis';
 import { SelectInput, TextInput } from '@/components/common/form-handle';
 import { STATUS_BRAND_OPTIONS } from '@/constants/options';
 
@@ -30,7 +30,7 @@ export const BrandCreate = memo(({ trigger }: { trigger: ReactNode }) => {
   } = createBrandForm;
 
   const { mutateAsync } = useMutation({
-    mutationFn: (values: BrandCreateNew) => postBrandApi(values),
+    mutationFn: (values: BrandCreateNew) => postOneBrandApi(values),
     onSuccess: () => {
       toast({
         variant: 'success',

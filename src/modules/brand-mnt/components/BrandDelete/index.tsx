@@ -4,7 +4,7 @@ import { DialogDisplay } from '@/components/common/display';
 import { useMutation } from '@tanstack/react-query';
 import { Button, useToast } from '@/components/ui';
 import { usePathname, useRouter } from 'next/navigation';
-import { deleteBrandApi } from '../../apis';
+import { deleteOneBrandApi } from '../../apis';
 
 export const BrandDelete = memo(({ trigger, brand }: { trigger: ReactNode; brand: Brand }) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -14,7 +14,7 @@ export const BrandDelete = memo(({ trigger, brand }: { trigger: ReactNode; brand
   const pathname = usePathname();
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: (id: string) => deleteBrandApi(id),
+    mutationFn: (id: string) => deleteOneBrandApi(id),
     onSuccess: () => {
       toast({
         variant: 'success',

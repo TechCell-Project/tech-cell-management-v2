@@ -12,7 +12,7 @@ import { columns } from './columns';
 import { Routes } from '@/constants/enum';
 import { UserRoleEnum } from '@techcell/node-sdk';
 import { AddToggle } from '@/components/utils';
-import { UserCreate } from '../UserCreate/UserCreate';
+import { UserCreate } from '../UserCreate';
 
 const rolesStaff: string[] = Object.values(UserRoleEnum).filter(
   (role) => role !== UserRoleEnum.Customer,

@@ -1,29 +1,27 @@
+import { SearchRequest } from '@/common/model';
 import { getSearchParams } from '@/utilities/func.util';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo } from 'react';
-import { FieldValues } from 'react-hook-form';
 
-export const useSearchTable = <T extends FieldValues>(searchType: new ({ ...props }: T) => T) => {
+export const useSearchTable = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const pageParam = searchParams.get('page');
-  const limitParam = searchParams.get('limit');
-  const filtersParam = searchParams.get('filters');
-  const sortsParam = searchParams.get('sorts');
+  const page = searchParams.get('page');
+  const limit = searchParams.get('limit');
+  const filters = searchParams.get('filters');
+  const sorts = searchParams.get('sorts');
 
-  // const getParams = useMemo(() => {
-  //   return getSearchParams(
-  //     new searchType(Number(pageParam), Number(limitParam), filtersParam, sortsParam),
-  //   );
-  // }, []);
+  const getParams = useMemo(() => {
+    return getSearchParams(new SearchRequest(Number(page), Number(limit)));
+  }, [page, limit]);
 
-  // useEffect(() => {
-  //   if (!pageParam && !limitParam) {
-  //     router.push(pathname + '?' + getParams());
-  //   }
-  // }, [page, limit, router, pathname]);
+  useEffect(() => {
+    if (!page && !limit) {
+      router.replace(pathname + '?' + getParams);
+    }
+  }, [page, limit, router, pathname, getParams]);
 
-  return {};
+  return { page, limit, filters, sorts };
 };
