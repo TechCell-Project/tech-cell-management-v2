@@ -3,7 +3,21 @@ import { getSearchParams } from '@/utilities/func.util';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo } from 'react';
 
-export const useSearchTable = () => {
+type UseSearchTable = {
+  page: string | null;
+  limit: string | null;
+  filters: string | null;
+  sorts: string | null;
+};
+
+/**
+ * A custom hook designed to facilitate search functionality within a table component.
+ * It retrieves and manages search parameters from the URL using the React Router library.
+ *
+ * @returns {UseSearchTable} - An object containing the search parameters extracted from the URL.
+ * It includes properties for page number, limit, filters, and sorts.
+ */
+export const useSearchTable = (): UseSearchTable => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();

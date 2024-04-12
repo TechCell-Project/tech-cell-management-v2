@@ -93,7 +93,7 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
 
       <aside
         id="logo-sidebar"
-        className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700 ${
+        className={`fixed top-0 left-0 z-40 w-[17rem] h-screen pt-20 transition-transform bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700 ${
           !openToggle && '-translate-x-full'
         }`}
         aria-label="Sidebar"
@@ -109,7 +109,7 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
         </div>
       </aside>
 
-      <div className="py-4 px-3 lg:px-[22px] sm:ml-64 pt-[82px] min-h-screen relative">
+      <div className="py-4 px-3 lg:px-[22px] sm:ml-[17rem] pt-[82px] min-h-screen relative">
         <Breadcrumb />
         {children}
       </div>

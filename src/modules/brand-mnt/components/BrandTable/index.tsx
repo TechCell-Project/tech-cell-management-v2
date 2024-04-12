@@ -78,8 +78,9 @@ export const BrandTable = () => {
               router.replace(pathname + '?' + params);
             }
           })}
+          className="mb-8"
         >
-          <div className="grid grid-cols-4 gap-x-5 gap-y-4 items-end mb-6">
+          <div className="grid grid-cols-4 gap-x-5 gap-y-4 items-end">
             <SelectInput<FilterBrandsDto>
               label="Trạng thái"
               name={`status.${0}`}

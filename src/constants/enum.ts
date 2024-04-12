@@ -1,15 +1,26 @@
 export enum Routes {
   SignIn = '/sign-in',
+  ResetPassword = '/reset-password',
   Dashboard = '/dashboard',
   Product = '/dashboard/product',
-  Utils = '/dashboard/utils-product',
-  UtilsAttribute = '/dashboard/utils-product/attribute',
-  UtilsBrand = '/dashboard/utils-product/brand',
-  User = '/dashboard/user',
-  UserCustomer = '/dashboard/user/customer',
-  UserStaff = '/dashboard/user/staff',
-  Order = '/dashboard/order',
-  ResetPassword = '/reset-password',
+
+  // Product management
+  MntProduct = '/dashboard/mnt-product',
+  MntProductAttribute = '/dashboard/mnt-product/attribute',
+  MntProductBrand = '/dashboard/mnt-product/brand',
+
+  // Inventory management
+  MntInventory = '/dashboard/mnt-inventory',
+  MntInventorySpu = '/dashboard/mnt-inventory/spu',
+  MntInventorySku = '/dashboard/mnt-inventory/sku',
+
+  // User account management
+  MntUser = '/dashboard/mnt-user',
+  MntUserCustomer = '/dashboard/mnt-user/customer',
+  MntUserStaff = '/dashboard/mnt-user/staff',
+
+  // Order management
+  MntOrder = '/dashboard/order',
 }
 
 export enum ApiTags {
@@ -24,15 +35,6 @@ export enum ApiTags {
   BrandMnt = '/brands',
   Users = '/users',
   Notifications = '/notifications',
-}
-
-export enum Roles {
-  Customer = 'customer',
-  Manager = 'manager',
-  Sales = 'sales',
-  Accountant = 'accountant',
-  DataEntry = 'data_entry',
-  Warehouse = 'warehouse',
 }
 
 export enum TypeAddress {

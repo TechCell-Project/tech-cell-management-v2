@@ -12,37 +12,50 @@ export const LINKS_ROUTE: LinksRouteType[] = [
     name: 'Trang chủ',
   },
   {
-    href: Routes.User,
-    name: 'Tài khoản',
+    href: Routes.MntUser,
+    name: 'Quản lý tài khoản',
     disabled: true,
   },
   {
-    href: Routes.UserCustomer,
-    name: 'Tài khoản khách hàng',
+    href: Routes.MntUserCustomer,
+    name: 'Khách hàng',
   },
   {
-    href: Routes.UserStaff,
-    name: 'Tài khoản nhân viên',
+    href: Routes.MntUserStaff,
+    name: 'Nhân viên',
   },
   {
-    href: Routes.Utils,
-    name: 'Tiện tích sản phẩm',
+    href: Routes.MntProduct,
+    name: 'Quản lý sản phẩm',
     disabled: true,
   },
   {
-    href: Routes.UtilsBrand,
+    href: Routes.MntProductBrand,
     name: 'Thương hiệu',
   },
   {
-    href: Routes.UtilsAttribute,
+    href: Routes.MntProductAttribute,
     name: 'Thông số',
+  },
+  {
+    href: Routes.MntInventory,
+    name: 'Quản lý kho hàng',
+    disabled: true,
+  },
+  {
+    href: Routes.MntInventorySpu,
+    name: 'Đơn vị sản phẩm (SPU)',
+  },
+  {
+    href: Routes.MntInventorySku,
+    name: 'Đơn vị định danh sản phẩm (SKU)',
   },
   {
     href: Routes.Product,
     name: 'Sản phẩm',
   },
   {
-    href: Routes.Order,
+    href: Routes.MntOrder,
     name: 'Đơn hàng',
   },
 ];

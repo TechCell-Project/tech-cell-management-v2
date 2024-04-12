@@ -25,7 +25,7 @@ export const UserTable = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const roleParams: string[] = pathname === Routes.UserCustomer ? rolesCustomer : rolesStaff;
+  const roleParams: string[] = pathname === Routes.MntUserCustomer ? rolesCustomer : rolesStaff;
 
   const page = searchParams.get('page');
   const limit = searchParams.get('limit');
