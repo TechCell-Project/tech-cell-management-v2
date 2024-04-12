@@ -26,7 +26,10 @@ export const SignIn = () => {
 
   const signInForm = useForm<AuthLogin>({
     resolver: yupResolver(loginValidateSchema),
-    defaultValues: new AuthLogin(),
+    defaultValues: new AuthLogin({
+      email: process.env.NEXT_PUBLIC_EMAIL_MANAGER ?? '',
+      password: process.env.NEXT_PUBLIC_PASSWORD_MANAGER ?? '',
+    }),
   });
 
   const {
@@ -78,13 +81,7 @@ export const SignIn = () => {
     <LoadingPage />
   ) : (
     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-      <Image
-        width={100}
-        height={50}
-        src='/images/logo-red.png'
-        alt="techcell-logo"
-        priority
-      />
+      <Image width={100} height={50} src="/images/logo-red.png" alt="techcell-logo" priority />
       <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mb-1">
         Đăng nhập
       </h1>
@@ -92,17 +89,9 @@ export const SignIn = () => {
 
       <Form {...signInForm}>
         <form onSubmit={handleSubmit((data) => mutateAsync(data))}>
-          <TextInput<AuthLogin>
-            name="email"
-            label="Email hoặc tên người dùng"
-            className="mb-5"
-          />
+          <TextInput<AuthLogin> name="email" label="Email hoặc tên người dùng" className="mb-5" />
 
-          <PasswordInput<AuthLogin>
-            name="password"
-            label="Mật khẩu"
-            className="mb-4"
-          />
+          <PasswordInput<AuthLogin> name="password" label="Mật khẩu" className="mb-4" />
 
           <Button type="submit" className="w-full mt-4" isLoading={isSubmitting} variant="red">
             Đăng nhập
