@@ -25,14 +25,12 @@ export enum Routes {
 
 export enum ApiTags {
   Auth = '/auth',
-  Profile = '/profile',
   Images = '/images',
-  Products = '/products',
-  Categories = '/categories',
   AttributeMnt = '/attributes',
-  Address = '/address',
-  OrderMnt = '/orders-mnt',
   BrandMnt = '/brands',
+  SpuMnt = '/spus',
+  SkuMnt = '/skus',
+  Address = '/address',
   Users = '/users',
   Notifications = '/notifications',
 }

@@ -109,9 +109,24 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
         </div>
       </aside>
 
-      <div className="py-4 px-3 lg:px-[22px] sm:ml-[17rem] pt-[82px] min-h-screen relative">
+      <div className="py-4 px-3 lg:px-[22px] sm:ml-[17rem] pt-[82px] min-h-screen relative bg-[#fafafa]">
         <Breadcrumb />
         {children}
+        <Separator className="my-5" />
+
+        <div className="flex items-center justify-between">
+          <p className="text-[15px]">
+            © 2024, made with ❤️ by <b>Techcell Team</b>
+          </p>
+          <div className="flex items-center gap-8">
+            <a className="text-[15px] font-semibold" target="_blank" href="https://techcell.cloud/">
+              Website
+            </a>
+            <a className="text-[15px] font-semibold" href="mailto:teams@techcell.cloud">
+              Contact
+            </a>
+          </div>
+        </div>
       </div>
     </>
   );

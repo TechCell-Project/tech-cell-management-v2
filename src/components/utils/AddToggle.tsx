@@ -4,7 +4,7 @@ import { TooltipDisplay } from '../common/display';
 
 export const AddToggle = () => {
   return (
-    <div className="fixed right-[22px] bottom-[22px]">
+    <div className="absolute right-[22px] top-[85px]">
       <TooltipDisplay
         trigger={
           <Button variant="red" className="h-14 w-14 p-0 rounded-full">

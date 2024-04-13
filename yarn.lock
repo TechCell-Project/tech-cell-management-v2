@@ -1392,12 +1392,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@techcell/node-sdk@npm:0.0.1-6983438":
-  version: 0.0.1-6983438
-  resolution: "@techcell/node-sdk@npm:0.0.1-6983438"
+"@techcell/node-sdk@npm:0.0.1-c145d15":
+  version: 0.0.1-c145d15
+  resolution: "@techcell/node-sdk@npm:0.0.1-c145d15"
   dependencies:
     axios: "npm:^1.6.1"
-  checksum: 10c0/907b41256dd5679cb0836f244c3f5e53bf462795b8bdeaf0f211d53c7a71c0b0794c4632937b69287a8fd06cf105c3c5dfc8e94979ee66389fac8a3363a1971d
+  checksum: 10c0/f46ca7bcffe2c33186c81782e721d3b0fb3ca5bd53b8edc876b2ef8f5e070ca9dcfe9e1707b497772939298d83041c4072aa00d890e57dc407f5e1771a58c741
   languageName: node
   linkType: hard
 
@@ -5374,7 +5374,7 @@ __metadata:
     "@tanstack/eslint-plugin-query": "npm:^5.27.7"
     "@tanstack/react-query": "npm:^5.28.4"
     "@tanstack/react-table": "npm:^8.15.0"
-    "@techcell/node-sdk": "npm:0.0.1-6983438"
+    "@techcell/node-sdk": "npm:0.0.1-c145d15"
     "@types/node": "npm:^20"
     "@types/react": "npm:^18"
     "@types/react-dom": "npm:^18"

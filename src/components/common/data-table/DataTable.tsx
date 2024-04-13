@@ -25,6 +25,7 @@ type TableHelperProps = {
   isLoading?: boolean;
   rowCountLoading?: number;
   isShowColumnVis?: boolean;
+  className?:string;
 };
 
 export const DataTable = <TData, TValue>({
@@ -37,6 +38,7 @@ export const DataTable = <TData, TValue>({
   isLoading,
   rowCountLoading = 3,
   isShowColumnVis = false,
+  className,
 }: DataTableProps<TData, TValue> & TableHelperProps) => {
   const table = useReactTable<TData>({
     data,
@@ -55,7 +57,7 @@ export const DataTable = <TData, TValue>({
       )}
 
       {/* Table */}
-      <div className="rounded-md border">
+      <div className={`rounded-md border bg-white ${className}`}>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

@@ -49,6 +49,12 @@
       "~attribute-mnt/*": [
         "./src/modules/attribute-mnt/*"
       ],
+      "~spu-mnt/*": [
+        "./src/modules/spu-mnt/*"
+      ],
+      "~sku-mnt/*": [
+        "./src/modules/sku-mnt/*"
+      ],
       "~images/*": [
         "./src/modules/images/*"
       ],

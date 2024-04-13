@@ -69,7 +69,7 @@ export const BrandTable = () => {
   }
 
   return (
-    <div className="my-6">
+    <div className="mt-6">
       <Form {...searchBrandForm}>
         <form
           onSubmit={handleSubmit((data) => {

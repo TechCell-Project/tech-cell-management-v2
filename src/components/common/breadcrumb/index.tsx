@@ -30,7 +30,7 @@ const Breadcrumb = () => {
 
   return (
     <div className="mb-5">
-      <h3 className="mb-2 font-bold text-xl flex items-center gap-3">
+      <h3 className="mb-3 font-bold text-2xl flex items-center gap-3">
         {LINKS_ROUTE.find((route) => route.href === pathname)?.name}
       </h3>
 

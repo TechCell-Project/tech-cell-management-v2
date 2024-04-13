@@ -13,7 +13,7 @@ import { AttributeCreate } from '../AttributeCreate';
 import { AddToggle } from '@/components/utils';
 import { useForm } from 'react-hook-form';
 import { FilterAttributeDto } from '@techcell/node-sdk';
-import { Button, Form, Separator } from '@/components/ui';
+import { Button, Form } from '@/components/ui';
 import { SelectInput, TextInput } from '@/components/common/form-handle';
 import { STATUS_ATTRIBUTE_OPTIONS } from '@/constants/options';
 
@@ -70,7 +70,7 @@ export const AttributeTable = () => {
   }
 
   return (
-    <div className="my-6">
+    <div className="mt-6">
       <Form {...searchAttributeForm}>
         <form
           onSubmit={handleSubmit((data) => {
@@ -82,7 +82,7 @@ export const AttributeTable = () => {
               router.replace(pathname + '?' + params);
             }
           })}
-          className='mb-8'
+          className="mb-8"
         >
           <div className="grid grid-cols-4 gap-x-5 gap-y-4 items-end">
             <TextInput<FilterAttributeDto> label="Thông số" name="name" />
@@ -93,14 +93,12 @@ export const AttributeTable = () => {
               options={STATUS_ATTRIBUTE_OPTIONS}
             />
 
-            <Button variant="redLight" className="w-min" isLoading={isSubmitting} type="submit">
+            <Button variant="red" className="w-min" isLoading={isSubmitting} type="submit">
               Tìm kiếm
             </Button>
           </div>
         </form>
       </Form>
-
-      {/* <Separator className="my-8" /> */}
 
       <DataTable
         columns={columns}

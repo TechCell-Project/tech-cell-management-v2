@@ -66,7 +66,7 @@ export const UserTable = () => {
   }
 
   return (
-    <div className="my-6">
+    <div className="mt-6">
       <DataTable
         columns={columns}
         data={(listUser?.data as User[]) ?? []}
