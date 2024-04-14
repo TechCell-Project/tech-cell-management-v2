@@ -11,6 +11,7 @@ import {
 import DataTablePagination from './DataTablePagination';
 import DataTableColumnVis from './DataTableColumnVis';
 import DataTableLoading from './DataTableLoading';
+import { useTheme } from 'next-themes';
 
 type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
@@ -25,7 +26,7 @@ type TableHelperProps = {
   isLoading?: boolean;
   rowCountLoading?: number;
   isShowColumnVis?: boolean;
-  className?:string;
+  className?: string;
 };
 
 export const DataTable = <TData, TValue>({
@@ -47,6 +48,8 @@ export const DataTable = <TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
   });
 
+  const { theme } = useTheme();
+
   return (
     <>
       {/* Column visibility */}
@@ -57,7 +60,7 @@ export const DataTable = <TData, TValue>({
       )}
 
       {/* Table */}
-      <div className={`rounded-md border bg-white ${className}`}>
+      <div className={`rounded-md border ${theme === 'light' && 'bg-white'} ${className}`}>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

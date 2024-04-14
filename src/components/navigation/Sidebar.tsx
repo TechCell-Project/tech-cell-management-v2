@@ -11,6 +11,7 @@ import { ModeToggle } from '../utils';
 import { AvatarPopover } from './AvatarPopover';
 import { Notifications } from '~notifications/components';
 import Breadcrumb from '../common/breadcrumb';
+import { useTheme } from 'next-themes';
 
 const RenderRoutes = ({ routes }: { routes: NavLinkProps[] }) => {
   return routes.map((route) => {
@@ -41,10 +42,11 @@ const RenderRoutes = ({ routes }: { routes: NavLinkProps[] }) => {
 
 export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
   const [openToggle, setOpenToggle] = useState<boolean>(false);
+  const { theme } = useTheme();
 
   return (
     <>
-      <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+      <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-[#09090b] dark:border-border/40">
         <div className="px-3 py-3 lg:px-[22px]">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start rtl:justify-end">
@@ -93,12 +95,12 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
 
       <aside
         id="logo-sidebar"
-        className={`fixed top-0 left-0 z-40 w-[17rem] h-screen pt-20 transition-transform bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700 ${
+        className={`fixed top-0 left-0 z-40 w-[17rem] h-screen pt-20 transition-transform bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-[#09090b] dark:border-border/40 ${
           !openToggle && '-translate-x-full'
         }`}
         aria-label="Sidebar"
       >
-        <div className="h-full pt-2 px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+        <div className="h-full pt-2 px-3 pb-4 overflow-y-auto bg-white dark:bg-[#09090b]">
           <ul className="space-y-2 font-medium">
             <RenderRoutes routes={ROUTES} />
           </ul>
@@ -109,7 +111,11 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
         </div>
       </aside>
 
-      <div className="py-4 px-3 lg:px-[22px] sm:ml-[17rem] pt-[82px] min-h-screen relative bg-[#fafafa]">
+      <div
+        className={`py-4 px-3 lg:px-[22px] sm:ml-[17rem] pt-[82px] min-h-screen relative ${
+          theme === 'light' && 'bg-[#fafafa]'
+        }`}
+      >
         <Breadcrumb />
         {children}
 
