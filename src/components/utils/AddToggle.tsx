@@ -7,7 +7,7 @@ export const AddToggle = () => {
     <div className="absolute right-[22px] top-[85px]">
       <TooltipDisplay
         trigger={
-          <Button variant="red" className="h-14 w-14 p-0 rounded-full">
+          <Button variant="red" className="h-12 w-12 p-0 rounded-full">
             <span className="sr-only">Open menu</span>
             <Plus className="h-5 w-5" />
           </Button>

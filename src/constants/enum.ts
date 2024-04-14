@@ -8,6 +8,7 @@ export enum Routes {
   MntProduct = '/dashboard/mnt-product',
   MntProductAttribute = '/dashboard/mnt-product/attribute',
   MntProductBrand = '/dashboard/mnt-product/brand',
+  MntProductTag = '/dashboard/mnt-product/tag',
 
   // Inventory management
   MntInventory = '/dashboard/mnt-inventory',
@@ -28,10 +29,11 @@ export enum ApiTags {
   Images = '/images',
   AttributeMnt = '/attributes',
   BrandMnt = '/brands',
+  TagMnt = '/tags',
   SpuMnt = '/spus',
   SkuMnt = '/skus',
+  UsersMnt = '/users',
   Address = '/address',
-  Users = '/users',
   Notifications = '/notifications',
 }
 

@@ -49,6 +49,9 @@
       "~attribute-mnt/*": [
         "./src/modules/attribute-mnt/*"
       ],
+      "~tag-mnt/*": [
+        "./src/modules/tag-mnt/*"
+      ],
       "~spu-mnt/*": [
         "./src/modules/spu-mnt/*"
       ],

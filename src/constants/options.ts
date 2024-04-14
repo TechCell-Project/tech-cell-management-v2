@@ -67,6 +67,17 @@ export const REASON_BLOCK_OPTIONS: Options<string>[] = [
   },
 ];
 
+export const SELECT_OPTIONS_TYPE1: Options<string>[] = [
+  {
+    label: 'Active',
+    value: CreateBrandDtoStatusEnum.Active,
+  },
+  {
+    label: 'Delete',
+    value: CreateBrandDtoStatusEnum.Deleted,
+  },
+];
+
 export const STATUS_BRAND_OPTIONS: Options<string>[] = [
   {
     label: 'Active',

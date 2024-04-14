@@ -55,6 +55,10 @@ export const ROUTES: NavLinkProps[] = [
         href: Routes.MntProductAttribute,
         title: 'Thông số',
       },
+      {
+        href: Routes.MntProductTag,
+        title: 'Tiêu chí (Tag)',
+      },
     ],
   },
   {

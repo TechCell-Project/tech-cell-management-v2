@@ -112,6 +112,7 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
       <div className="py-4 px-3 lg:px-[22px] sm:ml-[17rem] pt-[82px] min-h-screen relative bg-[#fafafa]">
         <Breadcrumb />
         {children}
+
         <Separator className="my-5" />
 
         <div className="flex items-center justify-between">

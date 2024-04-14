@@ -1,24 +1,22 @@
 'use client';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useAttributeStore } from '../../store';
-import { useEffect, useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getListAttributeApi } from '../../apis';
-import { DataTable } from '@/components/common/data-table';
-import { columns } from './columns';
-import { Attribute } from '../../models';
 import { useSearchQueryParams, useSearchTable } from '@/hooks';
-import { AttributeCreate } from '../AttributeCreate';
-import { AddToggle } from '@/components/utils';
+import { useSpuStore } from '../../store';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useMemo } from 'react';
+import { FilterSpuDto } from '@techcell/node-sdk';
+import { useQuery } from '@tanstack/react-query';
+import { getListSpuApi } from '../../apis';
 import { useForm } from 'react-hook-form';
-import { FilterAttributeDto } from '@techcell/node-sdk';
+import { DataTable } from '@/components/common/data-table';
+import { Spu } from '../../models';
+import { columns } from './columns';
 import { Button, Form } from '@/components/ui';
-import { SelectInput, TextInput } from '@/components/common/form-handle';
+import { SelectInput } from '@/components/common/form-handle';
 import { STATUS_ATTRIBUTE_OPTIONS } from '@/constants/options';
 
-export const AttributeTable = () => {
-  const { listAttribute, getListSuccess, reset } = useAttributeStore();
+export const SpuTable = () => {
+  const { listSpu, getListSuccess, reset } = useSpuStore();
   const { createQueryString } = useSearchQueryParams();
 
   const router = useRouter();
@@ -28,27 +26,25 @@ export const AttributeTable = () => {
 
   const filtersParsed = useMemo(() => {
     if (filters) {
-      return JSON.parse(filters) as FilterAttributeDto;
+      return JSON.parse(filters) as FilterSpuDto;
     }
   }, [filters]);
 
   const {
-    data: dataAttributes,
+    data: dataSpus,
     isSuccess,
     isLoading,
   } = useQuery({
-    queryKey: ['attibutes', page, limit, filters],
+    queryKey: ['spus', page, limit, filters],
     queryFn: () => {
       if (page && limit) {
-        return getListAttributeApi(searchParams.toString());
+        return getListSpuApi(searchParams.toString());
       }
     },
   });
 
-  const searchAttributeForm = useForm<FilterAttributeDto>({
+  const searchSpuForm = useForm<FilterSpuDto>({
     defaultValues: {
-      name: filtersParsed?.name ?? undefined,
-      label: filtersParsed?.label ?? undefined,
       status: filtersParsed?.status ?? undefined,
     },
   });
@@ -56,7 +52,7 @@ export const AttributeTable = () => {
   const {
     handleSubmit,
     formState: { isSubmitting, isDirty },
-  } = searchAttributeForm;
+  } = searchSpuForm;
 
   useEffect(() => {
     return () => {
@@ -65,19 +61,16 @@ export const AttributeTable = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (isSuccess && dataAttributes) {
-    getListSuccess(dataAttributes.data);
+  if (isSuccess && dataSpus) {
+    getListSuccess(dataSpus.data);
   }
 
   return (
     <div className="mt-6">
-      <Form {...searchAttributeForm}>
+      <Form {...searchSpuForm}>
         <form
           onSubmit={handleSubmit((data) => {
             if (isDirty) {
-              if (!data?.status?.[0]) {
-                delete data.status;
-              }
               const params = createQueryString('filters', JSON.stringify(data));
               router.replace(pathname + '?' + params);
             }
@@ -85,30 +78,26 @@ export const AttributeTable = () => {
           className="mb-8"
         >
           <div className="grid grid-cols-4 gap-x-5 gap-y-4 items-end">
-            <TextInput<FilterAttributeDto> label="Thông số" name="name" />
-            <TextInput<FilterAttributeDto> label="Label" name="label" />
-            <SelectInput<FilterAttributeDto>
+            <SelectInput<FilterSpuDto>
               label="Trạng thái"
               name={`status.${0}`}
               options={STATUS_ATTRIBUTE_OPTIONS}
             />
-
             <Button variant="redLight" className="w-min" isLoading={isSubmitting} type="submit">
               Tìm kiếm
             </Button>
           </div>
         </form>
       </Form>
-
+      
       <DataTable
         columns={columns}
-        data={(listAttribute?.data as Attribute[]) ?? []}
+        data={(listSpu?.data as Spu[]) ?? []}
         page={Number(page)}
         limit={Number(limit)}
-        hasNextPage={listAttribute?.hasNextPage as boolean}
+        hasNextPage={listSpu?.hasNextPage as boolean}
         isLoading={isLoading}
       />
-      <AttributeCreate trigger={<AddToggle />} />
     </div>
   );
 };

@@ -4,12 +4,12 @@ import { User, UserUpdate, UserCreateNew } from '../models';
 import { ApiTags } from '@/constants/enum';
 
 export const getListUserApi = (params: string) =>
-  axiosInstance.get<PaginationResponse<User>>(ApiTags.Users + '?' + params);
+  axiosInstance.get<PaginationResponse<User>>(ApiTags.UsersMnt + '?' + params);
 
-export const getOneUserApi = (id: string) => axiosInstance.get<User>(ApiTags.Users + '/' + id);
+export const getOneUserApi = (id: string) => axiosInstance.get<User>(ApiTags.UsersMnt + '/' + id);
 
 export const postOneUserApi = (payload: UserCreateNew) =>
-  axiosInstance.post<User>(ApiTags.Users, payload);
+  axiosInstance.post<User>(ApiTags.UsersMnt, payload);
 
 export const patchOneUserApi = (id: string, payload: Partial<UserUpdate>) =>
-  axiosInstance.patch<User>(`${ApiTags.Users}/${id}`, payload);
+  axiosInstance.patch<User>(`${ApiTags.UsersMnt}/${id}`, payload);

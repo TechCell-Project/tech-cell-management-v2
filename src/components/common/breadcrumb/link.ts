@@ -6,11 +6,7 @@ export type LinksRouteType = {
   disabled?: boolean;
 };
 
-export const LINKS_ROUTE: LinksRouteType[] = [
-  {
-    href: Routes.Dashboard,
-    name: 'Trang chủ',
-  },
+const USER_MNT_ROUTES: LinksRouteType[] = [
   {
     href: Routes.MntUser,
     name: 'Quản lý tài khoản',
@@ -24,6 +20,9 @@ export const LINKS_ROUTE: LinksRouteType[] = [
     href: Routes.MntUserStaff,
     name: 'Nhân viên',
   },
+];
+
+const PRODUCT_MNT_ROUTES: LinksRouteType[] = [
   {
     href: Routes.MntProduct,
     name: 'Quản lý sản phẩm',
@@ -38,6 +37,13 @@ export const LINKS_ROUTE: LinksRouteType[] = [
     name: 'Thông số',
   },
   {
+    href: Routes.MntProductTag,
+    name: 'Tiêu chí (Tag)',
+  },
+];
+
+const INVENTORY_MNT_ROUTES: LinksRouteType[] = [
+  {
     href: Routes.MntInventory,
     name: 'Quản lý kho hàng',
     disabled: true,
@@ -50,6 +56,13 @@ export const LINKS_ROUTE: LinksRouteType[] = [
     href: Routes.MntInventorySku,
     name: 'Đơn vị định danh sản phẩm (SKU)',
   },
+];
+
+export const LINKS_ROUTE: LinksRouteType[] = [
+  {
+    href: Routes.Dashboard,
+    name: 'Trang chủ',
+  },
   {
     href: Routes.Product,
     name: 'Sản phẩm',
@@ -58,4 +71,7 @@ export const LINKS_ROUTE: LinksRouteType[] = [
     href: Routes.MntOrder,
     name: 'Đơn hàng',
   },
+  ...USER_MNT_ROUTES,
+  ...PRODUCT_MNT_ROUTES,
+  ...INVENTORY_MNT_ROUTES,
 ];

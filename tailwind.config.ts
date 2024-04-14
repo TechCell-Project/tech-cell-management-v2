@@ -55,8 +55,8 @@ const config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
-        redBackground: 'var(--red-background)',
-        redLightBackground: 'var(--red-light-background)',
+        red: '#ee4949',
+        redLight: '#ee494914',
       },
       borderRadius: {
         lg: 'var(--radius)',
