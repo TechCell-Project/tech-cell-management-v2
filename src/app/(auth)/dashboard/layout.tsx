@@ -1,14 +1,18 @@
+'use client';
+
 import LoadingPage from '@/app/loading';
-import { Sidebar } from '@/components/navigation';
 import { ProtectedProvider } from '@/components/provider';
-import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
+
+const SidebarDynamic = dynamic(() => import('@/components/navigation').then((res) => res.Sidebar), {
+  ssr: false,
+  loading: () => <LoadingPage />,
+});
 
 const DashboardLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <ProtectedProvider>
-      <Suspense fallback={<LoadingPage />}>
-        <Sidebar>{children}</Sidebar>
-      </Suspense>
+      <SidebarDynamic>{children}</SidebarDynamic>
     </ProtectedProvider>
   );
 };
