@@ -6,6 +6,7 @@ import { Spu } from '../models';
 
 const initialState: SpuState = {
   listSpu: undefined,
+  spu: undefined,
 };
 
 export const useSpuStore = create<SpuStore>()(
@@ -14,6 +15,11 @@ export const useSpuStore = create<SpuStore>()(
     getListSuccess: (payload: PaginationResponse<Spu>) => {
       set((state) => {
         state.listSpu = payload;
+      });
+    },
+    getOneSuccess: (payload: Spu) => {
+      set((state) => {
+        state.spu = payload;
       });
     },
     reset: () => {

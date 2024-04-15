@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form';
 import { FilterAttributeDto } from '@techcell/node-sdk';
 import { Button, Form } from '@/components/ui';
 import { SelectInput, TextInput } from '@/components/common/form-handle';
-import { STATUS_ATTRIBUTE_OPTIONS } from '@/constants/options';
+import { OPTIONS_STATUS_3 } from '@/constants/options';
 
 export const AttributeTable = () => {
   const { listAttribute, getListSuccess, reset } = useAttributeStore();
@@ -90,7 +90,7 @@ export const AttributeTable = () => {
             <SelectInput<FilterAttributeDto>
               label="Trạng thái"
               name={`status.${0}`}
-              options={STATUS_ATTRIBUTE_OPTIONS}
+              options={OPTIONS_STATUS_3}
             />
 
             <Button variant="redLight" className="w-min" isLoading={isSubmitting} type="submit">

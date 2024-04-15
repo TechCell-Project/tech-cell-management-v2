@@ -16,6 +16,7 @@ import { Home } from 'lucide-react';
 
 const Breadcrumb = () => {
   const pathname = usePathname();
+  const pathSegments = pathname.split('/');
 
   const generateBreadcrumb = useMemo(() => {
     const breadcrumbs: LinksRouteType[] = [];
@@ -32,6 +33,8 @@ const Breadcrumb = () => {
     <div className="mb-5">
       <h3 className="mb-3 font-bold text-2xl flex items-center gap-3">
         {LINKS_ROUTE.find((route) => route.href === pathname)?.name}
+        {pathSegments[pathSegments.length - 1] === 'create' && 'Thêm mới'}
+        {pathSegments[pathSegments.length - 1].startsWith('update') && 'Cập nhật'}
       </h3>
 
       <BreadcrumbRoot>

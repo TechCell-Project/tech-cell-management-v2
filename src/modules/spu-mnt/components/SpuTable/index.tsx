@@ -13,7 +13,9 @@ import { Spu } from '../../models';
 import { columns } from './columns';
 import { Button, Form } from '@/components/ui';
 import { SelectInput } from '@/components/common/form-handle';
-import { STATUS_ATTRIBUTE_OPTIONS } from '@/constants/options';
+import { OPTIONS_STATUS_3 } from '@/constants/options';
+import { AddToggle } from '@/components/utils';
+import { Routes } from '@/constants/enum';
 
 export const SpuTable = () => {
   const { listSpu, getListSuccess, reset } = useSpuStore();
@@ -81,7 +83,7 @@ export const SpuTable = () => {
             <SelectInput<FilterSpuDto>
               label="Trạng thái"
               name={`status.${0}`}
-              options={STATUS_ATTRIBUTE_OPTIONS}
+              options={OPTIONS_STATUS_3}
             />
             <Button variant="redLight" className="w-min" isLoading={isSubmitting} type="submit">
               Tìm kiếm
@@ -89,7 +91,7 @@ export const SpuTable = () => {
           </div>
         </form>
       </Form>
-      
+
       <DataTable
         columns={columns}
         data={(listSpu?.data as Spu[]) ?? []}
@@ -98,6 +100,8 @@ export const SpuTable = () => {
         hasNextPage={listSpu?.hasNextPage as boolean}
         isLoading={isLoading}
       />
+
+      <AddToggle onClick={() => router.push(Routes.MntInventorySpu + '/create')} />
     </div>
   );
 };

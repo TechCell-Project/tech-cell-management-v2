@@ -13,7 +13,7 @@ import { Brand } from '../../models';
 import { Button, Form } from '@/components/ui';
 import { useForm } from 'react-hook-form';
 import { SelectInput } from '@/components/common/form-handle';
-import { STATUS_BRAND_OPTIONS } from '@/constants/options';
+import { OPTIONS_STATUS_2 } from '@/constants/options';
 import { FilterBrandsDto } from '@techcell/node-sdk';
 import { useSearchQueryParams, useSearchTable } from '@/hooks';
 
@@ -84,7 +84,7 @@ export const BrandTable = () => {
             <SelectInput<FilterBrandsDto>
               label="Trạng thái"
               name={`status.${0}`}
-              options={STATUS_BRAND_OPTIONS}
+              options={OPTIONS_STATUS_2}
             />
             <Button variant="redLight" className="w-min" isLoading={isSubmitting} type="submit">
               Tìm kiếm

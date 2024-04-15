@@ -44,6 +44,7 @@ type SelectInputProps<TFieldValue extends FieldValues, TOption = any> = {
   typeOption?: 'default' | 'custom';
   displayLabel?: string;
   displayValue?: string;
+  isObjectValue?: boolean;
   placeholder?: string;
   disabled?: boolean;
   onChange?: (value: string) => void;
@@ -64,7 +65,8 @@ const SelectInput = <TFieldValue extends FieldValues, TOption = any>({
   className,
   options,
   displayLabel = 'name',
-  displayValue = 'id',
+  displayValue = '_id',
+  isObjectValue,
   typeOption = 'default',
   placeholder = 'Chọn',
   disabled,
@@ -91,7 +93,7 @@ const SelectInput = <TFieldValue extends FieldValues, TOption = any>({
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>
-            <SelectContent className="overflow-y-auto max-h-[14rem]">
+            <SelectContent className="overflow-y-auto max-h-[18rem]">
               {typeOption === 'default'
                 ? (options as Options<string>[]).map(({ label, value }) => (
                     <SelectItem key={label} value={value} className="cursor-pointer">
@@ -101,7 +103,7 @@ const SelectInput = <TFieldValue extends FieldValues, TOption = any>({
                 : options.map((option) => (
                     <SelectItem
                       key={(option as any)[displayLabel]}
-                      value={(option as any)[displayValue]}
+                      value={isObjectValue ? JSON.stringify(option) : (option as any)[displayValue]}
                       className="cursor-pointer"
                     >
                       {(option as any)[displayLabel]}

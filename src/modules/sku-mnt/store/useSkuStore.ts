@@ -6,6 +6,7 @@ import { Sku } from '../models';
 
 const initialState: SkuState = {
   listSku: undefined,
+  sku: undefined,
 };
 
 export const useSkuStore = create<SkuStore>()(
@@ -14,6 +15,11 @@ export const useSkuStore = create<SkuStore>()(
     getListSuccess: (payload: PaginationResponse<Sku>) => {
       set((state) => {
         state.listSku = payload;
+      });
+    },
+    getOneSuccess: (payload: Sku) => {
+      set((state) => {
+        state.sku = payload;
       });
     },
     reset: () => {

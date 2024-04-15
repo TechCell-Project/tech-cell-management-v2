@@ -9,7 +9,7 @@ import { useMutation } from '@tanstack/react-query';
 import { postOneTagApi } from '../../apis';
 import { DialogDisplay } from '@/components/common/display';
 import { SelectInput, TextInput } from '@/components/common/form-handle';
-import { STATUS_BRAND_OPTIONS } from '@/constants/options';
+import { OPTIONS_STATUS_2 } from '@/constants/options';
 
 export const TagCreate = memo(({ trigger }: { trigger: ReactNode }) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -61,7 +61,7 @@ export const TagCreate = memo(({ trigger }: { trigger: ReactNode }) => {
           <SelectInput<TagCreateNew>
             label="Trạng thái"
             name="status"
-            options={STATUS_BRAND_OPTIONS}
+            options={OPTIONS_STATUS_2}
           />
 
           <div className="w-full flex justify-end gap-4 mt-7">

@@ -13,3 +13,10 @@ export class SpuCreatNew implements CreateSpuDto {
   models: SPUModelSchemaDto[] = [];
   status?: CreateSpuDtoStatusEnum;
 }
+
+export class AttributeDynamic implements AttributeInProductSchemaDto {
+  name = '';
+  k = '';
+  v = '';
+  u = '';
+}

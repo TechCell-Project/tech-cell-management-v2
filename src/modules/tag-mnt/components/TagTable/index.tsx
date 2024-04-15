@@ -13,7 +13,7 @@ import { columns } from './columns';
 import { Tag } from '../../models';
 import { SelectInput, TextInput } from '@/components/common/form-handle';
 import { Button, Form } from '@/components/ui';
-import { SELECT_OPTIONS_TYPE1 } from '@/constants/options';
+import { OPTIONS_STATUS_1 } from '@/constants/options';
 import { TagCreate } from '../TagCreate';
 import { AddToggle } from '@/components/utils';
 
@@ -85,7 +85,7 @@ export const TagTable = () => {
             <SelectInput<FilterTagDto>
               label="Trạng thái"
               name={`status.${0}`}
-              options={SELECT_OPTIONS_TYPE1}
+              options={OPTIONS_STATUS_1}
             />
             <Button variant="redLight" className="w-min" isLoading={isSubmitting} type="submit">
               Tìm kiếm

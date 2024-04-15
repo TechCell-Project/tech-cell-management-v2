@@ -1,1 +1,2 @@
-export * from './SkuTable'
+export * from './SkuTable';
+export * from './SkuCreate';

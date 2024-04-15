@@ -7,7 +7,7 @@ import { createTagValidateSchema } from '../TagCreate/validate-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { DialogDisplay } from '@/components/common/display';
 import { SelectInput, TextInput } from '@/components/common/form-handle';
-import { SELECT_OPTIONS_TYPE1 } from '@/constants/options';
+import { OPTIONS_STATUS_1 } from '@/constants/options';
 import { getFieldChanges } from '@/utilities/func.util';
 import { useMutation } from '@tanstack/react-query';
 import { patchOneTagApi } from '../../apis';
@@ -59,7 +59,7 @@ export const TagUpdate = memo(({ trigger, tag }: { trigger: ReactNode; tag: Tag 
           <SelectInput<TagUpdateDto>
             label="Trạng thái"
             name="status"
-            options={SELECT_OPTIONS_TYPE1}
+            options={OPTIONS_STATUS_1}
           />
 
           <div className="w-full flex justify-end gap-4 mt-7">

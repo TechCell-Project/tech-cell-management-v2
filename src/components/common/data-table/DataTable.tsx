@@ -26,6 +26,7 @@ type TableHelperProps = {
   isLoading?: boolean;
   rowCountLoading?: number;
   isShowColumnVis?: boolean;
+  isShowPagination?: boolean;
   className?: string;
 };
 
@@ -39,6 +40,7 @@ export const DataTable = <TData, TValue>({
   isLoading,
   rowCountLoading = 3,
   isShowColumnVis = false,
+  isShowPagination = true,
   className,
 }: DataTableProps<TData, TValue> & TableHelperProps) => {
   const table = useReactTable<TData>({
@@ -104,7 +106,9 @@ export const DataTable = <TData, TValue>({
       </div>
 
       {/* Pagination  */}
-      <DataTablePagination page={page} limit={limit} hasNextPage={hasNextPage} />
+      {isShowPagination && (
+        <DataTablePagination page={page} limit={limit} hasNextPage={hasNextPage} />
+      )}
     </>
   );
 };

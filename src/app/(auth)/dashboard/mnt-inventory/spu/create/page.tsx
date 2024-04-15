@@ -1,5 +1,7 @@
+import { SpuCreate } from '~spu-mnt/components';
+
 const SpuCreatePage = () => {
-  return <></>;
+  return <SpuCreate />;
 };
 
 export default SpuCreatePage;

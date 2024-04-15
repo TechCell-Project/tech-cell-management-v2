@@ -1,21 +1,21 @@
 'use client';
 
-import { useSearchQueryParams, useSearchTable } from '@/hooks';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchTable } from '@/hooks';
 import { useSkuStore } from '../../store';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getListSkuApi } from '../../apis';
 import { DataTable } from '@/components/common/data-table';
 import { columns } from './columns';
 import { Sku } from '../../models';
+import { AddToggle } from '@/components/utils';
+import { Routes } from '@/constants/enum';
 
 export const SkuTable = () => {
   const { listSku, getListSuccess, reset } = useSkuStore();
-  // const { createQueryString } = useSearchQueryParams();
 
-  // const router = useRouter();
-  // const pathname = usePathname();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const { page, limit, filters } = useSearchTable();
 
@@ -59,6 +59,8 @@ export const SkuTable = () => {
         hasNextPage={listSku?.hasNextPage as boolean}
         isLoading={isLoading}
       />
+
+      <AddToggle onClick={() => router.push(Routes.MntInventorySku + '/create')} />
     </div>
   );
 };

@@ -57,7 +57,7 @@ export const UserAvatar = memo(() => {
   return (
     <Dropzone onDrop={handleDrop} noClick={isLoading} noKeyboard>
       {({ getRootProps, getInputProps }) => (
-        <div {...getRootProps()} className="w-max">
+        <div {...getRootProps()} className="w-max pt-2">
           {sessionUser && (
             <div className={`${isLoading && 'pointer-events-none'} relative w-max`}>
               <Avatar className="cursor-pointer relative w-[90px] h-[90px] p-1 ring-2 ring-gray-300 dark:ring-gray-500">
