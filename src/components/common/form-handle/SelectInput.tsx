@@ -21,21 +21,29 @@ import { Options } from './form.type';
  * SelectInputProps defines the props for the SelectInput component.
  *
  * @template TFieldValue - Type extending FieldValues for the control.
+ * @template TOption - Type custom option for the control.
+ *
  * @property {FieldPath<TFieldValue>} name - The name/path of the field in the form.
  * @property {string} label - The label for the select input field.
  * @property {string | ReactNode} [description] - Optional description or additional information for the input field.
  * @property {string} [className] - Optional class name for styling purposes.
- * @property {Options[]} options - Array of options for the select input field.
+ * @property {Options[] | TOption[]} options - Array of options for the select input field.
+ * @property {'default' | 'custom' = 'default'} [typeOption] - Optional type of option.
+ * @property {string} [displayLabel] - Optional field label for custom option.
+ * @property {string} [displayValue] - Optional field value for custom option.
  * @property {string} [placeholder] - Optional placeholder text for the select input.
  * @property {boolean} [disabled] - Optional disabled the select input.
  * @property {(value: string): string } [onChange] - Optional onchange function for the select input.
  */
-type SelectInputProps<TFieldValue extends FieldValues> = {
+type SelectInputProps<TFieldValue extends FieldValues, TOption = any> = {
   name: FieldPath<TFieldValue>;
   label: string;
   description?: string | ReactNode;
   className?: string;
-  options: Options<string>[];
+  options: Options<string>[] | TOption[];
+  typeOption?: 'default' | 'custom';
+  displayLabel?: string;
+  displayValue?: string;
   placeholder?: string;
   disabled?: boolean;
   onChange?: (value: string) => void;
@@ -49,16 +57,19 @@ type SelectInputProps<TFieldValue extends FieldValues> = {
  * @param {SelectInputProps<TFieldValue>} props - Props object for the SelectInput component.
  * @returns {JSX.Element} - Returns the JSX element for the select input field.
  */
-const SelectInput = <TFieldValue extends FieldValues>({
+const SelectInput = <TFieldValue extends FieldValues, TOption = any>({
   name,
   label,
   description,
   className,
   options,
+  displayLabel = 'name',
+  displayValue = 'id',
+  typeOption = 'default',
   placeholder = 'Chọn',
   disabled,
   onChange,
-}: SelectInputProps<TFieldValue>): JSX.Element => {
+}: SelectInputProps<TFieldValue, TOption>): JSX.Element => {
   const { control } = useFormContext<TFieldValue>();
 
   return (
@@ -80,12 +91,22 @@ const SelectInput = <TFieldValue extends FieldValues>({
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>
-            <SelectContent className='overflow-y-auto max-h-[14rem]'>
-              {options.map(({ label, value }) => (
-                <SelectItem key={label} value={value} className="cursor-pointer">
-                  {label}
-                </SelectItem>
-              ))}
+            <SelectContent className="overflow-y-auto max-h-[14rem]">
+              {typeOption === 'default'
+                ? (options as Options<string>[]).map(({ label, value }) => (
+                    <SelectItem key={label} value={value} className="cursor-pointer">
+                      {label}
+                    </SelectItem>
+                  ))
+                : options.map((option) => (
+                    <SelectItem
+                      key={(option as any)[displayLabel]}
+                      value={(option as any)[displayValue]}
+                      className="cursor-pointer"
+                    >
+                      {(option as any)[displayLabel]}
+                    </SelectItem>
+                  ))}
             </SelectContent>
           </Select>
           {description && <FormDescription>{description}</FormDescription>}
@@ -96,8 +117,8 @@ const SelectInput = <TFieldValue extends FieldValues>({
   );
 };
 
-const MemoizedSelectInput = memo(SelectInput) as <T extends FieldValues>(
-  props: SelectInputProps<T>,
+const MemoizedSelectInput = memo(SelectInput) as <TFieldValue extends FieldValues, TOption = any>(
+  props: SelectInputProps<TFieldValue, TOption>,
 ) => JSX.Element;
 
 export { MemoizedSelectInput as SelectInput };

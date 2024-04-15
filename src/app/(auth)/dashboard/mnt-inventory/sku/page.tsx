@@ -1,5 +1,7 @@
+import { SkuTable } from "~sku-mnt/components";
+
 const SkuPage = () => {
-  return <>SkuPage</>;
+  return <SkuTable/>;
 };
 
 export default SkuPage;
