@@ -1,3 +1,5 @@
+import slugify from 'slugify';
+
 /**
  * Generates a URL query string from an object of parameters.
  *
@@ -76,10 +78,10 @@ export const capitallize = (str: string): string => {
 };
 
 export const convertToSnakeCase = (input: string): string => {
-  const normalized = input.normalize('NFD');
-  const withoutAccents = normalized.replace(/[\u0300-\u036f]/g, '');
-  return withoutAccents
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '_')
-    .replace(/^_+|_+$/g, '');
+  return slugify(input, {
+    replacement: '_',
+    trim: true,
+    locale: 'vi',
+    lower: true,
+  });
 };

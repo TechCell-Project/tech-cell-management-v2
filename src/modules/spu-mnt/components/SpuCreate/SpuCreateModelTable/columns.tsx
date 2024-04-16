@@ -1,18 +1,13 @@
-import { ColumnDef } from '@tanstack/react-table';
-import { Spu } from '../../models';
 import { DropdownDisplay } from '@/components/common/display';
 import { Button } from '@/components/ui';
+import { ColumnDef } from '@tanstack/react-table';
+import { SPUModelSchemaDto } from '@techcell/node-sdk';
 import { MoreHorizontal } from 'lucide-react';
-import { columnsAction } from './columns-action';
 
-export const columns: ColumnDef<Spu>[] = [
+export const columns: ColumnDef<SPUModelSchemaDto>[] = [
   {
     accessorKey: 'name',
-    header: 'Tên'
-  },
-  {
-    accessorKey: 'description',
-    header: 'Mô tả'
+    header: 'Tên',
   },
   {
     id: 'action',
@@ -25,7 +20,15 @@ export const columns: ColumnDef<Spu>[] = [
           </Button>
         }
         label="Thao tác"
-        items={columnsAction(row.original)}
+        items={[
+          {
+            content: 'Copy ID',
+            key: 'copy-action',
+            onClick: () => {
+              // navigator.clipboard.writeText(row.original?._id);
+            },
+          },
+        ]}
       />
     ),
   },

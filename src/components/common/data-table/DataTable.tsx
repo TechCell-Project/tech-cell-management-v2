@@ -48,6 +48,8 @@ export const DataTable = <TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    manualPagination: true,
+    rowCount: limit,
   });
 
   const { theme } = useTheme();
