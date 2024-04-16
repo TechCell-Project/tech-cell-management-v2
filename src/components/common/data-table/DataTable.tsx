@@ -16,9 +16,9 @@ import { useTheme } from 'next-themes';
 type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  page: number;
-  limit: number;
-  hasNextPage: boolean;
+  page?: number;
+  limit?: number;
+  hasNextPage?: boolean;
 };
 
 type TableHelperProps = {
@@ -109,7 +109,11 @@ export const DataTable = <TData, TValue>({
 
       {/* Pagination  */}
       {isShowPagination && (
-        <DataTablePagination page={page} limit={limit} hasNextPage={hasNextPage} />
+        <DataTablePagination
+          page={page as number}
+          limit={limit as number}
+          hasNextPage={hasNextPage as boolean}
+        />
       )}
     </>
   );

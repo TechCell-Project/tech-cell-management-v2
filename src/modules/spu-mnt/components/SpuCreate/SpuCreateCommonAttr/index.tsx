@@ -11,20 +11,16 @@ const SpuCreateCommonAttr = memo(
   ({ listAttribute }: { listAttribute?: PaginationResponse<Attribute> }) => {
     const { control, setValue } = useFormContext<SpuCreatNew>();
 
-    const {
-      fields: commonAttrFields,
-      append: commonAttrAppend,
-      remove: commonAttrRemove,
-    } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
       control,
       name: 'commonAttributes',
     });
 
     return (
-      <div className="mb-7">
+      <>
         <h3 className="mb-2 font-semibold">Thông số chung</h3>
         <div className="grid grid-cols-4 gap-x-5 gap-y-2 items-end">
-          {commonAttrFields.map((field, index) => (
+          {fields.map((field, index) => (
             <Fragment key={field.id}>
               <SelectInput<SpuCreatNew>
                 label="Thông số"
@@ -52,11 +48,7 @@ const SpuCreateCommonAttr = memo(
                   disabled: true,
                 }}
               />
-              <Button
-                variant="ghost"
-                className="h-8 w-8 p-0"
-                onClick={() => commonAttrRemove(index)}
-              >
+              <Button variant="ghost" className="h-8 w-8 p-0" onClick={() => remove(index)}>
                 <span className="sr-only">Open menu</span>
                 <X className="h-4 w-4" />
               </Button>
@@ -64,14 +56,10 @@ const SpuCreateCommonAttr = memo(
           ))}
         </div>
 
-        <Button
-          className="mt-5"
-          variant="redLight"
-          onClick={() => commonAttrAppend(new AttributeDynamic())}
-        >
+        <Button className="mt-3" variant="redLight" onClick={() => append(new AttributeDynamic())}>
           Thêm thông số
         </Button>
-      </div>
+      </>
     );
   },
 );

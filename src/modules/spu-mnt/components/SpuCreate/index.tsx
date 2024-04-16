@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import { Button, Form, useToast } from '@/components/ui';
+import { Button, Form, Separator, useToast } from '@/components/ui';
 import { SpuCreatNew } from '../../models';
 import { postOneSpuApi } from '../../apis';
 import { getSearchParams } from '@/utilities/func.util';
@@ -89,7 +89,9 @@ export const SpuCreate = () => {
         className={`rounded-md border py-5 px-6 ${theme === 'light' && 'bg-white'}`}
       >
         <SpuCreateInfo listBrand={listBrand} />
+        <Separator className='my-7'/>
         <SpuCreateCommonAttr listAttribute={listAttribute} />
+        <Separator className='my-7'/>
         <SpuCreateModelTable />
 
         <div className="w-full flex justify-end gap-4 mt-7">

@@ -28,7 +28,9 @@ export const useSearchTable = (): UseSearchTable => {
   const sorts = searchParams.get('sorts');
 
   const getParams = useMemo(() => {
-    return getSearchParams(new SearchRequest(Number(page), Number(limit)));
+    return getSearchParams(
+      new SearchRequest(Number(page), Number(limit) > 100 ? 100 : Number(limit)),
+    );
   }, [page, limit]);
 
   useEffect(() => {
