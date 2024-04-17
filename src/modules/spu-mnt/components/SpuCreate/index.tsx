@@ -17,7 +17,7 @@ import { getListAttributeApi } from '~attribute-mnt/apis';
 
 import SpuCreateCommonAttr from './SpuCreateCommonAttr';
 import SpuCreateInfo from './SpuCreateInfo';
-import { SpuCreateModelTable } from './SpuCreateModelTable';
+import SpuCreateModelTable from './SpuCreateModelTable';
 
 export const SpuCreate = () => {
   const { toast } = useToast();
@@ -89,9 +89,9 @@ export const SpuCreate = () => {
         className={`rounded-md border py-5 px-6 ${theme === 'light' && 'bg-white'}`}
       >
         <SpuCreateInfo listBrand={listBrand} />
-        <Separator className='my-7'/>
+        <Separator className="my-7" />
         <SpuCreateCommonAttr listAttribute={listAttribute} />
-        <Separator className='my-7'/>
+        <Separator className="my-7" />
         <SpuCreateModelTable />
 
         <div className="w-full flex justify-end gap-4 mt-7">
