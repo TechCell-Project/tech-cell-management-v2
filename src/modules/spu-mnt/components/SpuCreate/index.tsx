@@ -18,6 +18,8 @@ import { getListAttributeApi } from '~attribute-mnt/apis';
 import SpuCreateCommonAttr from './SpuCreateCommonAttr';
 import SpuCreateInfo from './SpuCreateInfo';
 import SpuCreateModelTable from './SpuCreateModelTable';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { createSpuValidateSchema } from './validate-schema';
 
 export const SpuCreate = () => {
   const { toast } = useToast();
@@ -57,6 +59,7 @@ export const SpuCreate = () => {
   }, []);
 
   const createSpuForm = useForm<SpuCreatNew>({
+    resolver: yupResolver(createSpuValidateSchema),
     defaultValues: new SpuCreatNew(),
   });
 
@@ -92,7 +95,7 @@ export const SpuCreate = () => {
         <Separator className="my-7" />
         <SpuCreateCommonAttr listAttribute={listAttribute} />
         <Separator className="my-7" />
-        <SpuCreateModelTable />
+        <SpuCreateModelTable listAttribute={listAttribute} />
 
         <div className="w-full flex justify-end gap-4 mt-7">
           <Button variant="ghost" type="button" onClick={() => router.back()}>

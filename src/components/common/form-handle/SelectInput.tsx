@@ -31,6 +31,7 @@ import { Options } from './form.type';
  * @property {'default' | 'custom' = 'default'} [typeOption] - Optional type of option.
  * @property {string} [displayLabel] - Optional field label for custom option.
  * @property {string} [displayValue] - Optional field value for custom option.
+ * @property {boolean} [isObjectValue] - Optional use to check option and set type.
  * @property {string} [placeholder] - Optional placeholder text for the select input.
  * @property {boolean} [disabled] - Optional disabled the select input.
  * @property {(value: string): string } [onChange] - Optional onchange function for the select input.

@@ -8,7 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { createAttrValidateSchema } from './validate-schema';
 import { useMutation } from '@tanstack/react-query';
 import { postOneAttributeApi } from '../../apis';
-import { convertToSnakeCase } from '@/utilities/func.util';
+import { convertSlugify } from '@/utilities/func.util';
 import { TextInput, TextareaInput } from '@/components/common/form-handle';
 
 export const AttributeCreate = memo(({ trigger }: { trigger: ReactNode }) => {
@@ -71,7 +71,7 @@ export const AttributeCreate = memo(({ trigger }: { trigger: ReactNode }) => {
             </Button>
             <Button
               onClick={handleSubmit((data) =>
-                mutateAsync({ ...data, label: convertToSnakeCase(data.name) }),
+                mutateAsync({ ...data, label: convertSlugify(data.name) }),
               )}
               variant="red"
               isLoading={isSubmitting}

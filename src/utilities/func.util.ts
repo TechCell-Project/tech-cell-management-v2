@@ -77,9 +77,9 @@ export const capitallize = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-export const convertToSnakeCase = (input: string): string => {
+export const convertSlugify = (input: string, replacement?: string): string => {
   return slugify(input, {
-    replacement: '_',
+    replacement: replacement ?? '_',
     trim: true,
     locale: 'vi',
     lower: true,
