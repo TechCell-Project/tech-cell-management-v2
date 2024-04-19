@@ -1,4 +1,4 @@
-import { Fragment, ReactNode, memo, useEffect, useState } from 'react';
+import { Fragment, ReactNode, memo, useState } from 'react';
 import { UseFieldArrayUpdate, useFieldArray, useForm } from 'react-hook-form';
 import { PaginationResponse } from '@/common/model';
 import { AttributeDynamic, SpuCreatNew } from '~spu-mnt/models';
@@ -33,11 +33,7 @@ const SpuUpdateModel = memo(
       control,
       setValue,
       reset,
-      resetField,
-      watch,
     } = updateSpuModelForm;
-
-    // console.log(watch())
 
     const {
       fields: fieldsAttr,
@@ -80,25 +76,30 @@ const SpuUpdateModel = memo(
                       options={listAttribute?.data ?? []}
                       typeOption="custom"
                       displayLabel="name"
-                      displayValue="k"
-                      isObjectValue
+                      displayValue="label"
                       onChange={(value) => {
-                        const option: Attribute = JSON.parse(value);
-                        setValue(`attributes.${index}.k`, option.label);
-                        setValue(`attributes.${index}.name`, option.name);
-                        setValue(`attributes.${index}.u`, option.unit);
-                        setValue(`attributes.${index}.v`, '');
+                        setValue(`attributes.${index}.k`, value);
+                        const matchingOption = listAttribute?.data.find(
+                          (attribute) => attribute.label === value,
+                        );
+                        if (matchingOption) {
+                          setValue(`attributes.${index}.name`, matchingOption.name);
+                          setValue(`attributes.${index}.u`, matchingOption.unit);
+                          setValue(`attributes.${index}.v`, '');
+                        }
                       }}
                     />
                     <TextInput<SPUModelSchemaDto>
                       label="Giá trị"
                       name={`attributes.${index}.v`}
                       isDebounce
+                      isRealtimeTrigger
                     />
                     <TextInput<SPUModelSchemaDto>
                       label="Đơn vị"
                       name={`attributes.${index}.u`}
                       isDebounce
+                      isRealtimeTrigger
                     />
                     <Button
                       variant="ghost"

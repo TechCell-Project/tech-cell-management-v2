@@ -37,13 +37,13 @@ export const SpuCreate = () => {
     const fetchInitData = () => {
       const params = getSearchParams(new SearchRequest(1, 100));
 
-      getListBrandApi(params)
+      getListBrandApi(params + '&sort=' + JSON.stringify([{ orderBy: 'slug', order: 'asc' }]))
         .then(({ data }) => getListBrandSuccess(data))
         .catch(() => {
           throw new Error();
         });
 
-      getListAttributeApi(params)
+      getListAttributeApi(params + '&sort=' + JSON.stringify([{ orderBy: 'label', order: 'asc' }]))
         .then(({ data }) => getListAttrSuccess(data))
         .catch(() => {
           throw new Error();
@@ -66,7 +66,6 @@ export const SpuCreate = () => {
   const {
     handleSubmit,
     formState: { isSubmitting },
-    watch
   } = createSpuForm;
 
   const { mutateAsync } = useMutation({
@@ -89,7 +88,16 @@ export const SpuCreate = () => {
   return (
     <Form {...createSpuForm}>
       <form
-        onSubmit={handleSubmit((data) => {})}
+        onSubmit={handleSubmit((data) => {
+          const commonAttr = data.commonAttributes.map((attr) => {
+            if (!attr.u) {
+              delete attr.u;
+            }
+            return attr;
+          });
+          
+          mutateAsync({ ...data, commonAttributes: commonAttr });
+        })}
         className={`rounded-md border py-5 px-6 ${theme === 'light' && 'bg-white'}`}
       >
         <SpuCreateInfo listBrand={listBrand} />

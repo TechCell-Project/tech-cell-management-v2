@@ -28,27 +28,37 @@ const SpuCreateCommonAttr = memo(
                 options={listAttribute?.data ?? []}
                 typeOption="custom"
                 displayLabel="name"
-                isObjectValue
+                displayValue="label"
                 onChange={(value) => {
-                  const option: Attribute = JSON.parse(value);
-                  setValue(`commonAttributes.${index}.k`, option.label);
-                  setValue(`commonAttributes.${index}.name`, option.name);
-                  setValue(`commonAttributes.${index}.u`, option.unit);
+                  setValue(`commonAttributes.${index}.k`, value);
+                  const matchingOption = listAttribute?.data.find(
+                    (attribute) => attribute.label === value,
+                  );
+                  if (matchingOption) {
+                    setValue(`commonAttributes.${index}.name`, matchingOption.name);
+                    setValue(`commonAttributes.${index}.u`, matchingOption.unit);
+                    setValue(`commonAttributes.${index}.v`, '');
+                  }
                 }}
               />
               <TextInput<SpuCreatNew>
                 label="Giá trị"
                 name={`commonAttributes.${index}.v`}
                 isDebounce
+                isRealtimeTrigger
               />
               <TextInput<SpuCreatNew>
                 label="Đơn vị"
                 name={`commonAttributes.${index}.u`}
-                inputAttributes={{
-                  disabled: true,
-                }}
+                isDebounce
+                isRealtimeTrigger
               />
-              <Button variant="ghost" className="h-8 w-8 p-0" onClick={() => remove(index)}>
+              <Button
+                variant="ghost"
+                type="button"
+                className="h-8 w-8 p-0"
+                onClick={() => remove(index)}
+              >
                 <span className="sr-only">Open menu</span>
                 <X className="h-4 w-4" />
               </Button>
@@ -56,7 +66,15 @@ const SpuCreateCommonAttr = memo(
           ))}
         </div>
 
-        <Button className="mt-3" variant="redLight" onClick={() => append(new AttributeDynamic())}>
+        <Button
+          className="mt-3"
+          variant="redLight"
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation();
+            append(new AttributeDynamic());
+          }}
+        > 
           Thêm thông số
         </Button>
       </>

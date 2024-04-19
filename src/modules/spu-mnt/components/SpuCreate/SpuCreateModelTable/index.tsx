@@ -92,7 +92,11 @@ const SpuCreateModelTable = memo(
         <DataTable columns={columns} data={fields} isShowPagination={false} />
         <SpuCreateModel
           trigger={
-            <Button className="mt-4" variant="redLight">
+            <Button
+              type='button'
+              className="mt-4"
+              variant="redLight"
+            >
               Thêm mẫu
             </Button>
           }

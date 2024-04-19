@@ -2,7 +2,7 @@ import { Fragment, ReactNode, memo, useState } from 'react';
 import { UseFieldArrayAppend, useFieldArray, useForm } from 'react-hook-form';
 import { AttributeDynamic, SpuCreatNew } from '~spu-mnt/models';
 import { DialogDisplay } from '@/components/common/display';
-import { ComboboxInput, SelectInput, TextInput } from '@/components/common/form-handle';
+import { SelectInput, TextInput } from '@/components/common/form-handle';
 import { SPUModelSchemaDto } from '@techcell/node-sdk';
 import { Button, Form, Separator } from '@/components/ui';
 import { Attribute } from '@/modules/attribute-mnt/models';
@@ -11,6 +11,7 @@ import { X } from 'lucide-react';
 import SpuCreateModelImage from './SpuCreateModelImage';
 import { convertSlugify } from '@/utilities/func.util';
 import { RichTextInput } from '@/components/common/form-handle/RichTextInput';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 type SpuCreateModelProps = {
   trigger: ReactNode;
@@ -37,10 +38,7 @@ const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelP
     control,
     setValue,
     reset,
-    watch,
   } = createSpuModelForm;
-
-  console.log(watch());
 
   const {
     fields: fieldsAttr,
@@ -83,37 +81,36 @@ const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelP
             <div className="grid grid-cols-4 gap-x-5 gap-y-2 items-end">
               {fieldsAttr.map((field, index) => (
                 <Fragment key={field.id}>
-                  {/* <ComboboxInput<SPUModelSchemaDto, any>
-                    name={`attributes.${index}.k`}
-                    label="Thông số"
-                    selectPlaceholder="Thông số"
-                    options={listAttribute?.data ?? []}
-                    optionKeyValue={{ key: 'name', value: 'k' }}
-                  /> */}
                   <SelectInput<SPUModelSchemaDto>
                     label="Thông số"
                     name={`attributes.${index}.k`}
                     options={listAttribute?.data ?? []}
                     typeOption="custom"
                     displayLabel="name"
-                    isObjectValue
+                    displayValue="label"
                     onChange={(value) => {
-                      const option: Attribute = JSON.parse(value);
-                      setValue(`attributes.${index}.k`, option.label);
-                      setValue(`attributes.${index}.name`, option.name);
-                      setValue(`attributes.${index}.u`, option.unit);
-                      setValue(`attributes.${index}.v`, '');
+                      setValue(`attributes.${index}.k`, value);
+                      const matchingOption = listAttribute?.data.find(
+                        (attribute) => attribute.label === value,
+                      );
+                      if (matchingOption) {
+                        setValue(`attributes.${index}.name`, matchingOption.name);
+                        setValue(`attributes.${index}.u`, matchingOption.unit);
+                        setValue(`attributes.${index}.v`, '');
+                      }
                     }}
                   />
                   <TextInput<SPUModelSchemaDto>
                     label="Giá trị"
                     name={`attributes.${index}.v`}
                     isDebounce
+                    isRealtimeTrigger
                   />
                   <TextInput<SPUModelSchemaDto>
                     label="Đơn vị"
                     name={`attributes.${index}.u`}
                     isDebounce
+                    isRealtimeTrigger
                   />
                   <Button variant="ghost" className="h-8 w-8 p-0" onClick={() => removeAttr(index)}>
                     <span className="sr-only">Open menu</span>
@@ -128,6 +125,7 @@ const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelP
               type="button"
               variant="redLight"
               onClick={(e) => {
+                e.preventDefault();
                 e.stopPropagation();
                 appendAttr(new AttributeDynamic());
               }}
@@ -142,7 +140,7 @@ const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelP
             <RichTextInput<SPUModelSchemaDto> label="Mô tả" name="description" />
           </div>
 
-          <div className="w-full flex justify-end gap-4 mt-7">
+          <div className="w-full flex justify-end gap-4">
             <Button variant="ghost" type="button" onClick={() => setOpen(false)}>
               Quay lại
             </Button>

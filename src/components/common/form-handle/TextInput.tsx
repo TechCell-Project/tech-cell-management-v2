@@ -40,6 +40,7 @@ type TextInputProps<T extends FieldValues> = {
   inputAttributes?: InputHTMLAttributes<HTMLInputElement>;
   isDebounce?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  isRealtimeTrigger?: boolean;
 };
 
 /**
@@ -58,6 +59,7 @@ const TextInput = <T extends FieldValues>({
   inputAttributes,
   isDebounce = false,
   onChange,
+  isRealtimeTrigger = false,
 }: TextInputProps<T>): JSX.Element => {
   const { getValues, setValue, control, trigger, watch } = useFormContext<T>();
 
@@ -84,12 +86,14 @@ const TextInput = <T extends FieldValues>({
     });
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setInitValue(isDebounce && !watchField ? '' : watchField || '');
-    }, 400);
+    if (isRealtimeTrigger) {
+      const timeout = setTimeout(() => {
+        setInitValue(isDebounce && !watchField ? '' : watchField || '');
+      }, 400);
 
-    return () => clearTimeout(timeout);
-  }, [watchField, isDebounce]);
+      return () => clearTimeout(timeout);
+    }
+  }, [watchField, isDebounce, isRealtimeTrigger]);
 
   return (
     <FormField
