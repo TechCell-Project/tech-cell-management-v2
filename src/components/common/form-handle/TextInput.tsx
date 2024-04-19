@@ -1,6 +1,14 @@
 'use client';
 
-import { ChangeEventHandler, InputHTMLAttributes, ReactNode, memo, useState, useRef } from 'react';
+import {
+  ChangeEventHandler,
+  InputHTMLAttributes,
+  ReactNode,
+  memo,
+  useState,
+  useRef,
+  useEffect,
+} from 'react';
 import { FieldPath, FieldValues, useFormContext } from 'react-hook-form';
 import {
   FormControl,
@@ -51,10 +59,12 @@ const TextInput = <T extends FieldValues>({
   isDebounce = false,
   onChange,
 }: TextInputProps<T>): JSX.Element => {
-  const { getValues, setValue, control, trigger } = useFormContext<T>();
+  const { getValues, setValue, control, trigger, watch } = useFormContext<T>();
 
   const [initValue, setInitValue] = useState<string>(getValues(name) ?? '');
   const timeRef = useRef<NodeJS.Timeout>();
+
+  const watchField = watch(name);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> =
     onChange ??
@@ -72,6 +82,14 @@ const TextInput = <T extends FieldValues>({
         trigger(name);
       }
     });
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setInitValue(isDebounce && !watchField ? '' : watchField || '');
+    }, 400);
+
+    return () => clearTimeout(timeout);
+  }, [watchField, isDebounce]);
 
   return (
     <FormField

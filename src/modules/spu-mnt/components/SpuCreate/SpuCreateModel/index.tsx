@@ -2,7 +2,7 @@ import { Fragment, ReactNode, memo, useState } from 'react';
 import { UseFieldArrayAppend, useFieldArray, useForm } from 'react-hook-form';
 import { AttributeDynamic, SpuCreatNew } from '~spu-mnt/models';
 import { DialogDisplay } from '@/components/common/display';
-import { SelectInput, TextInput } from '@/components/common/form-handle';
+import { ComboboxInput, SelectInput, TextInput } from '@/components/common/form-handle';
 import { SPUModelSchemaDto } from '@techcell/node-sdk';
 import { Button, Form, Separator } from '@/components/ui';
 import { Attribute } from '@/modules/attribute-mnt/models';
@@ -19,6 +19,8 @@ type SpuCreateModelProps = {
 };
 
 const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelProps) => {
+  const [open, setOpen] = useState<boolean>(false);
+
   const createSpuModelForm = useForm<SPUModelSchemaDto>({
     defaultValues: {
       name: '',
@@ -28,16 +30,17 @@ const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelP
       description: '',
     },
   });
-  const [open, setOpen] = useState<boolean>(false);
 
   const {
     handleSubmit,
     formState: { isSubmitting },
-    watch,
     control,
     setValue,
     reset,
+    watch,
   } = createSpuModelForm;
+
+  console.log(watch());
 
   const {
     fields: fieldsAttr,
@@ -70,9 +73,8 @@ const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelP
 
           <h3 className="mt-5 mb-3 text-[16px] font-semibold">Thông tin cơ bản</h3>
           <Separator className="my-4" />
-          <div className="grid grid-cols-2 gap-x-5 gap-y-3 mt-3">
+          <div className="grid grid-cols-3 gap-x-5 gap-y-3 mt-3">
             <TextInput<SPUModelSchemaDto> label="Tên mẫu" name="name" isDebounce />
-            <RichTextInput<SPUModelSchemaDto> label="Mô tả" name="description" />
           </div>
 
           <h3 className="mt-5 mb-3 text-[16px] font-semibold">Thông số</h3>
@@ -81,6 +83,13 @@ const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelP
             <div className="grid grid-cols-4 gap-x-5 gap-y-2 items-end">
               {fieldsAttr.map((field, index) => (
                 <Fragment key={field.id}>
+                  {/* <ComboboxInput<SPUModelSchemaDto, any>
+                    name={`attributes.${index}.k`}
+                    label="Thông số"
+                    selectPlaceholder="Thông số"
+                    options={listAttribute?.data ?? []}
+                    optionKeyValue={{ key: 'name', value: 'k' }}
+                  /> */}
                   <SelectInput<SPUModelSchemaDto>
                     label="Thông số"
                     name={`attributes.${index}.k`}
@@ -93,6 +102,7 @@ const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelP
                       setValue(`attributes.${index}.k`, option.label);
                       setValue(`attributes.${index}.name`, option.name);
                       setValue(`attributes.${index}.u`, option.unit);
+                      setValue(`attributes.${index}.v`, '');
                     }}
                   />
                   <TextInput<SPUModelSchemaDto>
@@ -103,9 +113,7 @@ const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelP
                   <TextInput<SPUModelSchemaDto>
                     label="Đơn vị"
                     name={`attributes.${index}.u`}
-                    inputAttributes={{
-                      disabled: true,
-                    }}
+                    isDebounce
                   />
                   <Button variant="ghost" className="h-8 w-8 p-0" onClick={() => removeAttr(index)}>
                     <span className="sr-only">Open menu</span>
@@ -117,7 +125,7 @@ const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelP
 
             <Button
               className="mt-3"
-              type='button'
+              type="button"
               variant="redLight"
               onClick={(e) => {
                 e.stopPropagation();
@@ -126,6 +134,12 @@ const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelP
             >
               Thêm thông số
             </Button>
+          </div>
+
+          <h3 className="mt-5 mb-3 text-[16px] font-semibold">Chi tiết</h3>
+          <Separator className="my-4" />
+          <div className="mt-3">
+            <RichTextInput<SPUModelSchemaDto> label="Mô tả" name="description" />
           </div>
 
           <div className="w-full flex justify-end gap-4 mt-7">

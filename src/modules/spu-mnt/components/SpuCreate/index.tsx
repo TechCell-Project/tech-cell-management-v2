@@ -66,6 +66,7 @@ export const SpuCreate = () => {
   const {
     handleSubmit,
     formState: { isSubmitting },
+    watch
   } = createSpuForm;
 
   const { mutateAsync } = useMutation({

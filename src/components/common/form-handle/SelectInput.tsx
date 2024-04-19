@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui';
-import { ReactNode, memo } from 'react';
+import { ReactNode, memo, useEffect } from 'react';
 import { FieldPath, FieldValues, useFormContext } from 'react-hook-form';
 import { Options } from './form.type';
 
@@ -73,7 +73,7 @@ const SelectInput = <TFieldValue extends FieldValues, TOption = any>({
   disabled,
   onChange,
 }: SelectInputProps<TFieldValue, TOption>): JSX.Element => {
-  const { control } = useFormContext<TFieldValue>();
+  const { control, watch } = useFormContext<TFieldValue>();
 
   return (
     <FormField
@@ -89,12 +89,12 @@ const SelectInput = <TFieldValue extends FieldValues, TOption = any>({
             defaultValue={field.value}
             disabled={disabled}
           >
-            <FormControl>
+            <FormControl >
               <SelectTrigger className={`${error && 'border-[#ee4949]'}`}>
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>
-            <SelectContent className="overflow-y-auto max-h-[18rem]">
+            <SelectContent className="overflow-y-auto max-h-[18rem]" >
               {typeOption === 'default'
                 ? (options as Options<string>[]).map(({ label, value }) => (
                     <SelectItem key={label} value={value} className="cursor-pointer">

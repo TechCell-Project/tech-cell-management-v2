@@ -10,6 +10,8 @@ import { DropdownDisplay } from '@/components/common/display';
 import { MoreHorizontal } from 'lucide-react';
 import { PaginationResponse } from '@/common/model';
 import { Attribute } from '@/modules/attribute-mnt/models';
+import Image from 'next/image';
+import SpuUpdateModel from '../SpuUpdateModel';
 
 const SpuCreateModelTable = memo(
   ({ listAttribute }: { listAttribute?: PaginationResponse<Attribute> }) => {
@@ -22,6 +24,24 @@ const SpuCreateModelTable = memo(
 
     const columns: ColumnDef<SPUModelSchemaDto>[] = useMemo(() => {
       return [
+        {
+          id: 'images',
+          header: 'Ảnh',
+          cell: ({ row }) => {
+            const src =
+              row.original.images.find((image) => image.isThumbnail) ?? row.original.images[0];
+
+            return (
+              <Image
+                width={50}
+                height={50}
+                className="rounded-lg"
+                src={(src as any)?.url}
+                alt={`image-${row.index}`}
+              />
+            );
+          },
+        },
         {
           accessorKey: 'name',
           header: 'Tên',
@@ -43,13 +63,28 @@ const SpuCreateModelTable = memo(
                   content: 'Xóa',
                   onClick: () => remove(row.index),
                 },
+                {
+                  content: (
+                    <SpuUpdateModel
+                      initValue={row.original}
+                      trigger="Cập nhật"
+                      indexModel={row.index}
+                      update={update}
+                      listAttribute={listAttribute}
+                    />
+                  ),
+                  key: 'update-action',
+                  onClick: (e) => {
+                    e.preventDefault();
+                  },
+                },
               ]}
             />
           ),
         },
       ];
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [listAttribute]);
 
     return (
       <>

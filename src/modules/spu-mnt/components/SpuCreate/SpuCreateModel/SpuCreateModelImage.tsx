@@ -8,6 +8,7 @@ import { useFormContext } from 'react-hook-form';
 import { HttpStatusCode } from 'axios';
 import Image from 'next/image';
 import { TooltipDisplay } from '@/components/common/display';
+import { ImageObj } from '@/common/model';
 
 const SpuCreateModelImage = memo(() => {
   const { setValue, watch } = useFormContext<SPUModelSchemaDto>();
@@ -25,7 +26,12 @@ const SpuCreateModelImage = memo(() => {
 
         const { data: imagesResponse, status } = await postImagesApi(formData);
         if (status === HttpStatusCode.Created) {
-          setValue('images', [...watch('images'), imagesResponse.data[0]] as any);
+          const newImage: ImageObj =
+            watch('images').length === 0
+              ? { ...imagesResponse.data[0], isThumbnail: true }
+              : imagesResponse.data[0];
+              
+          setValue('images', [...watch('images'), newImage] as any);
           setLoading(false);
         }
       })();
