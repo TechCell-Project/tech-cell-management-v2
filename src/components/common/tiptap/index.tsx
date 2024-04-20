@@ -2,6 +2,8 @@
 
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import Image from '@tiptap/extension-image';
+import TextAlign from '@tiptap/extension-text-align';
 import { ChangeEventHandler } from 'react';
 import MenuBar from './menu-bar';
 
@@ -12,7 +14,14 @@ type TiptapProps = {
 
 const Tiptap = ({ value, onChange }: TiptapProps) => {
   const editor = useEditor({
-    extensions: [StarterKit.configure()],
+    extensions: [
+      StarterKit.configure(),
+      Image,
+      TextAlign.configure({
+        types: ['heading', 'paragraph', 'image'],
+        alignments: ['left', 'center', 'right'],
+      }),
+    ],
     content: value,
     editorProps: {
       attributes: {

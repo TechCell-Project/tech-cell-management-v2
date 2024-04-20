@@ -1482,12 +1482,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@techcell/node-sdk@npm:0.0.1-7cc291c":
-  version: 0.0.1-7cc291c
-  resolution: "@techcell/node-sdk@npm:0.0.1-7cc291c"
+"@techcell/node-sdk@npm:0.0.1-e455a9b":
+  version: 0.0.1-e455a9b
+  resolution: "@techcell/node-sdk@npm:0.0.1-e455a9b"
   dependencies:
     axios: "npm:^1.6.1"
-  checksum: 10c0/587bc401fff1700efb340121818cfc18ba51c72962d5bdd5eeeed89e5175664f57480174b86372119dc6c0e37032d8a27c4917b99dd941eef866a29574b9844f
+  checksum: 10c0/2a9588eb76b22b92540c1f6fd0eaf8e72bf3a18b4625993649ad65bde9264c4d5c0c5fa39208548d2c0ee394cc74563d115900f084202765a98c001790f3ecc7
   languageName: node
   linkType: hard
 
@@ -1637,6 +1637,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tiptap/extension-image@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "@tiptap/extension-image@npm:2.3.0"
+  peerDependencies:
+    "@tiptap/core": ^2.0.0
+  checksum: 10c0/8ece02da19ed156b0c18ed78190bb8584d92b10553ce8c2de95db0f4c9821b18171d34d8751e48c17393508e063a345229aeade05977ab17976ee7137cd328d3
+  languageName: node
+  linkType: hard
+
 "@tiptap/extension-italic@npm:^2.3.0":
   version: 2.3.0
   resolution: "@tiptap/extension-italic@npm:2.3.0"
@@ -1679,6 +1688,15 @@ __metadata:
   peerDependencies:
     "@tiptap/core": ^2.0.0
   checksum: 10c0/27925db4ba30f7b9772c405f87abe42b5f48dc1e05b46467c9292383b6f8e9de0dfd4be2c7400fd72a9782b461054c2784cfb228aee9043f696414513987b951
+  languageName: node
+  linkType: hard
+
+"@tiptap/extension-text-align@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "@tiptap/extension-text-align@npm:2.3.0"
+  peerDependencies:
+    "@tiptap/core": ^2.0.0
+  checksum: 10c0/ab2b73df0e91cd8eb507ed69a8ffcd93c7320a053d7e1ecb2c4bd23f6cff8cf7bfc93a1a9c09398de185de6b058397da1d9724996129da6c3f92da3f37abdfae
   languageName: node
   linkType: hard
 
@@ -6002,7 +6020,9 @@ __metadata:
     "@tanstack/eslint-plugin-query": "npm:^5.27.7"
     "@tanstack/react-query": "npm:^5.28.4"
     "@tanstack/react-table": "npm:^8.15.0"
-    "@techcell/node-sdk": "npm:0.0.1-7cc291c"
+    "@techcell/node-sdk": "npm:0.0.1-e455a9b"
+    "@tiptap/extension-image": "npm:^2.3.0"
+    "@tiptap/extension-text-align": "npm:^2.3.0"
     "@tiptap/pm": "npm:^2.3.0"
     "@tiptap/react": "npm:^2.3.0"
     "@tiptap/starter-kit": "npm:^2.3.0"
