@@ -93,13 +93,11 @@ const SpuEditModel = memo(
                       label="Giá trị"
                       name={`attributes.${index}.v`}
                       isDebounce
-                      isRealtimeTrigger
                     />
                     <TextInput<SPUModelSchemaDto>
                       label="Đơn vị"
                       name={`attributes.${index}.u`}
                       isDebounce
-                      isRealtimeTrigger
                     />
                     <Button
                       variant="ghost"

@@ -48,13 +48,11 @@ export const SpuUpdateCommonAttr = ({
               label="Giá trị"
               name={`commonAttributes.${index}.v`}
               isDebounce
-              isRealtimeTrigger
             />
             <TextInput<SpuUpdate>
               label="Đơn vị"
               name={`commonAttributes.${index}.u`}
               isDebounce
-              isRealtimeTrigger
             />
             <Button
               variant="ghost"

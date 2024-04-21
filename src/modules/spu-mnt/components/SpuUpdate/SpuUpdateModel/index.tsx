@@ -28,7 +28,10 @@ const SpuUpdateModel = memo(({ trigger, model }: SpuUpdateModelProps) => {
     formState: { isSubmitting },
     control,
     setValue,
+    watch
   } = updateSpuModelForm;
+
+  console.log(watch())
 
   const {
     fields: fieldsAttr,
@@ -88,13 +91,11 @@ const SpuUpdateModel = memo(({ trigger, model }: SpuUpdateModelProps) => {
                     label="Giá trị"
                     name={`attributes.${index}.v`}
                     isDebounce
-                    isRealtimeTrigger
                   />
                   <TextInput<SPUModelSchemaDto>
                     label="Đơn vị"
                     name={`attributes.${index}.u`}
                     isDebounce
-                    isRealtimeTrigger
                   />
                   <Button variant="ghost" className="h-8 w-8 p-0" onClick={() => removeAttr(index)}>
                     <span className="sr-only">Open menu</span>

@@ -9,7 +9,7 @@ import {
   useRef,
   useEffect,
 } from 'react';
-import { FieldPath, FieldValues, useFormContext } from 'react-hook-form';
+import { FieldPath, FieldValues, Path, PathValue, useFormContext } from 'react-hook-form';
 import {
   FormControl,
   FormDescription,
@@ -40,7 +40,6 @@ type TextInputProps<T extends FieldValues> = {
   inputAttributes?: InputHTMLAttributes<HTMLInputElement>;
   isDebounce?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
-  isRealtimeTrigger?: boolean;
   value?: string;
 };
 
@@ -60,47 +59,41 @@ const TextInput = <T extends FieldValues>({
   inputAttributes,
   isDebounce = false,
   onChange,
-  isRealtimeTrigger = false,
-  value
+  value,
 }: TextInputProps<T>): JSX.Element => {
   const { getValues, setValue, control, trigger, watch } = useFormContext<T>();
-  const watchedValue = watch(name);
 
   const [initValue, setInitValue] = useState<string>(getValues(name) ?? '');
   const timeRef = useRef<NodeJS.Timeout>();
 
-  // useEffect(() => {
-  //   // Update initial value whenever default value changes
-  //   setInitValue(watchedValue ?? '');
-  // }, [watchedValue]);
+  const watchedValue = watch(name);
 
+  useEffect(() => {
+    if (watchedValue !== getValues(name)) {
+      setInitValue(getValues(name));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchedValue]);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> =
     onChange ??
-    (({ target }) => {
-      setInitValue(target.value);
+    ((e) => {
+      e.persist();
+
+      const updatedValue = e.target.value;
+      setInitValue(updatedValue);
 
       if (isDebounce) {
         if (timeRef.current) clearTimeout(timeRef.current);
         timeRef.current = setTimeout(() => {
-          setValue(name, target.value as any);
+          setValue(name, updatedValue as PathValue<T, Path<T>>);
           trigger(name);
         }, 400);
       } else {
-        setValue(name, target.value as any);
+        setValue(name, updatedValue as PathValue<T, Path<T>>);
         trigger(name);
       }
     });
-
-  useEffect(() => {
-    if (isRealtimeTrigger) {
-      const timeout = setTimeout(() => {
-        setInitValue(isDebounce && !watchedValue ? '' : watchedValue || '');
-      }, 400);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [watchedValue, isDebounce, isRealtimeTrigger]);
 
   return (
     <FormField
