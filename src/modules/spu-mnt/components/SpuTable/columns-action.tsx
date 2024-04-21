@@ -1,5 +1,7 @@
-import { DropdownDisplayItemProps } from "@/components/common/display";
-import { Spu } from "../../models";
+import { DropdownDisplayItemProps } from '@/components/common/display';
+import { Spu } from '../../models';
+import { Routes } from '@/constants/enum';
+import Link from 'next/link';
 
 export const columnsAction = (spu: Spu): DropdownDisplayItemProps[] => {
   return [
@@ -10,13 +12,13 @@ export const columnsAction = (spu: Spu): DropdownDisplayItemProps[] => {
         navigator.clipboard.writeText(spu._id);
       },
     },
-    // {
-    //   content: <AttributeUpdate attribute={attribute} trigger="Cập nhật" />,
-    //   key: 'update-action',
-    //   onClick: (e) => {
-    //     e.preventDefault();
-    //   },
-    // },
+    {
+      content: <Link href={Routes.MntInventorySpu + `/update?id=${spu._id}`}>Cập nhật</Link>,
+      key: 'update-action',
+      onClick: (e) => {
+        e.preventDefault();
+      },
+    },
     // {
     //   content: <AttributeDelete attribute={attribute} trigger="Xóa" />,
     //   key: 'delete-action',

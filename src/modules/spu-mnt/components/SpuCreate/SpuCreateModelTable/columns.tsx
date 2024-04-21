@@ -2,7 +2,7 @@ import { SpuCreatNew } from '~spu-mnt/models';
 import { ColumnDef } from '@tanstack/react-table';
 import { SPUModelSchemaDto } from '@techcell/node-sdk';
 import { UseFieldArrayRemove, UseFieldArrayUpdate } from 'react-hook-form';
-import SpuUpdateModel from '../SpuEditModel';
+import SpuEditModel from '../SpuEditModel';
 import { DropdownDisplay } from '@/components/common/display';
 import { Button } from '@/components/ui';
 import { MoreHorizontal } from 'lucide-react';
@@ -63,7 +63,7 @@ export const columns = ({
             },
             {
               content: (
-                <SpuUpdateModel
+                <SpuEditModel
                   initValue={row.original}
                   trigger="Cập nhật"
                   indexModel={row.index}

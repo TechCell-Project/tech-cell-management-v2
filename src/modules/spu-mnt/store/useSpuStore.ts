@@ -25,5 +25,10 @@ export const useSpuStore = create<SpuStore>()(
     reset: () => {
       set(initialState);
     },
+    resetOne: () => {
+      set((state) => {
+        state.spu = initialState.spu;
+      });
+    },
   })),
 );

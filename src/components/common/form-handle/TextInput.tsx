@@ -41,6 +41,7 @@ type TextInputProps<T extends FieldValues> = {
   isDebounce?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   isRealtimeTrigger?: boolean;
+  value?: string;
 };
 
 /**
@@ -60,13 +61,19 @@ const TextInput = <T extends FieldValues>({
   isDebounce = false,
   onChange,
   isRealtimeTrigger = false,
+  value
 }: TextInputProps<T>): JSX.Element => {
   const { getValues, setValue, control, trigger, watch } = useFormContext<T>();
+  const watchedValue = watch(name);
 
   const [initValue, setInitValue] = useState<string>(getValues(name) ?? '');
   const timeRef = useRef<NodeJS.Timeout>();
 
-  const watchField = watch(name);
+  // useEffect(() => {
+  //   // Update initial value whenever default value changes
+  //   setInitValue(watchedValue ?? '');
+  // }, [watchedValue]);
+
 
   const handleChange: ChangeEventHandler<HTMLInputElement> =
     onChange ??
@@ -88,12 +95,12 @@ const TextInput = <T extends FieldValues>({
   useEffect(() => {
     if (isRealtimeTrigger) {
       const timeout = setTimeout(() => {
-        setInitValue(isDebounce && !watchField ? '' : watchField || '');
+        setInitValue(isDebounce && !watchedValue ? '' : watchedValue || '');
       }, 400);
 
       return () => clearTimeout(timeout);
     }
-  }, [watchField, isDebounce, isRealtimeTrigger]);
+  }, [watchedValue, isDebounce, isRealtimeTrigger]);
 
   return (
     <FormField
@@ -107,6 +114,7 @@ const TextInput = <T extends FieldValues>({
               <Input
                 {...field}
                 {...inputAttributes}
+                value={value ?? field.value}
                 onChange={(e) => (onChange ? onChange(e) : field.onChange(e))}
                 className={`${error && 'border-[#ee4949]'}`}
               />

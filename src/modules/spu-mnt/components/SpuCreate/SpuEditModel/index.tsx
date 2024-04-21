@@ -19,7 +19,7 @@ type SpuUpdateModelProps = {
   indexModel: number;
 };
 
-const SpuUpdateModel = memo(
+const SpuEditModel = memo(
   ({ trigger, update, listAttribute, indexModel, initValue }: SpuUpdateModelProps) => {
     const [open, setOpen] = useState<boolean>(false);
 
@@ -47,7 +47,7 @@ const SpuUpdateModel = memo(
     return (
       <DialogDisplay
         trigger={trigger}
-        title="Thêm mới mẫu"
+        title="Cập nhật mẫu"
         open={open}
         setOpen={setOpen}
         classContent="max-w-6xl"
@@ -162,6 +162,6 @@ const SpuUpdateModel = memo(
   },
 );
 
-SpuUpdateModel.displayName = SpuUpdateModel.name;
+SpuEditModel.displayName = SpuEditModel.name;
 
-export default SpuUpdateModel;
+export default SpuEditModel;

@@ -42,7 +42,7 @@ const SpuCreateModelImage = memo(() => {
 
   return (
     <div {...getRootProps()} className="flex items-start gap-4 w-max">
-      {watch('images').map((image, index) => (
+      {watch('images')?.map((image, index) => (
         <div className="flex flex-col" key={image.publicId}>
           <div className="h-24 w-24 relative">
             {image.isThumbnail && (
