@@ -14,6 +14,7 @@ import {
   ReactNode,
   TextareaHTMLAttributes,
   memo,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -58,10 +59,18 @@ const TextareaInput = <T extends FieldValues>({
   isDebounce,
   onChange,
 }: TextareaInputProps<T>): JSX.Element => {
-  const { getValues, setValue, control, trigger } = useFormContext<T>();
+  const { getValues, setValue, control, trigger, watch } = useFormContext<T>();
 
   const [initValue, setInitValue] = useState<string>(getValues(name) ?? '');
   const timeRef = useRef<NodeJS.Timeout>();
+  const watchedValue = watch(name);
+
+  useEffect(() => {
+    if (watchedValue !== getValues(name)) {
+      setInitValue(getValues(name));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchedValue]);
 
   const handleChange: ChangeEventHandler<HTMLTextAreaElement> =
     onChange ??

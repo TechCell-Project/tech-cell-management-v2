@@ -67,7 +67,7 @@ const SpuEditModel = memo(
             <h3 className="mt-5 mb-3 text-[16px] font-semibold">Thông số</h3>
             <Separator className="my-4" />
             <div>
-              <div className="grid grid-cols-4 gap-x-5 gap-y-2 items-end">
+              <div className="grid grid-cols-3 gap-x-5 gap-y-2 items-end">
                 {fieldsAttr.map((field, index) => (
                   <Fragment key={field.id}>
                     <SelectInput<SPUModelSchemaDto>
@@ -94,11 +94,11 @@ const SpuEditModel = memo(
                       name={`attributes.${index}.v`}
                       isDebounce
                     />
-                    <TextInput<SPUModelSchemaDto>
+                    {/* <TextInput<SPUModelSchemaDto>
                       label="Đơn vị"
                       name={`attributes.${index}.u`}
                       isDebounce
-                    />
+                    /> */}
                     <Button
                       variant="ghost"
                       className="h-8 w-8 p-0"

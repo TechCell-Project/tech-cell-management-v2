@@ -1,25 +1,26 @@
-import { Fragment, ReactNode, memo, useState } from 'react';
-import { UseFieldArrayAppend, useFieldArray, useForm } from 'react-hook-form';
-import { AttributeDynamic, SpuCreatNew } from '~spu-mnt/models';
 import { DialogDisplay } from '@/components/common/display';
-import { SelectInput, TextInput } from '@/components/common/form-handle';
+import { Button, Form, Separator, useToast } from '@/components/ui';
 import { SPUModelSchemaDto } from '@techcell/node-sdk';
-import { Button, Form, Separator } from '@/components/ui';
-import { Attribute } from '@/modules/attribute-mnt/models';
-import { PaginationResponse } from '@/common/model';
+import { Fragment, ReactNode, memo, useState } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
+import SpuCreateModelImage from '../../SpuCreate/SpuCreateModel/SpuCreateModelImage';
+import { RichTextInput, SelectInput, TextInput } from '@/components/common/form-handle';
+import { useAttributeStore } from '~attribute-mnt/store';
 import { X } from 'lucide-react';
-import SpuCreateModelImage from './SpuCreateModelImage';
-import { convertSlugify } from '@/utilities/func.util';
-import { RichTextInput } from '@/components/common/form-handle/RichTextInput';
+import { AttributeDynamic, SpuModelCreate } from '~spu-mnt/models';
+import { useSpuStore } from '~spu-mnt/store';
+import { useMutation } from '@tanstack/react-query';
+import { postOneSpuModelApi } from '@/modules/spu-mnt/apis';
 
-type SpuCreateModelProps = {
+type SpuUpdateAddModelProps = {
   trigger: ReactNode;
-  append: UseFieldArrayAppend<SpuCreatNew, 'models'>;
-  listAttribute?: PaginationResponse<Attribute>;
 };
 
-const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelProps) => {
+const SpuUpdateAddModel = memo(({ trigger }: SpuUpdateAddModelProps) => {
   const [open, setOpen] = useState<boolean>(false);
+  const { listAttribute } = useAttributeStore();
+  const { spu } = useSpuStore();
+  const { toast } = useToast();
 
   const createSpuModelForm = useForm<SPUModelSchemaDto>({
     defaultValues: {
@@ -33,10 +34,10 @@ const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelP
 
   const {
     handleSubmit,
-    formState: { isSubmitting },
-    control,
     setValue,
     reset,
+    formState: { isSubmitting },
+    control,
   } = createSpuModelForm;
 
   const {
@@ -46,6 +47,26 @@ const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelP
   } = useFieldArray({
     control,
     name: 'attributes',
+  });
+
+  const { mutateAsync } = useMutation({
+    mutationFn: (values: SpuModelCreate) => postOneSpuModelApi(spu?._id as string, values),
+    onSuccess: () => {
+      toast({
+        variant: 'success',
+        title: 'Thêm mới mẫu thành công!',
+      });
+
+      reset();
+      setOpen(false);
+    },
+    onError: () => {
+      toast({
+        variant: 'destructive',
+        title: 'Thêm mới mẫu thất bại!',
+        description: 'Vui lòng thử lại sau',
+      });
+    },
   });
 
   return (
@@ -59,9 +80,14 @@ const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelP
       <Form {...createSpuModelForm}>
         <form
           onSubmit={handleSubmit((data) => {
-            append({ ...data, slug: convertSlugify(data.name, '-') });
-            reset();
-            setOpen(false);
+            const mapCommonAttr = data.attributes.map((attr) => {
+              if (!attr.u) {
+                delete attr.u;
+              }
+              return attr;
+            });
+
+            mutateAsync({ models: [{ ...data, attributes: mapCommonAttr }] });
           })}
         >
           <h3 className="mt-5 mb-3 text-[16px] font-semibold">Ảnh</h3>
@@ -151,6 +177,6 @@ const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelP
   );
 });
 
-SpuCreateModel.displayName = SpuCreateModel.name;
+SpuUpdateAddModel.displayName = SpuUpdateAddModel.name;
 
-export default SpuCreateModel;
+export default SpuUpdateAddModel;

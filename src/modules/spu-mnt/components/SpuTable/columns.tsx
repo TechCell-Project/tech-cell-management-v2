@@ -15,6 +15,10 @@ export const columns: ColumnDef<Spu>[] = [
     header: 'Mô tả'
   },
   {
+    accessorKey: 'status',
+    header: 'Trạng thái'
+  },
+  {
     id: 'action',
     cell: ({ row }) => (
       <DropdownDisplay

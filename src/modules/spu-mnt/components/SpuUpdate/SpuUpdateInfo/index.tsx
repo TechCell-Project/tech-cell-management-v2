@@ -3,11 +3,24 @@ import { PaginationResponse } from '@/common/model';
 import { SelectInput, TextInput, TextareaInput } from '@/components/common/form-handle';
 import { OPTIONS_STATUS_3 } from '@/constants/options';
 import { FORMAT_DATE } from '@/constants/utils';
-import { Brand } from '@/modules/brand-mnt/models';
-import { useSpuStore } from '@/modules/spu-mnt/store';
+import { Brand } from '~brand-mnt/models';
+import { useSpuStore } from '~spu-mnt/store';
+import { useFormContext } from 'react-hook-form';
+import { Button } from '@/components/ui';
+import { Spu, SpuUpdate } from '~spu-mnt/models';
+import { getFieldChanges } from '@/utilities/func.util';
 
-export const SpuUpdateInfo = ({ listBrand }: { listBrand?: PaginationResponse<Brand> }) => {
+type SpuUpdateInfoProps = {
+  listBrand?: PaginationResponse<Brand>;
+  onSubmit: (values: Partial<SpuUpdate>) => void;
+};
+
+export const SpuUpdateInfo = ({ listBrand, onSubmit }: SpuUpdateInfoProps) => {
   const { spu } = useSpuStore();
+  const {
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useFormContext<Spu>();
 
   return (
     <>
@@ -43,9 +56,22 @@ export const SpuUpdateInfo = ({ listBrand }: { listBrand?: PaginationResponse<Br
           typeOption="custom"
           disabled
         />
-        <SelectInput label="Trạng thái" name="status" options={OPTIONS_STATUS_3} disabled/>
+        <SelectInput label="Trạng thái" name="status" options={OPTIONS_STATUS_3} disabled />
         <TextInput label="Tên" name="name" isDebounce />
         <TextareaInput label="Mô tả" name="description" isDebounce />
+      </div>
+      <div className="w-full flex justify-end gap-4 mt-7">
+        <Button
+          type="button"
+          variant="red"
+          isLoading={isSubmitting}
+          onClick={handleSubmit((data) => {
+            const values: Partial<SpuUpdate> = { name: data.name, description: data.description };
+            onSubmit(getFieldChanges(values, spu as Spu));
+          })}
+        >
+          Xác nhận
+        </Button>
       </div>
     </>
   );

@@ -19,7 +19,7 @@ const SpuCreateCommonAttr = memo(
     return (
       <>
         <h3 className="mb-2 font-semibold">Thông số chung</h3>
-        <div className="grid grid-cols-4 gap-x-5 gap-y-2 items-end">
+        <div className="grid grid-cols-3 gap-x-5 gap-y-2 items-end">
           {fields.map((field, index) => (
             <Fragment key={field.id}>
               <SelectInput<SpuCreatNew>
@@ -45,14 +45,12 @@ const SpuCreateCommonAttr = memo(
                 label="Giá trị"
                 name={`commonAttributes.${index}.v`}
                 isDebounce
-                isRealtimeTrigger
               />
-              <TextInput<SpuCreatNew>
+              {/* <TextInput<SpuCreatNew>
                 label="Đơn vị"
                 name={`commonAttributes.${index}.u`}
                 isDebounce
-                isRealtimeTrigger
-              />
+              /> */}
               <Button
                 variant="ghost"
                 type="button"

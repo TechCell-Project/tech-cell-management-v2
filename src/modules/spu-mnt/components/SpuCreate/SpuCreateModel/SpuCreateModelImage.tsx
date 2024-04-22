@@ -26,12 +26,15 @@ const SpuCreateModelImage = memo(() => {
 
         const { data: imagesResponse, status } = await postImagesApi(formData);
         if (status === HttpStatusCode.Created) {
-          const newImage: ImageObj =
-            watch('images').length === 0
-              ? { ...imagesResponse.data[0], isThumbnail: true }
-              : imagesResponse.data[0];
-              
-          setValue('images', [...watch('images'), newImage] as any);
+          const newImage: ImageObj = imagesResponse.data[0];
+          const currentImages = watch('images') || [];
+
+          setValue(
+            'images',
+            currentImages?.length === 0 || !watch('images')
+              ? ([{ ...newImage, isThumbnail: true }] as any)
+              : [...currentImages, newImage],
+          );
           setLoading(false);
         }
       })();

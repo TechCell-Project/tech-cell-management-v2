@@ -1,4 +1,4 @@
-import { AttributeDynamic, SpuUpdate } from '~spu-mnt/models';
+import { AttributeDynamic, Spu, SpuUpdate } from '~spu-mnt/models';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { Button } from '@/components/ui';
 import { X } from 'lucide-react';
@@ -7,12 +7,18 @@ import { Fragment } from 'react';
 import { PaginationResponse } from '@/common/model';
 import { Attribute } from '~attribute-mnt/models';
 
-export const SpuUpdateCommonAttr = ({
-  listAttribute,
-}: {
+type SpuUpdateCommonAttrProps = {
   listAttribute?: PaginationResponse<Attribute>;
-}) => {
-  const { control, setValue } = useFormContext<SpuUpdate>();
+  onSubmit: (values: Partial<SpuUpdate>) => void;
+};
+
+export const SpuUpdateCommonAttr = ({ listAttribute, onSubmit }: SpuUpdateCommonAttrProps) => {
+  const {
+    control,
+    setValue,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useFormContext<Spu>();
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -22,7 +28,7 @@ export const SpuUpdateCommonAttr = ({
   return (
     <>
       <h3 className="mb-2 font-semibold">Thông số chung</h3>
-      <div className="grid grid-cols-4 gap-x-5 gap-y-2 items-end">
+      <div className="grid grid-cols-3 gap-x-5 gap-y-2 items-end">
         {fields.map((field, index) => (
           <Fragment key={field.id}>
             <SelectInput<SpuUpdate>
@@ -44,16 +50,8 @@ export const SpuUpdateCommonAttr = ({
                 }
               }}
             />
-            <TextInput<SpuUpdate>
-              label="Giá trị"
-              name={`commonAttributes.${index}.v`}
-              isDebounce
-            />
-            <TextInput<SpuUpdate>
-              label="Đơn vị"
-              name={`commonAttributes.${index}.u`}
-              isDebounce
-            />
+            <TextInput<SpuUpdate> label="Giá trị" name={`commonAttributes.${index}.v`} isDebounce />
+            {/* <TextInput<SpuUpdate> label="Đơn vị" name={`commonAttributes.${index}.u`} isDebounce /> */}
             <Button
               variant="ghost"
               type="button"
@@ -78,6 +76,26 @@ export const SpuUpdateCommonAttr = ({
       >
         Thêm thông số
       </Button>
+
+      <div className="w-full flex justify-end gap-4 mt-7">
+        <Button
+          type="button"
+          variant="red"
+          isLoading={isSubmitting}
+          onClick={handleSubmit((data) => {
+            const values: Partial<SpuUpdate> = { commonAttributes: data.commonAttributes };
+            values.commonAttributes?.map((newValue) => {
+              if (!newValue.u) {
+                delete newValue.u;
+              }
+              return newValue;
+            });
+            onSubmit(values);
+          })}
+        >
+          Xác nhận
+        </Button>
+      </div>
     </>
   );
 };
