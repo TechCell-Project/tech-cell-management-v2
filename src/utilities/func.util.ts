@@ -77,6 +77,13 @@ export const capitallize = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
+export const formatWithCommas = (number: number) => {
+  if (number) {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(number);
+  }
+  return '0 ₫';
+};
+
 export const convertSlugify = (input: string, replacement?: string): string => {
   return slugify(input, {
     replacement: replacement ?? '_',

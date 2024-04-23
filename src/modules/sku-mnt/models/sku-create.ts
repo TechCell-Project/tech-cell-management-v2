@@ -11,4 +11,5 @@ export class SkuCreateNew implements CreateSkuDto {
   description?: string;
   categories?: string[];
   imagePublicId?: string;
+  tags?: string[];
 }

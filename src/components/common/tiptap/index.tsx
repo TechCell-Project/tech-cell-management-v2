@@ -35,7 +35,7 @@ const Tiptap = ({ value, onChange }: TiptapProps) => {
   });
 
   return (
-    <div className="flex flex-col justify-stretch min-h-[250px]">
+    <div className="flex flex-col justify-stretch">
       <MenuBar editor={editor} />
       <EditorContent editor={editor} />
     </div>

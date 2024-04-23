@@ -1,6 +1,7 @@
 import { Options } from '@/components/common/form-handle';
 import {
   CreateBrandDtoStatusEnum,
+  CreateSkuDtoStatusEnum,
   FilterAttributeDtoStatusEnum,
   UserRoleEnum,
 } from '@techcell/node-sdk';
@@ -97,5 +98,21 @@ export const OPTIONS_STATUS_3: Options<string>[] = [
   {
     label: 'Deleted',
     value: FilterAttributeDtoStatusEnum.Deleted,
+  },
+];
+
+// For SKU
+export const OPTIONS_STATUS_4: Options<string>[] = [
+  {
+    label: 'Selling',
+    value: CreateSkuDtoStatusEnum.Selling,
+  },
+  {
+    label: 'Deleted',
+    value: CreateSkuDtoStatusEnum.Deleted,
+  },
+  {
+    label: 'Newly Released',
+    value: CreateSkuDtoStatusEnum.NewlyReleased,
   },
 ];

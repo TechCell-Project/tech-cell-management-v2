@@ -5,5 +5,6 @@ export * from './CheckboxInput';
 export * from './PasswordInput';
 export * from './ComboboxInput';
 export * from './RichTextInput';
+export * from './PriceInput';
 
 export * from './form.type';

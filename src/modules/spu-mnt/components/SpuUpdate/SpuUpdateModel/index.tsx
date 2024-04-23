@@ -11,7 +11,6 @@ import { X } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
 import { patchOneSpuModelApi } from '@/modules/spu-mnt/apis';
 import { useSpuStore } from '~spu-mnt/store';
-import { getFieldChanges } from '@/utilities/func.util';
 
 type SpuUpdateModelProps = {
   trigger: ReactNode;

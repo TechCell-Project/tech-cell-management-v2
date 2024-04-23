@@ -18,4 +18,5 @@ export class Sku extends Timestamp implements SKU {
   attributes: AttributeInProductSchema[] = [];
   categories: string[] = [];
   description?: string;
+  tags: string[] = [];
 }

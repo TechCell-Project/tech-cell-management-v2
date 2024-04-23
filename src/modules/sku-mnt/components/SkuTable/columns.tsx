@@ -4,8 +4,28 @@ import { DropdownDisplay } from '@/components/common/display';
 import { Button } from '@/components/ui';
 import { MoreHorizontal } from 'lucide-react';
 import { columnsAction } from './columns-action';
+import { formatWithCommas } from '@/utilities/func.util';
+import Image from 'next/image';
 
 export const columns: ColumnDef<Sku>[] = [
+  {
+    id: 'images',
+    header: 'Ảnh',
+    cell: ({ row }) => {
+      if (row.original.image) {
+        return (
+          <Image
+            width={50}
+            height={50}
+            className="rounded-lg"
+            src={row.original.image.url}
+            alt={`image-${row.index}`}
+          />
+        );
+      }
+      return <>Ảnh chưa cập nhật.</>;
+    },
+  },
   {
     accessorKey: 'name',
     header: 'Tên',
@@ -13,6 +33,11 @@ export const columns: ColumnDef<Sku>[] = [
   {
     accessorKey: 'status',
     header: 'Trạng thái',
+  },
+  {
+    id: 'price',
+    header: 'Giá gốc',
+    accessorFn: (row) => formatWithCommas(row.price.base),
   },
   {
     id: 'action',
