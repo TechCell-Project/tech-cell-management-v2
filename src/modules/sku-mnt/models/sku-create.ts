@@ -8,8 +8,7 @@ export class SkuCreateNew implements CreateSkuDto {
   price = new Price();
   status = CreateSkuDtoStatusEnum.Selling;
   attributes: AttributeInProductSchema[] = [];
-  description?: string;
-  categories?: string[];
-  imagePublicId?: string;
-  tags?: string[];
+  description?: string = '';
+  imagePublicId?: string = '';
+  tags?: string[] = [];
 }

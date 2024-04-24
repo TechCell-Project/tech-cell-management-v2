@@ -34,8 +34,8 @@ export const MultiSelectInput = <T extends FieldValues, TOption extends FieldVal
               {...field}
               selected={field.value}
               options={options}
-              displayLabel={displayLabel}
-              displayValue={displayValue}
+              displayLabel={displayLabel as string}
+              displayValue={displayValue as string}
             />
           </FormControl>
         </FormItem>
