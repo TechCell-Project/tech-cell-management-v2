@@ -36,7 +36,7 @@ export const PriceInput = <T extends FieldValues>({
             <Numeric
               onChange={field.onChange}
               name={name}
-              defaultValue={field.value}
+              defaultValue={String(field.value)}
               className={`${error && 'border-[#ee4949]'}`}
             />
           </FormControl>

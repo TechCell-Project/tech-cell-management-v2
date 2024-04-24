@@ -1,5 +1,7 @@
 import { DropdownDisplayItemProps } from '@/components/common/display';
 import { Sku } from '../../models';
+import Link from 'next/link';
+import { Routes } from '@/constants/enum';
 
 export const columnsAction = (sku: Sku): DropdownDisplayItemProps[] => {
   return [
@@ -10,19 +12,12 @@ export const columnsAction = (sku: Sku): DropdownDisplayItemProps[] => {
         navigator.clipboard.writeText(sku._id);
       },
     },
-    // {
-    //   content: <AttributeUpdate attribute={attribute} trigger="Cập nhật" />,
-    //   key: 'update-action',
-    //   onClick: (e) => {
-    //     e.preventDefault();
-    //   },
-    // },
-    // {
-    //   content: <AttributeDelete attribute={attribute} trigger="Xóa" />,
-    //   key: 'delete-action',
-    //   onClick: (e) => {
-    //     e.preventDefault();
-    //   },
-    // },
+    {
+      content: <Link href={Routes.MntInventorySku + `/update?id=${sku._id}`}>Cập nhật</Link>,
+      key: 'update-action',
+      onClick: (e) => {
+        e.preventDefault();
+      },
+    },
   ];
 };

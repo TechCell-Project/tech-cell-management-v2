@@ -1,3 +1,5 @@
+import { SkuUpdate } from '~sku-mnt/components';
+
 type Props = {
   searchParams: {
     id: string;
@@ -5,7 +7,7 @@ type Props = {
 };
 
 const SkuUpdatePage = (props: Props) => {
-  return <></>;
+  return <SkuUpdate id={props.searchParams.id} />;
 };
 
 export default SkuUpdatePage;

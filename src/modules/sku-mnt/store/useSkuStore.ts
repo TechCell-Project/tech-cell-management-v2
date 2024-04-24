@@ -25,5 +25,10 @@ export const useSkuStore = create<SkuStore>()(
     reset: () => {
       set(initialState);
     },
+    resetOne: () => {
+      set((state) => {
+        state.sku = initialState.sku;
+      });
+    },
   })),
 );

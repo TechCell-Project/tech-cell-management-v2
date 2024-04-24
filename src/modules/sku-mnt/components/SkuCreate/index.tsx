@@ -28,6 +28,7 @@ export const SkuCreate = () => {
   const {
     handleSubmit,
     formState: { isSubmitting },
+    reset,
   } = createSkuForm;
 
   const { mutateAsync } = useMutation({
@@ -37,6 +38,8 @@ export const SkuCreate = () => {
         variant: 'success',
         title: 'Thêm mới sku thành công!',
       });
+
+      reset();
       router.push(Routes.MntInventorySku);
     },
     onError: () => {
