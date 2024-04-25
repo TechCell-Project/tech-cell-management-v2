@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useSkuStore } from '../../store';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { getOneSkuApi, patchOneSkuApi } from '../../apis';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import { useFetchOptionData } from '../../hooks';
 import { useRouter } from 'next/navigation';
@@ -18,7 +18,7 @@ import { getFieldChanges } from '@/utilities/func.util';
 export const SkuUpdate = ({ id }: { id: string }) => {
   const { sku, getOneSuccess, resetOne } = useSkuStore();
 
-  const { listAttribute, listSpu, listTag } = useFetchOptionData();
+  const { listSpu, listTag } = useFetchOptionData();
 
   const { toast } = useToast();
   const { theme } = useTheme();

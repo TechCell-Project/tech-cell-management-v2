@@ -95,7 +95,7 @@ export const BrandTable = () => {
 
       <DataTable
         columns={columns}
-        data={(listBrand?.data as Brand[]) ?? []}
+        data={listBrand?.data ?? []}
         page={Number(page)}
         limit={Number(limit)}
         hasNextPage={listBrand?.hasNextPage as boolean}

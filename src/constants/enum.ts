@@ -21,7 +21,7 @@ export enum Routes {
   MntUserStaff = '/dashboard/mnt-user/staff',
 
   // Order management
-  MntOrder = '/dashboard/order',
+  MntOrder = '/dashboard/mnt-order',
 }
 
 export enum ApiTags {
@@ -32,13 +32,8 @@ export enum ApiTags {
   TagMnt = '/tags',
   SpuMnt = '/spus',
   SkuMnt = '/skus',
-  UsersMnt = '/users',
+  UserMnt = '/users',
+  OrderMnt = '/orders-mnt',
   Address = '/address',
   Notifications = '/notifications',
-}
-
-export enum TypeAddress {
-  Home = 'home',
-  Office = 'office',
-  Other = 'other',
 }

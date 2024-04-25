@@ -53,7 +53,7 @@ export const SkuTable = () => {
     <div className="mt-6">
       <DataTable
         columns={columns}
-        data={(listSku?.data as Sku[]) ?? []}
+        data={listSku?.data ?? []}
         page={Number(page)}
         limit={Number(limit)}
         hasNextPage={listSku?.hasNextPage as boolean}

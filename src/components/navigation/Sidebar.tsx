@@ -1,8 +1,16 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 import { Routes } from '@/constants/enum';
-import { NavLinkProps, ROUTES, ROUTES_UTILS } from '@/constants/routes';
+import {
+  DATA_ENTRY_ROUTES,
+  MANAGER_ROUTES,
+  NavLinkProps,
+  ROUTES,
+  ROUTES_UTILS,
+  SALE_ROUTES,
+  WAREHOUSE_ROUTES,
+} from '@/constants/routes';
 import Image from 'next/image';
 import Link from 'next/link';
 import { NavLink, NavLinkAction, NavLinkCollapse } from './nav-link';
@@ -12,6 +20,8 @@ import { AvatarPopover } from './AvatarPopover';
 import { Notifications } from '~notifications/components';
 import Breadcrumb from '../common/breadcrumb';
 import { useTheme } from 'next-themes';
+import { useAuthStore } from '@/modules/auth/store';
+import { UserRoleEnum } from '@techcell/node-sdk';
 
 const RenderRoutes = ({ routes }: { routes: NavLinkProps[] }) => {
   return routes.map((route) => {
@@ -42,7 +52,22 @@ const RenderRoutes = ({ routes }: { routes: NavLinkProps[] }) => {
 
 export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
   const [openToggle, setOpenToggle] = useState<boolean>(false);
+
+  const { user } = useAuthStore();
   const { theme } = useTheme();
+
+  const routesForRole = useMemo(() => {
+    switch (user?.user.role) {
+      case UserRoleEnum.Manager:
+        return MANAGER_ROUTES;
+      case UserRoleEnum.DataEntry:
+        return DATA_ENTRY_ROUTES;
+      case UserRoleEnum.Sales:
+        return SALE_ROUTES;
+      case UserRoleEnum.Warehouse:
+        return WAREHOUSE_ROUTES;
+    }
+  }, [user]);
 
   return (
     <>
@@ -102,7 +127,7 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
       >
         <div className="h-full pt-2 px-3 pb-4 overflow-y-auto bg-white dark:bg-[#09090b]">
           <ul className="space-y-2 font-medium">
-            <RenderRoutes routes={ROUTES} />
+            <RenderRoutes routes={[...ROUTES, ...(routesForRole as NavLinkProps[])]} />
           </ul>
           <Separator className="my-5" />
           <ul className="space-y-2 font-medium">

@@ -1,5 +1,7 @@
+import { OrderTable } from "~order-mnt/components";
+
 const OrderPage = () => {
-  return <>Order</>;
+  return <OrderTable/>;
 };
 
 export default OrderPage;

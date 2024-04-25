@@ -63,10 +63,10 @@ export const LINKS_ROUTE: LinksRouteType[] = [
     href: Routes.Dashboard,
     name: 'Trang chủ',
   },
-  {
-    href: Routes.Product,
-    name: 'Sản phẩm',
-  },
+  // {
+  //   href: Routes.Product,
+  //   name: 'Sản phẩm',
+  // },
   {
     href: Routes.MntOrder,
     name: 'Đơn hàng',

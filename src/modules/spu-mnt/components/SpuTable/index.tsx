@@ -94,7 +94,7 @@ export const SpuTable = () => {
 
       <DataTable
         columns={columns}
-        data={(listSpu?.data as Spu[]) ?? []}
+        data={listSpu?.data ?? []}
         page={Number(page)}
         limit={Number(limit)}
         hasNextPage={listSpu?.hasNextPage as boolean}

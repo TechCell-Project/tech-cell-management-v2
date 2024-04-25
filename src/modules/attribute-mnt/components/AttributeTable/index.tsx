@@ -102,7 +102,7 @@ export const AttributeTable = () => {
 
       <DataTable
         columns={columns}
-        data={(listAttribute?.data as Attribute[]) ?? []}
+        data={listAttribute?.data ?? []}
         page={Number(page)}
         limit={Number(limit)}
         hasNextPage={listAttribute?.hasNextPage as boolean}

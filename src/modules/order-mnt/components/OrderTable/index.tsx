@@ -1,24 +1,20 @@
 'use client';
 
-import { useSearchQueryParams, useSearchTable } from '@/hooks';
-import { useTagStore } from '../../store';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useMemo } from 'react';
-import { FilterTagDto, FilterTagDtoStatusEnum } from '@techcell/node-sdk';
-import { useForm } from 'react-hook-form';
+import { useOrderStore } from '../../store';
+import { useSearchQueryParams, useSearchTable } from '@/hooks';
 import { useQuery } from '@tanstack/react-query';
-import { getListTagApi } from '../../apis';
+import { getListOrderApi } from '../../apis';
+import { useEffect, useMemo } from 'react';
 import { DataTable } from '@/components/common/data-table';
 import { columns } from './columns';
-import { Tag } from '../../models';
-import { SelectInput, TextInput } from '@/components/common/form-handle';
+import { FilterOrdersMntDto } from '@techcell/node-sdk';
+import { useForm } from 'react-hook-form';
 import { Button, Form } from '@/components/ui';
-import { OPTIONS_STATUS_1 } from '@/constants/options';
-import { TagCreate } from '../TagCreate';
-import { AddToggle } from '@/components/utils';
+import { TextInput } from '@/components/common/form-handle';
 
-export const TagTable = () => {
-  const { listTag, getListSuccess, reset } = useTagStore();
+export const OrderTable = () => {
+  const { listOrder, getListSuccess, reset } = useOrderStore();
   const { createQueryString } = useSearchQueryParams();
 
   const router = useRouter();
@@ -29,35 +25,33 @@ export const TagTable = () => {
 
   const filtersParsed = useMemo(() => {
     if (filters) {
-      return JSON.parse(filters) as FilterTagDto;
+      return JSON.parse(filters) as FilterOrdersMntDto;
     }
   }, [filters]);
 
   const {
-    data: dataTags,
+    data: dataOrders,
     isSuccess,
     isLoading,
   } = useQuery({
-    queryKey: ['tags', page, limit, filters],
+    queryKey: ['orders', page, limit, filters],
     queryFn: () => {
       if (page && limit) {
-        return getListTagApi(searchParams.toString());
+        return getListOrderApi(searchParams.toString());
       }
     },
   });
 
-  const searchTagForm = useForm<FilterTagDto>({
+  const searchOrderForm = useForm<FilterOrdersMntDto>({
     defaultValues: {
-      status: filtersParsed?.status ?? undefined,
-      slug: filtersParsed?.slug ?? undefined,
       keyword: filtersParsed?.keyword ?? undefined,
     },
   });
 
   const {
     handleSubmit,
-    formState: { isSubmitting, isDirty },
-  } = searchTagForm;
+    formState: { isSubmitting },
+  } = searchOrderForm;
 
   useEffect(() => {
     return () => {
@@ -66,13 +60,13 @@ export const TagTable = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (isSuccess && dataTags) {
-    getListSuccess(dataTags.data);
+  if (isSuccess && dataOrders) {
+    getListSuccess(dataOrders.data);
   }
 
   return (
     <div className="mt-6">
-      <Form {...searchTagForm}>
+      <Form {...searchOrderForm}>
         <form
           onSubmit={handleSubmit((data) => {
             const params = createQueryString('filters', JSON.stringify(data));
@@ -81,12 +75,8 @@ export const TagTable = () => {
           className="mb-8"
         >
           <div className="grid grid-cols-4 gap-x-5 gap-y-4 items-end">
-            <TextInput<FilterTagDto> label="Từ khóa" name="keyword" />
-            <SelectInput<FilterTagDto>
-              label="Trạng thái"
-              name={`status.${0}`}
-              options={OPTIONS_STATUS_1}
-            />
+            <TextInput<FilterOrdersMntDto> label="Từ khóa" name="keyword" />
+
             <Button variant="redLight" className="w-min" isLoading={isSubmitting} type="submit">
               Tìm kiếm
             </Button>
@@ -96,14 +86,12 @@ export const TagTable = () => {
 
       <DataTable
         columns={columns}
-        data={listTag?.data ?? []}
+        data={listOrder?.data ?? []}
         page={Number(page)}
         limit={Number(limit)}
-        hasNextPage={listTag?.hasNextPage as boolean}
+        hasNextPage={listOrder?.hasNextPage as boolean}
         isLoading={isLoading}
       />
-
-      <TagCreate trigger={<AddToggle />} />
     </div>
   );
 };

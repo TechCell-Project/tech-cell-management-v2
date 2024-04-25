@@ -69,7 +69,7 @@ export const UserTable = () => {
     <div className="mt-6">
       <DataTable
         columns={columns}
-        data={(listUser?.data as User[]) ?? []}
+        data={listUser?.data ?? []}
         page={Number(page)}
         limit={Number(limit)}
         hasNextPage={listUser?.hasNextPage as boolean}

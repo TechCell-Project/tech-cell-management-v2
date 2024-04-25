@@ -18,6 +18,7 @@ import { useRouter } from 'next/navigation';
 import { Routes } from '@/constants/enum';
 import LoadingPage from '@/app/loading';
 import { loginValidateSchema } from './validate-schema';
+import { UserRoleEnum } from '@techcell/node-sdk';
 
 export const SignIn = () => {
   const { toast } = useToast();
@@ -44,16 +45,24 @@ export const SignIn = () => {
       fetching();
     },
     onSuccess: ({ data }) => {
-      setUser(data);
-      setOneSessionStorage('user', data);
+      if (data.user.role === UserRoleEnum.Customer) {
+        toast({
+          variant: 'destructive',
+          title: 'Đăng nhập thất bại',
+          description: 'Tài khoản không có quyền đăng nhậP',
+        });
+      } else {
+        setUser(data);
+        setOneSessionStorage('user', data);
 
-      toast({
-        variant: 'success',
-        title: 'Đăng nhập thành công',
-        description: 'Chào mừng bạn dến với Techcell Dashboard',
-      });
+        toast({
+          variant: 'success',
+          title: 'Đăng nhập thành công',
+          description: 'Chào mừng bạn dến với Techcell Dashboard',
+        });
 
-      push(Routes.Dashboard);
+        push(Routes.Dashboard);
+      }
     },
     onError: (error) => {
       console.log(error.message);

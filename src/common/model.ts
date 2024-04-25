@@ -1,14 +1,14 @@
-import { PriceSchema } from '@techcell/node-sdk';
+import { ImageSchema, PriceSchema } from '@techcell/node-sdk';
 
 export class Timestamp {
   createdAt: string = '';
   updatedAt: string = '';
 }
 
-export class ImageObj {
+export class ImageObj implements ImageSchema {
   publicId = '';
   url = '';
-  isThumbnail?: boolean;
+  isThumbnail = false;
 }
 
 export class PaginationResponse<T> {

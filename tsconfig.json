@@ -58,6 +58,9 @@
       "~sku-mnt/*": [
         "./src/modules/sku-mnt/*"
       ],
+      "~order-mnt/*": [
+        "./src/modules/order-mnt/*"
+      ],
       "~images/*": [
         "./src/modules/images/*"
       ],
