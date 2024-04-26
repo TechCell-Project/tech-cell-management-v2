@@ -61,11 +61,11 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
       case UserRoleEnum.Manager:
         return MANAGER_ROUTES;
       case UserRoleEnum.DataEntry:
-        return DATA_ENTRY_ROUTES;
+        return [...DATA_ENTRY_ROUTES, ...WAREHOUSE_ROUTES];
       case UserRoleEnum.Sales:
         return SALE_ROUTES;
       case UserRoleEnum.Warehouse:
-        return WAREHOUSE_ROUTES;
+        return [...WAREHOUSE_ROUTES, ...SALE_ROUTES];
     }
   }, [user]);
 

@@ -41,6 +41,7 @@ type TextInputProps<T extends FieldValues> = {
   isDebounce?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   value?: string;
+  notTriggerRealtime?: boolean;
 };
 
 /**
@@ -60,6 +61,7 @@ const TextInput = <T extends FieldValues>({
   isDebounce = false,
   onChange,
   value,
+  notTriggerRealtime = false,
 }: TextInputProps<T>): JSX.Element => {
   const { getValues, setValue, control, trigger, watch } = useFormContext<T>();
 
@@ -69,8 +71,10 @@ const TextInput = <T extends FieldValues>({
   const watchedValue = watch(name);
 
   useEffect(() => {
-    if (watchedValue !== getValues(name)) {
-      setInitValue(getValues(name));
+    if (!notTriggerRealtime) {
+      if (watchedValue !== getValues(name)) {
+        setInitValue(getValues(name));
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchedValue]);
@@ -79,6 +83,8 @@ const TextInput = <T extends FieldValues>({
     onChange ??
     ((e) => {
       e.persist();
+      e.preventDefault();
+      e.stopPropagation();
 
       const updatedValue = e.target.value;
       setInitValue(updatedValue);

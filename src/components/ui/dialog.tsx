@@ -43,7 +43,6 @@ const DialogContent = React.forwardRef<
       )}
       onOpenAutoFocus={(e) => e.preventDefault()}
       onKeyDown={(e) => e.stopPropagation()}
-      // onClick={(e) => e.preventDefault()}
       {...props}
     >
       {children}

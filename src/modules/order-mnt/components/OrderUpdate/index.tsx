@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import OrderUpdateInfo from './OrderUpdateInfo';
 import OrderUpdateInvoice from './OrderUpdateInvoice';
+import { Routes } from '@/constants/enum';
 
 export const OrderUpdate = ({ id }: { id: string }) => {
   const { order, getOneSuccess, resetOne } = useOrderStore();
@@ -19,13 +20,26 @@ export const OrderUpdate = ({ id }: { id: string }) => {
   const { theme } = useTheme();
   const router = useRouter();
 
-  const { data: dataDetails, isSuccess } = useQuery({
+  const {
+    data: dataDetails,
+    isSuccess,
+    isError,
+  } = useQuery({
     queryKey: ['order-update', id],
     queryFn: () => getOneOrderApi(id),
   });
 
   if (dataDetails && isSuccess) {
     getOneSuccess(dataDetails.data);
+  }
+
+  if (isError) {
+    toast({
+      variant: 'destructive',
+      title: 'Không tìm thấy đơn hàng!',
+      description: 'Vui lòng thử lại sau',
+    });
+    router.push(Routes.MntOrder);
   }
 
   const { mutateAsync } = useMutation({
