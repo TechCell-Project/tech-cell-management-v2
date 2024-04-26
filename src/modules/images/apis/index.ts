@@ -3,7 +3,7 @@ import { ApiTags } from '@/constants/enum';
 import { axiosInstance } from '@/lib/axios';
 
 export const postImagesApi = (payload: FormData) =>
-  axiosInstance.post<ImageObj>(ApiTags.Images, payload, {
+  axiosInstance.post<ImageObj[]>(ApiTags.Images, payload, {
     headers: {
       'Content-Type': 'multipart/form-data',
       Accept: 'application/json',

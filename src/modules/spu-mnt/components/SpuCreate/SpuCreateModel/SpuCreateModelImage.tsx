@@ -26,7 +26,7 @@ const SpuCreateModelImage = memo(() => {
 
         const { data: imagesResponse, status } = await postImagesApi(formData);
         if (status === HttpStatusCode.Created) {
-          const newImage: ImageObj = imagesResponse;
+          const newImage: ImageObj = imagesResponse[0];
           const currentImages = watch('images') || [];
 
           setValue(
