@@ -69,7 +69,7 @@ export const BrandUpdate = memo(({ trigger, brand }: { trigger: ReactNode; brand
             <Button
               onClick={handleSubmit((data) => {
                 const values = getFieldChanges<BrandUpdateDto>(data, brand)
-                mutateAsync(values)
+                return mutateAsync(values)
               })}
               variant="red"
               isLoading={isSubmitting}

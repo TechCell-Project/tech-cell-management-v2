@@ -4,7 +4,12 @@ import { useOrderStore } from '@/modules/order-mnt/store';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ReactNode, memo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { OrderOrderStatusEnum, UpdateOrderStatusDto, UserRoleEnum } from '@techcell/node-sdk';
+import {
+  OrderOrderStatusEnum,
+  UpdateOrderStatusDto,
+  UpdateOrderStatusDtoOrderStatusEnum,
+  UserRoleEnum,
+} from '@techcell/node-sdk';
 import { ProcessShipping } from '@/constants/utils';
 import { TextareaInput } from '@/components/common/form-handle';
 import { updateOrderStatusSchema } from './validate-schema';
@@ -20,7 +25,9 @@ const OrderUpdateConfirm = ({ trigger }: { trigger: ReactNode }) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const { user } = useAuthStore();
-  const { order, getOneSuccess } = useOrderStore();
+  const order = useOrderStore((state) => state.order);
+  const getOneSuccess = useOrderStore((state) => state.getOneSuccess);
+
   const { toast } = useToast();
   const router = useRouter();
 
@@ -29,7 +36,8 @@ const OrderUpdateConfirm = ({ trigger }: { trigger: ReactNode }) => {
   const updateStatusOrderForm = useForm<UpdateOrderStatusDto>({
     resolver: yupResolver(updateOrderStatusSchema),
     values: {
-      orderStatus: ProcessShipping[newStatus + 1].label as any,
+      orderStatus: ProcessShipping[newStatus + 1]
+        .label as unknown as UpdateOrderStatusDtoOrderStatusEnum,
       note: '',
     },
   });
@@ -46,7 +54,9 @@ const OrderUpdateConfirm = ({ trigger }: { trigger: ReactNode }) => {
         .then(({ data }) => {
           getOneSuccess(data);
           setOpen(false);
-          router.refresh();
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
         })
         .catch(() => {
           router.push(Routes.MntOrder);
@@ -66,7 +76,13 @@ const OrderUpdateConfirm = ({ trigger }: { trigger: ReactNode }) => {
   });
 
   return (
-    <DialogDisplay trigger={trigger} open={open} setOpen={setOpen} title="Cập nhật đơn hàng">
+    <DialogDisplay
+      trigger={trigger}
+      open={open}
+      setOpen={setOpen}
+      title="Cập nhật đơn hàng"
+      classContent="max-w-xl"
+    >
       <Form {...updateStatusOrderForm}>
         <form
           onSubmit={handleSubmit((data) => {

@@ -77,7 +77,7 @@ export const SkuUpdate = ({ id }: { id: string }) => {
               delete newValue.attributes;
             }
 
-            mutateAsync(newValue as Partial<UpdateSkuDto>);
+            return mutateAsync(newValue as Partial<UpdateSkuDto>);
           })}
         >
           <SkuUpdateImage />

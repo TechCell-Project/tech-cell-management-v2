@@ -85,7 +85,7 @@ const SkuCreateSerials = ({ trigger, sku }: { trigger: ReactNode; sku: Sku }) =>
             <Button
               onClick={handleSubmit((data) => {
                 const payload = data.serialNumbers.map((serial) => serial.toUpperCase());
-                mutateAsync({ serialNumbers: payload });
+                return mutateAsync({ serialNumbers: payload });
               })}
               variant="red"
               isLoading={isSubmitting}

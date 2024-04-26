@@ -87,7 +87,7 @@ const SpuUpdateAddModel = memo(({ trigger }: SpuUpdateAddModelProps) => {
               return attr;
             });
 
-            mutateAsync({ models: [{ ...data, attributes: mapCommonAttr }] });
+            return mutateAsync({ models: [{ ...data, attributes: mapCommonAttr }] });
           })}
         >
           <h3 className="mt-5 mb-3 text-[16px] font-semibold">Ảnh</h3>

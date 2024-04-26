@@ -105,7 +105,7 @@ export const UserInfo = () => {
           <form
             onSubmit={handleSubmit((data) => {
               const values = getFieldChanges(data, sessionUser.user);
-              mutateAsync(values);
+              return mutateAsync(values);
             })}
           >
             <h3 className="mt-5 mb-3 text-[16px] font-semibold">Chỉnh sửa</h3>

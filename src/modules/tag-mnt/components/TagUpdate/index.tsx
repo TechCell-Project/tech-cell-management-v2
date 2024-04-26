@@ -69,7 +69,7 @@ export const TagUpdate = memo(({ trigger, tag }: { trigger: ReactNode; tag: Tag 
             <Button
               onClick={handleSubmit((data) => {
                 const values = getFieldChanges(data, tag)
-                mutateAsync(values)
+                return mutateAsync(values)
               })}
               variant="red"
               isLoading={isSubmitting}

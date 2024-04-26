@@ -73,7 +73,7 @@ export const AttributeUpdate = memo(
                 <Button
                   onClick={handleSubmit((data) => {
                     const values = getFieldChanges(data, attribute as any);
-                    mutateAsync(values);
+                    return mutateAsync(values);
                   })}
                   variant="red"
                   isLoading={isSubmitting}

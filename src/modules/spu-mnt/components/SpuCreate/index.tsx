@@ -59,7 +59,7 @@ export const SpuCreate = () => {
             return attr;
           });
 
-          mutateAsync({ ...data, commonAttributes: commonAttr });
+          return mutateAsync({ ...data, commonAttributes: commonAttr });
         })}
         className={`rounded-md border py-5 px-6 ${theme === 'light' && 'bg-white'}`}
       >
