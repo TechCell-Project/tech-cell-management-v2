@@ -32,7 +32,7 @@ export const convertOrderPaymentStatus: FieldsString = {
 
 export const convertOrderStatus: FieldsString = {
   [OrderOrderStatusEnum.Pending]: 'Chưa xử lý',
-  [OrderOrderStatusEnum.Confirmed]: 'Đã xác nhận',
+  [OrderOrderStatusEnum.Confirmed]: 'Xác nhận',
   [OrderOrderStatusEnum.Preparing]: 'Chuẩn bị hàng',
   [OrderOrderStatusEnum.Prepared]: 'Chờ giao đơn vị vận chuyển',
   [OrderOrderStatusEnum.Shipping]: 'Đang trên đường giao',
