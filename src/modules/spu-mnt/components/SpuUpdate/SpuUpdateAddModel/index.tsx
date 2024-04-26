@@ -11,6 +11,7 @@ import { AttributeDynamic, SpuModelCreate } from '~spu-mnt/models';
 import { useSpuStore } from '~spu-mnt/store';
 import { useMutation } from '@tanstack/react-query';
 import { postOneSpuModelApi } from '@/modules/spu-mnt/apis';
+import { convertSlugify } from '@/utilities/func.util';
 
 type SpuUpdateAddModelProps = {
   trigger: ReactNode;
@@ -86,8 +87,11 @@ const SpuUpdateAddModel = memo(({ trigger }: SpuUpdateAddModelProps) => {
               }
               return attr;
             });
-
-            return mutateAsync({ models: [{ ...data, attributes: mapCommonAttr }] });
+            return mutateAsync({
+              models: [
+                { ...data, attributes: mapCommonAttr, slug: convertSlugify(data.name, '-') },
+              ],
+            });
           })}
         >
           <h3 className="mt-5 mb-3 text-[16px] font-semibold">Ảnh</h3>
@@ -130,11 +134,6 @@ const SpuUpdateAddModel = memo(({ trigger }: SpuUpdateAddModelProps) => {
                     name={`attributes.${index}.v`}
                     isDebounce
                   />
-                  {/* <TextInput<SPUModelSchemaDto>
-                    label="Đơn vị"
-                    name={`attributes.${index}.u`}
-                    isDebounce
-                  /> */}
                   <Button variant="ghost" className="h-8 w-8 p-0" onClick={() => removeAttr(index)}>
                     <span className="sr-only">Open menu</span>
                     <X className="h-4 w-4" />
@@ -163,7 +162,7 @@ const SpuUpdateAddModel = memo(({ trigger }: SpuUpdateAddModelProps) => {
             <RichTextInput<SPUModelSchemaDto> label="Mô tả" name="description" />
           </div>
 
-          <div className="w-full flex justify-end gap-4">
+          <div className="w-full flex justify-end gap-4 mt-7">
             <Button variant="ghost" type="button" onClick={() => setOpen(false)}>
               Quay lại
             </Button>

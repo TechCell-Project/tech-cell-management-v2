@@ -17,7 +17,7 @@ const SkuUpdateAttribute = ({
       <>
         <h3 className="mb-2 font-semibold">Thông số</h3>
         <div className="grid grid-cols-4 gap-x-5 gap-y-2 items-end">
-          {sku?.attributes.map((field, index) => (
+          {sku?.attributes.map((field) => (
             <Fragment key={field.k}>
               <TextDisplay label={field.name} content={field.v + ` ${field.u ?? ''}`} />
             </Fragment>
