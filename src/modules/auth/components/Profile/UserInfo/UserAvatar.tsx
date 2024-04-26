@@ -26,7 +26,7 @@ export const UserAvatar = memo(() => {
       const { data: imagesResponse, status } = await postImagesApi(formData);
       if (status === HttpStatusCode.Created) {
         const { data: userResponse } = await patchMeApi({
-          avatarImageId: imagesResponse.data[0].publicId,
+          avatarImageId: imagesResponse.publicId,
         });
 
         if (userResponse) {

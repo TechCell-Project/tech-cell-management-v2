@@ -29,7 +29,7 @@ const SkuUpdateImage = () => {
 
         const { data: imagesResponse, status } = await postImagesApi(formData);
         if (status === HttpStatusCode.Created) {
-          const newImage: ImageObj = imagesResponse.data[0];
+          const newImage: ImageObj = imagesResponse;
 
           setValue('imagePublicId', newImage.publicId);
           setImage(newImage);
@@ -40,6 +40,8 @@ const SkuUpdateImage = () => {
     maxFiles: 1,
     multiple: false,
   });
+
+  console.log(image)
 
   return (
     <>

@@ -1,3 +1,4 @@
+import { Separator } from '@/components/ui';
 import { useOrderStore } from '@/modules/order-mnt/store';
 import { formatWithCommas } from '@/utilities/func.util';
 import Image from 'next/image';
@@ -18,10 +19,10 @@ const OrderUpdateInvoice = () => {
               alt="product-image"
               className="rounded"
             />
-            <div className='w-full'>
-              <h3 className="font-semibold">{product.productName}</h3>
-              <p className="text-[12px] font-medium">{product.productType}</p>
-              <p className="text-[12px] font-medium">x{product.quantity}</p>
+            <div className="w-full">
+              <h3 className="font-semibold mb-1">{product.productName}</h3>
+              <p className="text-sm font-medium">{product.productType}</p>
+              <p className="text-sm font-medium">x{product.quantity}</p>
               <div className="flex items-center justify-end gap-3 w-full">
                 {product.unitPrice.special ? (
                   <>
@@ -37,6 +38,22 @@ const OrderUpdateInvoice = () => {
             </div>
           </div>
         ))}
+        <Separator className="my-5" />
+        <div className="flex items-center justify-between mb-2">
+          <h5 className="font-medium text-md">Phí vận chuyển</h5>
+          <span className="font-semibold text-red text-md">
+            {formatWithCommas(order?.shipping.fee)}
+          </span>
+        </div>
+        <div className="flex items-center justify-between">
+          <h5 className="font-medium text-md">Phụ phí</h5>
+          <span className="font-semibold text-red text-md">0 ₫</span>
+        </div>
+        <Separator className="my-5" />
+        <div className="flex items-center justify-between">
+          <h5 className="font-bold text-lg">Thành tiền</h5>
+          <h5 className="font-bold text-lg">{formatWithCommas(order?.totalPrice)}</h5>
+        </div>
       </>
     )
   );

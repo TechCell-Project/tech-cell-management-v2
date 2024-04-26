@@ -2,22 +2,24 @@ import {
   DistrictLevel,
   ProvinceLevel,
   UserAddressSchema,
-  UserAddressSchemaTypeEnum,
   WardLevel,
 } from '@techcell/node-sdk';
 
 export class Address implements UserAddressSchema {
-  type: UserAddressSchemaTypeEnum = UserAddressSchemaTypeEnum.Home;
+  type = '';
   customerName = '';
   phoneNumbers = '';
   provinceLevel: ProvinceLevel = {
     provinceId: 0,
+    provinceName: '',
   };
   districtLevel: DistrictLevel = {
     districtId: 0,
+    districtName: '',
   };
   wardLevel: WardLevel = {
     wardCode: '',
+    wardName: '',
   };
   detail = '';
   isDefault = false;

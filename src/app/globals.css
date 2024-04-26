@@ -96,4 +96,8 @@
     pointer-events: none;
     display: none;
   }
+
+  .text-red {
+    color: #ee4949;
+  }
 }

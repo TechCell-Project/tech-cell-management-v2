@@ -1507,12 +1507,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@techcell/node-sdk@npm:0.0.1-ae9efb9":
-  version: 0.0.1-ae9efb9
-  resolution: "@techcell/node-sdk@npm:0.0.1-ae9efb9"
+"@techcell/node-sdk@npm:0.0.1-9023e0d":
+  version: 0.0.1-9023e0d
+  resolution: "@techcell/node-sdk@npm:0.0.1-9023e0d"
   dependencies:
     axios: "npm:^1.6.1"
-  checksum: 10c0/34755c5d2fd0f39a5577492c9367759ce9313e5f8788322e38749a21c2dda63100defcf2f395792c85e612d99712cd0345295c03f604ac230eb23ae75f56e4d7
+  checksum: 10c0/e9d1196f976ef178eef5f8995bebbd7823cd64cc25120f592dedcf7f626db87e74df6ef2b6f04b66b3902f0e3e12f59b709b25992061da4a60549fa9fb30ed22
   languageName: node
   linkType: hard
 
@@ -6351,7 +6351,7 @@ __metadata:
     "@tanstack/eslint-plugin-query": "npm:^5.27.7"
     "@tanstack/react-query": "npm:^5.28.4"
     "@tanstack/react-table": "npm:^8.15.0"
-    "@techcell/node-sdk": "npm:0.0.1-ae9efb9"
+    "@techcell/node-sdk": "npm:0.0.1-9023e0d"
     "@tiptap/extension-image": "npm:^2.3.0"
     "@tiptap/extension-text-align": "npm:^2.3.0"
     "@tiptap/pm": "npm:^2.3.0"

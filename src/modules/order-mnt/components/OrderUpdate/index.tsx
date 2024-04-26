@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import OrderUpdateInfo from './OrderUpdateInfo';
 import OrderUpdateInvoice from './OrderUpdateInvoice';
 import { Routes } from '@/constants/enum';
+import OrderUpdateProcess from './OrderUpdateProcess';
 
 export const OrderUpdate = ({ id }: { id: string }) => {
   const { order, getOneSuccess, resetOne } = useOrderStore();
@@ -86,11 +87,13 @@ export const OrderUpdate = ({ id }: { id: string }) => {
             <div className="col-span-2">
               <OrderUpdateInfo />
             </div>
-            <div>
+            <div className='col-span-1 border-bg h-full border-s-[1px] pl-8'>
               <OrderUpdateInvoice />
             </div>
           </div>
-          {/* <Separator className="my-7" /> */}
+          <Separator className="my-7" />
+
+          <OrderUpdateProcess />
 
           <div className="w-full flex justify-end gap-4 mt-7">
             <Button variant="ghost" type="button" onClick={() => router.back()}>
