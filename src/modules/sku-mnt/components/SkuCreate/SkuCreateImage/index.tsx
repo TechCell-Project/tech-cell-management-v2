@@ -27,10 +27,8 @@ const SkuCreateImage = () => {
 
         const { data: imagesResponse, status } = await postImagesApi(formData);
         if (status === HttpStatusCode.Created) {
-          const newImage: ImageObj = imagesResponse.data[0];
-
-          setValue('imagePublicId', newImage.publicId);
-          setImage(newImage);
+          setValue('imagePublicId', imagesResponse[0].publicId);
+          setImage(imagesResponse[0]);
           setLoading(false);
         }
       })();
@@ -46,13 +44,7 @@ const SkuCreateImage = () => {
         {image && !loading && (
           <div className="flex flex-col">
             <div className="h-24 w-24 relative content-center">
-              <Image
-                width={96}
-                height={96}
-                loading="lazy"
-                src={image.url}
-                alt="image-sku"
-              />
+              <Image width={96} height={96} loading="lazy" src={image.url} alt="image-sku" />
             </div>
 
             <div className="flex items-center justify-center gap-1 mt-2">

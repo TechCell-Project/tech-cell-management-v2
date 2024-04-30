@@ -52,36 +52,39 @@ export const AttributeUpdate = memo(
     });
 
     return (
-      <DialogDisplay trigger={trigger} title="Cập nhật thông số" open={open} setOpen={setOpen}>
-        <Form {...updateAttributeForm}>
-          <form className="mt-3">
-            <TextInput<AttributeUpdateDto> label="Tên thương hiệu" name="name" className="mb-3" />
-            <TextInput<AttributeUpdateDto> label="Mô tả" name="description" className="mb-3" />
+      attribute && (
+        <DialogDisplay trigger={trigger} title="Cập nhật thông số" open={open} setOpen={setOpen}>
+          <Form {...updateAttributeForm}>
+            <form className="mt-3">
+              <TextInput<AttributeUpdateDto> label="Tên thương hiệu" name="name" className="mb-3" />
+              <TextInput<AttributeUpdateDto> label="Đơn vị" name="unit" className="mb-3" />
+              <TextInput<AttributeUpdateDto> label="Mô tả" name="description" className="mb-3" />
 
-            <SelectInput<AttributeUpdateDto>
-              label="Trạng thái"
-              name="status"
-              options={OPTIONS_STATUS_3}
-            />
+              <SelectInput<AttributeUpdateDto>
+                label="Trạng thái"
+                name="status"
+                options={OPTIONS_STATUS_3}
+              />
 
-            <div className="w-full flex justify-end gap-4 mt-7">
-              <Button variant="ghost" type="button" onClick={() => setOpen(false)}>
-                Đóng
-              </Button>
-              <Button
-                onClick={handleSubmit((data) => {
-                  const values = getFieldChanges(data, attribute);
-                  mutateAsync(values);
-                })}
-                variant="red"
-                isLoading={isSubmitting}
-              >
-                Xác nhận
-              </Button>
-            </div>
-          </form>
-        </Form>
-      </DialogDisplay>
+              <div className="w-full flex justify-end gap-4 mt-7">
+                <Button variant="ghost" type="button" onClick={() => setOpen(false)}>
+                  Đóng
+                </Button>
+                <Button
+                  onClick={handleSubmit((data) => {
+                    const values = getFieldChanges(data, attribute as any);
+                    return mutateAsync(values);
+                  })}
+                  variant="red"
+                  isLoading={isSubmitting}
+                >
+                  Xác nhận
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </DialogDisplay>
+      )
     );
   },
 );

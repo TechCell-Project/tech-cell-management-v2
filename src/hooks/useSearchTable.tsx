@@ -8,6 +8,7 @@ type UseSearchTable = {
   limit: string | null;
   filters: string | null;
   sorts: string | null;
+  getParams: string;
 };
 
 /**
@@ -39,5 +40,5 @@ export const useSearchTable = (): UseSearchTable => {
     }
   }, [page, limit, router, pathname, getParams]);
 
-  return { page, limit, filters, sorts };
+  return { page, limit, filters, sorts, getParams };
 };

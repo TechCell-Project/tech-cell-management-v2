@@ -1,6 +1,5 @@
 import { TextDisplay } from '@/components/common/display';
 import { Separator } from '@/components/ui';
-import { convertTypeAddress } from '@/utilities/convert.util';
 import { useAuthStore } from '~auth/store';
 
 export const AddressInfo = () => {
@@ -16,7 +15,7 @@ export const AddressInfo = () => {
             <>
               <Separator className="my-6" />
               <div className="grid grid-cols-2 gap-x-5 gap-y-1" key={add.type}>
-                <TextDisplay label="Loại" content={convertTypeAddress[add.type]} />
+                <TextDisplay label="Loại" content={add.type} />
                 <TextDisplay label="Tên" content={add.customerName} />
                 {/* <TextDisplay label="SĐT" content={add.phoneNumbers} /> */}
                 <TextDisplay label="Chi tiết" content={add.detail} />

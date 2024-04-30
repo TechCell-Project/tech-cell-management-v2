@@ -3,6 +3,7 @@ import {
   CreateBrandDtoStatusEnum,
   CreateSkuDtoStatusEnum,
   FilterAttributeDtoStatusEnum,
+  FilterOrdersMntDtoSelectTypeEnum,
   UserRoleEnum,
 } from '@techcell/node-sdk';
 
@@ -114,5 +115,20 @@ export const OPTIONS_STATUS_4: Options<string>[] = [
   {
     label: 'Newly Released',
     value: CreateSkuDtoStatusEnum.NewlyReleased,
+  },
+];
+
+export const OPTIONS_SELECT_ORDER: Options<string>[] = [
+  {
+    label: FilterOrdersMntDtoSelectTypeEnum.Both,
+    value: FilterOrdersMntDtoSelectTypeEnum.Both,
+  },
+  {
+    label: FilterOrdersMntDtoSelectTypeEnum.OnlyJoined,
+    value: FilterOrdersMntDtoSelectTypeEnum.OnlyJoined,
+  },
+  {
+    label: FilterOrdersMntDtoSelectTypeEnum.OnlyNeed,
+    value: FilterOrdersMntDtoSelectTypeEnum.OnlyNeed,
   },
 ];

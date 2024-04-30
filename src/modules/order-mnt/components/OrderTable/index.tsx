@@ -8,12 +8,19 @@ import { getListOrderApi } from '../../apis';
 import { useEffect, useMemo } from 'react';
 import { DataTable } from '@/components/common/data-table';
 import { columns } from './columns';
-import { FilterOrdersMntDto } from '@techcell/node-sdk';
+import {
+  FilterOrdersMntDto,
+  FilterOrdersMntDtoSelectTypeEnum,
+  UserRoleEnum,
+} from '@techcell/node-sdk';
 import { useForm } from 'react-hook-form';
 import { Button, Form } from '@/components/ui';
-import { TextInput } from '@/components/common/form-handle';
+import { SelectInput, TextInput } from '@/components/common/form-handle';
+import { OPTIONS_SELECT_ORDER } from '@/constants/options';
+import { useAuthStore } from '@/modules/auth/store';
 
 export const OrderTable = () => {
+  const { user } = useAuthStore();
   const { listOrder, getListSuccess, reset } = useOrderStore();
   const { createQueryString } = useSearchQueryParams();
 
@@ -21,7 +28,7 @@ export const OrderTable = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const { page, limit, filters } = useSearchTable();
+  const { page, limit, filters, getParams } = useSearchTable();
 
   const filtersParsed = useMemo(() => {
     if (filters) {
@@ -37,6 +44,13 @@ export const OrderTable = () => {
     queryKey: ['orders', page, limit, filters],
     queryFn: () => {
       if (page && limit) {
+        if (filtersParsed?.selectType === FilterOrdersMntDtoSelectTypeEnum.OnlyNeed) {
+          return getListOrderApi(
+            searchParams.toString() +
+              '&sort=' +
+              JSON.stringify([{ order: 'asc', orderBy: 'createdAt' }]),
+          );
+        }
         return getListOrderApi(searchParams.toString());
       }
     },
@@ -45,6 +59,7 @@ export const OrderTable = () => {
   const searchOrderForm = useForm<FilterOrdersMntDto>({
     defaultValues: {
       keyword: filtersParsed?.keyword ?? undefined,
+      selectType: filtersParsed?.selectType ?? undefined,
     },
   });
 
@@ -54,6 +69,15 @@ export const OrderTable = () => {
   } = searchOrderForm;
 
   useEffect(() => {
+    if (user?.user.role === UserRoleEnum.Accountant) {
+      router.replace(
+        pathname +
+          '?' +
+          getParams +
+          '&filters=' +
+          JSON.stringify({ selectType: 'allForAccountant' }),
+      );
+    }
     return () => {
       reset();
     };
@@ -76,6 +100,21 @@ export const OrderTable = () => {
         >
           <div className="grid grid-cols-4 gap-x-5 gap-y-4 items-end">
             <TextInput<FilterOrdersMntDto> label="Từ khóa" name="keyword" />
+            <SelectInput<FilterOrdersMntDto>
+              label="TT đơn hàng"
+              name="selectType"
+              options={
+                user?.user.role === UserRoleEnum.Accountant
+                  ? [
+                      ...OPTIONS_SELECT_ORDER,
+                      {
+                        label: FilterOrdersMntDtoSelectTypeEnum.AllForAccountant,
+                        value: FilterOrdersMntDtoSelectTypeEnum.AllForAccountant,
+                      },
+                    ]
+                  : OPTIONS_SELECT_ORDER
+              }
+            />
 
             <Button variant="redLight" className="w-min" isLoading={isSubmitting} type="submit">
               Tìm kiếm

@@ -12,7 +12,7 @@ import { useFormContext } from 'react-hook-form';
 
 const SkuUpdateImage = () => {
   const { sku } = useSkuStore();
-  const { setValue } = useFormContext<UpdateSkuDto>();
+  const { setValue, watch } = useFormContext<UpdateSkuDto>();
 
   const [loading, setLoading] = useState<boolean>(false);
   const [image, setImage] = useState<ImageObj | undefined>(sku?.image);
@@ -29,10 +29,9 @@ const SkuUpdateImage = () => {
 
         const { data: imagesResponse, status } = await postImagesApi(formData);
         if (status === HttpStatusCode.Created) {
-          const newImage: ImageObj = imagesResponse.data[0];
 
-          setValue('imagePublicId', newImage.publicId);
-          setImage(newImage);
+          setValue('imagePublicId', imagesResponse[0].publicId);
+          setImage(imagesResponse[0]);
           setLoading(false);
         }
       })();
@@ -40,6 +39,7 @@ const SkuUpdateImage = () => {
     maxFiles: 1,
     multiple: false,
   });
+
 
   return (
     <>

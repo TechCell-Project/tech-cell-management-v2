@@ -61,7 +61,7 @@ export const SkuCreate = () => {
             }
             return attr;
           });
-          mutateAsync({ ...data, attributes: filterAttr });
+          return mutateAsync({ ...data, attributes: filterAttr });
         })}
         className={`rounded-md border py-5 px-6 ${theme === 'light' && 'bg-white'}`}
       >

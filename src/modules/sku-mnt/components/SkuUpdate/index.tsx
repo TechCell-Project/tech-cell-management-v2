@@ -14,11 +14,12 @@ import SkuUpdateInfo from './SkuUpdateInfo';
 import SkuUpdateImage from './SkuUpdateImage';
 import SkuUpdateAdditional from './SkuUpdateAdditional';
 import { getFieldChanges } from '@/utilities/func.util';
+import SkuUpdateAttribute from './SkuUpdateAttribute';
 
 export const SkuUpdate = ({ id }: { id: string }) => {
   const { sku, getOneSuccess, resetOne } = useSkuStore();
 
-  const { listSpu, listTag } = useFetchOptionData();
+  const { listSpu, listTag, listAttribute } = useFetchOptionData();
 
   const { toast } = useToast();
   const { theme } = useTheme();
@@ -77,12 +78,14 @@ export const SkuUpdate = ({ id }: { id: string }) => {
               delete newValue.attributes;
             }
 
-            mutateAsync(newValue as Partial<UpdateSkuDto>);
+            return mutateAsync(newValue as Partial<UpdateSkuDto>);
           })}
         >
           <SkuUpdateImage />
           <Separator className="my-7" />
           <SkuUpdateInfo listSpu={listSpu} />
+          <Separator className="my-7" />
+          <SkuUpdateAttribute listAttribute={listAttribute} />
           <Separator className="my-7" />
           <SkuUpdateAdditional listTag={listTag} />
 

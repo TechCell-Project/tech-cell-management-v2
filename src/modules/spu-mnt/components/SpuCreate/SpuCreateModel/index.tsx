@@ -137,7 +137,7 @@ const SpuCreateModel = memo(({ trigger, append, listAttribute }: SpuCreateModelP
             <RichTextInput<SPUModelSchemaDto> label="Mô tả" name="description" />
           </div>
 
-          <div className="w-full flex justify-end gap-4">
+          <div className="w-full flex justify-end gap-4 mt-7">
             <Button variant="ghost" type="button" onClick={() => setOpen(false)}>
               Quay lại
             </Button>
