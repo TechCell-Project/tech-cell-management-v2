@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import { AuthState, AuthStore } from './type';
-import { getOneSessionStorage, removeOneSessionStorage } from '@/utilities/session.util';
 import { AuthLoginResponse } from '../models';
 import { logoutApi } from '../apis';
+import { getOneLocalStorage, removeOneLocalStorage } from '@/utilities/local';
 
 const initialState: AuthState = {
   user: undefined,
@@ -34,14 +34,14 @@ export const useAuthStore = create<AuthStore>()(
     logout: () => {
       set(initialState);
       logoutApi().then(() => {
-        removeOneSessionStorage('user');
+        removeOneLocalStorage('user');
       });
     },
   })),
 );
 
 export const rehydrateAuthState = () => {
-  const user = getOneSessionStorage<AuthLoginResponse>('user', 'object');
+  const user = getOneLocalStorage<AuthLoginResponse>('user', 'object');
   if (user) {
     useAuthStore.setState({
       isLoading: false,

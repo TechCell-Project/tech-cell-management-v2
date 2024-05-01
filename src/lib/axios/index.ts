@@ -1,7 +1,7 @@
 import axios, { HttpStatusCode, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
-import { getOneSessionStorage, setOneSessionStorage } from '@/utilities/session.util';
 import { AuthLoginResponse } from '~auth/models';
 import { refreshApi } from '@/modules/auth/apis';
+import { getOneLocalStorage, setOneLocalStorage } from '@/utilities/local';
 
 export const axiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API,
@@ -10,7 +10,7 @@ export const axiosInstance: AxiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const user = getOneSessionStorage<AuthLoginResponse>('user', 'object');
+    const user = getOneLocalStorage<AuthLoginResponse>('user', 'object');
 
     if (user) {
       config.headers.Authorization = `Bearer ${(user as AuthLoginResponse).accessToken}`;
@@ -27,13 +27,13 @@ axiosInstance.interceptors.response.use(
     const status = error.response?.status;
 
     if (status === HttpStatusCode.Unauthorized) {
-      const user = getOneSessionStorage<AuthLoginResponse>('user', 'object');
+      const user = getOneLocalStorage<AuthLoginResponse>('user', 'object');
 
       if (user) {
         try {
           const { data } = await refreshApi((user as AuthLoginResponse).refreshToken);
 
-          setOneSessionStorage<AuthLoginResponse>('user', {
+          setOneLocalStorage<AuthLoginResponse>('user', {
             ...(user as AuthLoginResponse),
             accessToken: data.accessToken,
             refreshToken: data.refreshToken,

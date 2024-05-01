@@ -5,4 +5,10 @@ export class AuthLoginResponse {
   accessTokenExpires: number = 0;
   refreshToken: string = '';
   user: User = new User();
+
+  constructor(data?: AuthLoginResponse) {
+    if (data) {
+      Object.assign(this, data);
+    }
+  }
 }

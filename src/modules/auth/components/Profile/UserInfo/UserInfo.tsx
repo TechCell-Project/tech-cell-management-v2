@@ -7,7 +7,6 @@ import { Button, Form, Separator, useToast } from '@/components/ui';
 import { convertRoleViVN } from '@/utilities/convert.util';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { updateInfoValidateSchema } from './validate-schema';
-import { setOneSessionStorage } from '@/utilities/session.util';
 import { TextInput } from '@/components/common/form-handle';
 import { useMutation } from '@tanstack/react-query';
 import { AuthLoginResponse, AuthUpdate, AuthUpdateInfo } from '~auth/models';
@@ -17,6 +16,7 @@ import { CircleCheckBig } from 'lucide-react';
 import { FORMAT_DATE } from '@/constants/utils';
 import { getFieldChanges } from '@/utilities/func.util';
 import { UserAvatar } from './UserAvatar';
+import { setOneLocalStorage } from '@/utilities/local';
 
 export const UserInfo = () => {
   const { user: sessionUser, setUser } = useAuthStore();
@@ -42,7 +42,7 @@ export const UserInfo = () => {
         .then(({ data }) => {
           const userSave: AuthLoginResponse = { ...(sessionUser as AuthLoginResponse), user: data };
           setUser(userSave);
-          setOneSessionStorage<AuthLoginResponse>('user', userSave);
+          setOneLocalStorage<AuthLoginResponse>('user', userSave);
         })
         .catch(() => {
           throw new Error();

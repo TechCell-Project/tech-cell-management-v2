@@ -11,7 +11,6 @@ import { useMutation } from '@tanstack/react-query';
 import { AuthLogin } from '~auth/models';
 import { loginApi } from '~auth/apis';
 import { useAuthStore } from '~auth/store';
-import { setOneSessionStorage } from '@/utilities/session.util';
 import { ForgotPassword } from '../ForgotPassword';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -19,6 +18,7 @@ import { Routes } from '@/constants/enum';
 import LoadingPage from '@/app/loading';
 import { loginValidateSchema } from './validate-schema';
 import { UserRoleEnum } from '@techcell/node-sdk';
+import { setOneLocalStorage } from '@/utilities/local';
 
 export const SignIn = () => {
   const { toast } = useToast();
@@ -53,7 +53,7 @@ export const SignIn = () => {
         });
       } else {
         setUser(data);
-        setOneSessionStorage('user', data);
+        setOneLocalStorage('user', data);
 
         toast({
           variant: 'success',

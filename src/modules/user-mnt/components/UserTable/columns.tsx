@@ -4,11 +4,11 @@ import { ColumnDef } from '@tanstack/react-table';
 import type { User } from '~user-mnt/models';
 import { Button } from '@/components/ui';
 import { CircleCheckBig, MoreHorizontal } from 'lucide-react';
-import { getOneSessionStorage } from '@/utilities/session.util';
 import { AuthLoginResponse } from '~auth/models';
 import { columnsAction } from './columns-action';
+import { getOneLocalStorage } from '@/utilities/local';
 
-const user = getOneSessionStorage<AuthLoginResponse>('user', 'object');
+const user = getOneLocalStorage<AuthLoginResponse>('user', 'object');
 
 export const columns: ColumnDef<User>[] = [
   {

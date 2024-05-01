@@ -2,12 +2,12 @@ import { DropdownDisplayItemProps } from '@/components/common/display';
 import { Sku } from '../../models';
 import Link from 'next/link';
 import { Routes } from '@/constants/enum';
-import { getOneSessionStorage } from '@/utilities/session.util';
 import { AuthLoginResponse } from '@/modules/auth/models';
 import { UserRoleEnum } from '@techcell/node-sdk';
 import SkuCreateSerials from '../SkuCreateSerials';
+import { getOneLocalStorage } from '@/utilities/local';
 
-const user = getOneSessionStorage<AuthLoginResponse>('user', 'object');
+const user = getOneLocalStorage<AuthLoginResponse>('user', 'object');
 
 export const columnsAction = (sku: Sku): DropdownDisplayItemProps[] => {
   const createSerialAction: DropdownDisplayItemProps = {
