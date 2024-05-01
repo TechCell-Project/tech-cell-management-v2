@@ -10,8 +10,8 @@ import { HttpStatusCode } from 'axios';
 import { patchMeApi } from '~auth/apis';
 import { memo } from 'react';
 import { AuthLoginResponse } from '~auth/models';
-import { setOneSessionStorage } from '@/utilities/session.util';
 import HashLoader from 'react-spinners/HashLoader';
+import { setOneLocalStorage } from '@/utilities/local';
 
 export const UserAvatar = memo(() => {
   const { user: sessionUser, setUser, fetching, fetched, isLoading } = useAuthStore();
@@ -35,7 +35,7 @@ export const UserAvatar = memo(() => {
             user: userResponse,
           };
 
-          setOneSessionStorage<AuthLoginResponse>('user', newUser);
+          setOneLocalStorage<AuthLoginResponse>('user', newUser);
           setUser(newUser);
 
           toast({
