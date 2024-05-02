@@ -6,13 +6,15 @@ import { getOneOrderApi } from '../../apis';
 import { Button, Separator, useToast } from '@/components/ui';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import OrderUpdateInfo from './OrderUpdateInfo';
 import OrderUpdateInvoice from './OrderUpdateInvoice';
 import { Routes } from '@/constants/enum';
 import OrderUpdateProcess from './OrderUpdateProcess';
 import { OrderOrderStatusEnum } from '@techcell/node-sdk';
 import OrderUpdateConfirm from './OrderUpdateConfirm';
+import { ProcessShipping } from '@/constants/utils';
+import { convertOrderStatus } from '@/utilities/convert.util';
 
 export const OrderUpdate = ({ id }: { id: string }) => {
   const { order, getOneSuccess, resetOne } = useOrderStore();
@@ -29,6 +31,10 @@ export const OrderUpdate = ({ id }: { id: string }) => {
     queryKey: ['order-update', id],
     queryFn: () => getOneOrderApi(id),
   });
+
+  const newStatus = useMemo(() => {
+    return ProcessShipping.findIndex((process) => process.label === order?.orderStatus);
+  }, [order]);
 
   if (dataDetails && isSuccess) {
     getOneSuccess(dataDetails.data);
@@ -68,15 +74,29 @@ export const OrderUpdate = ({ id }: { id: string }) => {
         <Button variant="ghost" type="button" onClick={() => router.back()}>
           Quay lại
         </Button>
+        {order?.orderStatus === OrderOrderStatusEnum.Pending && (
+          <OrderUpdateConfirm
+            trigger={
+              <Button variant="red" type="submit">
+                Từ chối
+              </Button>
+            }
+            newStatus={newStatus}
+            action='cancel-action'
+          />
+        )}
+
         {order?.orderStatus !== OrderOrderStatusEnum.Completed &&
           order?.orderStatus !== OrderOrderStatusEnum.Failed &&
           order?.orderStatus !== OrderOrderStatusEnum.Canceled && (
             <OrderUpdateConfirm
               trigger={
                 <Button variant="red" type="submit">
-                  Tiếp tục
+                  Tiến hành{' '}
+                  {convertOrderStatus?.[ProcessShipping[newStatus + 1].label].toLowerCase()}
                 </Button>
               }
+              newStatus={newStatus}
             />
           )}
       </div>

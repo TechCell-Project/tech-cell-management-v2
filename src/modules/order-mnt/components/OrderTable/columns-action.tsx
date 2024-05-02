@@ -20,7 +20,7 @@ export const columnsAction = (order: Order): DropdownDisplayItemProps[] => {
       },
     },
     {
-      content: <Link href={Routes.MntOrder + `/update?id=${order._id}`}>Cập nhật</Link>,
+      content: <Link href={Routes.MntOrder + `/update?id=${order._id}`}>Chi tiết</Link>,
       key: 'update-action',
       onClick: (e) => {
         e.preventDefault();

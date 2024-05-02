@@ -3,7 +3,6 @@
 import { rehydrateAuthState } from '~auth/store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactNode, useEffect } from 'react';
-// import { SocketProvider } from './SocketProvider';
 
 const MINUTE = 1000 * 60;
 
@@ -13,6 +12,7 @@ const queryClient = new QueryClient({
       gcTime: 10 * MINUTE,
       retry: 3,
       retryDelay: 2000,
+      refetchOnWindowFocus: false,
     },
   },
 });
@@ -31,10 +31,5 @@ export const AppProvider = ({ children }: Readonly<{ children: ReactNode }>): JS
     rehydrateAuthState();
   }, []);
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      {/* <SocketProvider>{children}</SocketProvider> */}
-      {children}
-    </QueryClientProvider>
-  );
+  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 };
