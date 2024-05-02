@@ -7,6 +7,7 @@ import { useAuthStore } from '@/modules/auth/store';
 import { UserRoleEnum } from '@techcell/node-sdk';
 import dynamic from 'next/dynamic';
 import { usePathname, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const SidebarDynamic = dynamic(() => import('@/components/navigation').then((res) => res.Sidebar), {
   ssr: false,
@@ -18,17 +19,21 @@ const DashboardLayout = ({ children }: Readonly<{ children: React.ReactNode }>) 
   const router = useRouter();
   const { user } = useAuthStore();
 
-  if (pathname !== Routes.Dashboard) {
-    return (
-      <ProtectedProvider>
-        <SidebarDynamic>{children}</SidebarDynamic>
-      </ProtectedProvider>
-    );
-  } else if (user?.user.role !== UserRoleEnum.Manager) {
-    router.push(Routes.MntOrder);
-  } else {
-    router.push(Routes.MntUserStaff);
-  }
+  useEffect(() => {
+    if (pathname === Routes.Dashboard) {
+      if (user?.user.role !== UserRoleEnum.Manager) {
+        router.replace(Routes.MntOrder);
+      } else {
+        router.replace(Routes.MntUserStaff);
+      }
+    }
+  }, [pathname, router, user?.user.role]);
+
+  return (
+    <ProtectedProvider>
+      <SidebarDynamic>{children}</SidebarDynamic>
+    </ProtectedProvider>
+  );
 };
 
 export default DashboardLayout;
