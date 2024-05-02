@@ -5,6 +5,7 @@ import { useSpuStore } from '@/modules/spu-mnt/store';
 import { SPUModelSchema } from '@techcell/node-sdk';
 import SpuUpdateAddModel from '../SpuUpdateAddModel';
 import { Button } from '@/components/ui';
+import SpuModelCreateUpdateModal from '../SpuModelCreateUpdateModal';
 
 const SpuUpdateModelTable = memo(() => {
   const { spu } = useSpuStore();
@@ -24,6 +25,7 @@ const SpuUpdateModelTable = memo(() => {
           </Button>
         }
       />
+      <SpuModelCreateUpdateModal />
     </>
   );
 });

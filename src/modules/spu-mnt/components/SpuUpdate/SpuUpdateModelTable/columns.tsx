@@ -1,9 +1,13 @@
-import { DropdownDisplay } from '@/components/common/display';
-import { Button } from '@/components/ui';
-import { ColumnDef } from '@tanstack/react-table';
-import { SPUModelSchemaDto } from '@techcell/node-sdk';
-import { MoreHorizontal } from 'lucide-react';
 import Image from 'next/image';
+
+import { Button } from '@/components/ui';
+import { DropdownDisplay } from '@/components/common/display';
+
+import { useSpuModelUpdateModal } from '@/modules/spu-mnt/hooks/useSpuModelUpdateModal';
+import { SPUModelSchemaDto } from '@techcell/node-sdk';
+import { ColumnDef } from '@tanstack/react-table';
+import { MoreHorizontal } from 'lucide-react';
+
 import SpuUpdateModel from '../SpuUpdateModel';
 
 export const columns: ColumnDef<SPUModelSchemaDto>[] = [
@@ -45,9 +49,7 @@ export const columns: ColumnDef<SPUModelSchemaDto>[] = [
           {
             content: <SpuUpdateModel model={row.original} trigger="Cập nhật" />,
             key: 'update-action',
-            onClick: (e) => {
-              e.preventDefault();
-            },
+            onClick: () => {},
           },
         ]}
       />
