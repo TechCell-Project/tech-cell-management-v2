@@ -127,7 +127,7 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
       >
         <div className="h-full pt-2 px-3 pb-4 overflow-y-auto bg-white dark:bg-[#09090b]">
           <ul className="space-y-2 font-medium">
-            <RenderRoutes routes={[...ROUTES, ...(routesForRole as NavLinkProps[])]} />
+            <RenderRoutes routes={routesForRole} />
           </ul>
           <Separator className="my-5" />
           <ul className="space-y-2 font-medium">

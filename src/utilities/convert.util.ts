@@ -22,20 +22,20 @@ export const convertBlockAction: FieldsString = {
 };
 
 export const convertOrderPaymentStatus: FieldsString = {
-  [PaymentSchemaStatusEnum.Pending]: 'Chưa xử lý',
+  [PaymentSchemaStatusEnum.Pending]: 'Chưa thanh toán',
   [PaymentSchemaStatusEnum.WaitForPayment]: 'Chưa thanh toán',
-  [PaymentSchemaStatusEnum.Completed]: 'Đã giao thành công',
+  [PaymentSchemaStatusEnum.Completed]: 'Đã thanh toán',
   [PaymentSchemaStatusEnum.Failed]: 'Đơn giao thất bại',
-  [PaymentSchemaStatusEnum.Processing]: 'Đang trên đường giao',
+  [PaymentSchemaStatusEnum.Processing]: 'Giao hàng',
   [PaymentSchemaStatusEnum.Canceled]: 'Đơn hàng bị huỷ',
 };
 
 export const convertOrderStatus: FieldsString = {
   [OrderOrderStatusEnum.Pending]: 'Chưa xử lý',
-  [OrderOrderStatusEnum.Confirmed]: 'Xác nhận',
+  [OrderOrderStatusEnum.Confirmed]: 'Xác nhận đơn',
   [OrderOrderStatusEnum.Preparing]: 'Chuẩn bị hàng',
-  [OrderOrderStatusEnum.Prepared]: 'Chờ giao đơn vị vận chuyển',
-  [OrderOrderStatusEnum.Shipping]: 'Đang trên đường giao',
+  [OrderOrderStatusEnum.Prepared]: 'Hoàn thành đóng hàng',
+  [OrderOrderStatusEnum.Shipping]: 'Giao hàng',
   [OrderOrderStatusEnum.Completed]: 'Đơn giao thành công',
   [OrderOrderStatusEnum.Failed]: 'Đơn giao thất bại',
   [OrderOrderStatusEnum.Canceled]: 'Đơn bị huỷ',

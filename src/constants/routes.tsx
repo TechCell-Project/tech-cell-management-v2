@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import { Routes } from './enum';
 import {
   LayoutDashboard,
-  ShoppingBasket,
   PanelsLeftBottom,
   CircleUserRound,
   UserRoundSearch,
