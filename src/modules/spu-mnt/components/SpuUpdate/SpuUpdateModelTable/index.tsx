@@ -3,11 +3,18 @@ import { DataTable } from '@/components/common/data-table';
 import { columns } from './columns';
 import { useSpuStore } from '@/modules/spu-mnt/store';
 import { SPUModelSchema } from '@techcell/node-sdk';
-import SpuUpdateAddModel from '../SpuUpdateAddModel';
 import { Button } from '@/components/ui';
+import SpuModelCreateUpdateModal from '../SpuUpdateModel/model-create-update-dialog';
+import { useSpuModelUpdateModal } from '@/modules/spu-mnt/hooks/useSpuModelUpdateModal';
 
 const SpuUpdateModelTable = memo(() => {
   const { spu } = useSpuStore();
+  const { setModel, onOpen } = useSpuModelUpdateModal();
+
+  const openAddModel = () => {
+    setModel(null);
+    onOpen();
+  };
 
   return (
     <>
@@ -17,13 +24,10 @@ const SpuUpdateModelTable = memo(() => {
         data={spu?.models as SPUModelSchema[]}
         isShowPagination={false}
       />
-      <SpuUpdateAddModel
-        trigger={
-          <Button type="button" className="mt-4" variant="redLight">
-            Thêm mẫu
-          </Button>
-        }
-      />
+      <Button type="button" className="mt-4" variant="redLight" onClick={openAddModel}>
+        Thêm mẫu
+      </Button>
+      <SpuModelCreateUpdateModal />
     </>
   );
 });

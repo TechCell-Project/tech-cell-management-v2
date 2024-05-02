@@ -24,6 +24,7 @@ import { ReactNode } from 'react';
 type DialogProps = {
   trigger: string | ReactNode;
   title: string | ReactNode;
+  description?: string;
   children: ReactNode;
   classContent?: string;
   classTrigger?: string;
@@ -45,6 +46,7 @@ export const DialogDisplay = ({
   classContent,
   children,
   title,
+  description,
   open,
   setOpen,
 }: DialogProps): JSX.Element => {
@@ -54,11 +56,13 @@ export const DialogDisplay = ({
       <DialogContent
         className={`${classContent} overflow-y-scroll overflow-x-hidden max-h-screen no-scrollbar`}
         onInteractOutside={(e) => e.preventDefault()}
+        onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{children}</DialogDescription>
+          {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
+        <div>{children}</div>
       </DialogContent>
     </Dialog>
   );

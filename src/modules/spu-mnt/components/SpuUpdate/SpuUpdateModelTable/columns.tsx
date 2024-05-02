@@ -1,10 +1,9 @@
-import { DropdownDisplay } from '@/components/common/display';
-import { Button } from '@/components/ui';
-import { ColumnDef } from '@tanstack/react-table';
-import { SPUModelSchemaDto } from '@techcell/node-sdk';
-import { MoreHorizontal } from 'lucide-react';
 import Image from 'next/image';
-import SpuUpdateModel from '../SpuUpdateModel';
+
+import { SPUModelSchemaDto } from '@techcell/node-sdk';
+import { ColumnDef } from '@tanstack/react-table';
+
+import { SpuUpdateModel } from '../SpuUpdateModel';
 
 export const columns: ColumnDef<SPUModelSchemaDto>[] = [
   {
@@ -12,6 +11,7 @@ export const columns: ColumnDef<SPUModelSchemaDto>[] = [
     header: 'Ảnh',
     cell: ({ row }) => {
       const src = row.original.images?.find((image) => image.isThumbnail);
+      console.log(row.original);
 
       return src ? (
         <Image
@@ -32,25 +32,6 @@ export const columns: ColumnDef<SPUModelSchemaDto>[] = [
   },
   {
     id: 'action',
-    cell: ({ row }) => (
-      <DropdownDisplay
-        trigger={
-          <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Open menu</span>
-            <MoreHorizontal className="h-4 w-4" />
-          </Button>
-        }
-        label="Thao tác"
-        items={[
-          {
-            content: <SpuUpdateModel model={row.original} trigger="Cập nhật" />,
-            key: 'update-action',
-            onClick: (e) => {
-              e.preventDefault();
-            },
-          },
-        ]}
-      />
-    ),
+    cell: ({ row }) => <SpuUpdateModel model={row.original} trigger="Cập nhật" />,
   },
 ];
