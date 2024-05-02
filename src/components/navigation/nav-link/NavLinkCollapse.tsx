@@ -26,7 +26,7 @@ export const NavLinkCollapse = memo(({ icon, title, childrenNav }: NavLinkProps)
         <ChevronDown size={15} />
       </button>
 
-      <ul id="nav-collapse" className={`${!openCollapse && 'hidden'} py-2 space-y-2`}>
+      <ul id="nav-collapse" className={`${!openCollapse && !childrenNav?.map((e) => e.href).includes(pathname) && 'hidden'} py-2 space-y-2`}>
         {childrenNav?.map((children) => (
           <li key={children.title}>
             <Link

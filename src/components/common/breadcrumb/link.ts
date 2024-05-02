@@ -59,10 +59,10 @@ const INVENTORY_MNT_ROUTES: LinksRouteType[] = [
 ];
 
 export const LINKS_ROUTE: LinksRouteType[] = [
-  {
-    href: Routes.Dashboard,
-    name: 'Trang chủ',
-  },
+  // {
+  //   href: Routes.Dashboard,
+  //   name: 'Trang chủ',
+  // },
   // {
   //   href: Routes.Product,
   //   name: 'Sản phẩm',

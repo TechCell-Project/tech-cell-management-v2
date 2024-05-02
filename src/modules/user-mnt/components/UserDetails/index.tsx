@@ -4,7 +4,7 @@ import { DialogDisplay, TextDisplay } from '@/components/common/display';
 import { UserActionProps } from '../../models';
 import { Button, Separator } from '@/components/ui';
 import { FORMAT_DATE } from '@/constants/utils';
-import { convertRoleViVN, convertTypeAddress } from '@/utilities/convert.util';
+import { convertRoleViVN } from '@/utilities/convert.util';
 
 export const UserDetails = memo(({ user, trigger }: UserActionProps) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -34,9 +34,9 @@ export const UserDetails = memo(({ user, trigger }: UserActionProps) => {
         <>
           {user.address?.map((add) => (
             <div className="grid grid-cols-2 gap-x-5 gap-y-1" key={add.type}>
-              <TextDisplay label="Loại" content={convertTypeAddress[add.type]} />
+              <TextDisplay label="Loại" content={add.type} />
               <TextDisplay label="Tên" content={add.customerName} />
-              {/* <TextDisplay label="SĐT" content={add.phoneNumbers} /> */}
+              <TextDisplay label="SĐT" content={add.phoneNumbers} />
               <TextDisplay label="Chi tiết" content={add.detail} />
             </div>
           ))}

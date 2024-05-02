@@ -61,7 +61,11 @@ export const SignIn = () => {
           description: 'Chào mừng bạn dến với Techcell Dashboard',
         });
 
-        push(Routes.Dashboard);
+        if (data.user.role === UserRoleEnum.Manager) {
+          push(Routes.MntUserStaff);
+        } else {
+          push(Routes.MntOrder);
+        }
       }
     },
     onError: (error) => {
