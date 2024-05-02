@@ -36,6 +36,7 @@ type TextInputProps<T extends FieldValues> = {
   name: FieldPath<T>;
   label: string;
   description?: string | ReactNode;
+  msgDirection?: 'top' | 'bottom';
   className?: string;
   inputAttributes?: InputHTMLAttributes<HTMLInputElement>;
   isDebounce?: boolean;
@@ -56,6 +57,7 @@ const TextInput = <T extends FieldValues>({
   name,
   label,
   description,
+  msgDirection = 'bottom',
   className,
   inputAttributes,
   isDebounce = false,
@@ -108,6 +110,7 @@ const TextInput = <T extends FieldValues>({
       render={({ field, fieldState: { error } }) => (
         <FormItem className={className}>
           <FormLabel className="text-[13px]">{label}</FormLabel>
+          {msgDirection === 'top' && <FormMessage className="text-[13px]" />}
           <FormControl>
             {!isDebounce ? (
               <Input
@@ -128,7 +131,7 @@ const TextInput = <T extends FieldValues>({
             )}
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
-          <FormMessage className="text-[13px]" />
+          {msgDirection === 'bottom' && <FormMessage className="text-[13px]" />}
         </FormItem>
       )}
     />

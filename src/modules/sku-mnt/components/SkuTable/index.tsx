@@ -11,6 +11,7 @@ import { columns } from './columns';
 import { Sku } from '../../models';
 import { AddToggle } from '@/components/utils';
 import { Routes } from '@/constants/enum';
+import SkuAddSerialsDialog from '../SkuCreateSerials/sku-add-serials-dialog';
 
 export const SkuTable = () => {
   const { listSku, getListSuccess, reset } = useSkuStore();
@@ -61,6 +62,8 @@ export const SkuTable = () => {
       />
 
       <AddToggle onClick={() => router.push(Routes.MntInventorySku + '/create')} />
+
+      <SkuAddSerialsDialog />
     </div>
   );
 };

@@ -7,13 +7,11 @@ import { ModelCreateUpdateForm } from './model-create-update-form';
 
 const SpuModelCreateUpdateModal = () => {
   const { model, isOpen, setModel, onClose } = useSpuModelUpdateModal();
-  
-  if (!model) return null;
 
   const handleClose = () => {
     setModel(null);
     onClose();
-  }
+  };
 
   return (
     <Modal
@@ -22,7 +20,7 @@ const SpuModelCreateUpdateModal = () => {
       onClose={handleClose}
       classContent="max-w-6xl"
     >
-      <ModelCreateUpdateForm model={model} handleCloseModel={handleClose} />
+      <ModelCreateUpdateForm model={model} handleCloseModal={handleClose} />
     </Modal>
   );
 };
