@@ -19,6 +19,7 @@ interface SkuAddSerialsFormProps {
 
 export const SkuAddSerialsForm = ({ sku, handleCloseModal }: SkuAddSerialsFormProps) => {
   const [isError, setIsError] = useState<boolean>(false);
+  const [haveDuplicateError, setHaveDuplicateError] = useState<boolean>(false);
   const [index, setIndex] = useState<number>(-1);
 
   const { toast } = useToast();
@@ -68,7 +69,13 @@ export const SkuAddSerialsForm = ({ sku, handleCloseModal }: SkuAddSerialsFormPr
       });
     },
   });
+
+  function hasDuplicates(arr: string[]): boolean {
+    return new Set(arr).size !== arr.length;
+  }
+
   const fieldWatch = watch(`serialNumbers.${index}.serial`);
+  const serialWatch = watch(`serialNumbers`);
 
   useEffect(() => {
     if (index >= 0) {
@@ -80,6 +87,15 @@ export const SkuAddSerialsForm = ({ sku, handleCloseModal }: SkuAddSerialsFormPr
       }
 
       if (!error) {
+        if (index >= 1) {
+          const isDuplicate = hasDuplicates(serialWatch.map((item) => item.serial));
+
+          if (isDuplicate) {
+            setHaveDuplicateError(true);
+            setIsError(true);
+            return;
+          }
+        }
         setIsError(false);
         return;
       }
@@ -91,6 +107,9 @@ export const SkuAddSerialsForm = ({ sku, handleCloseModal }: SkuAddSerialsFormPr
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fieldWatch, index]);
+
+  console.log(haveDuplicateError);
+
   return (
     <Form {...createSerialsForm}>
       <form className="mt-3">
@@ -122,6 +141,8 @@ export const SkuAddSerialsForm = ({ sku, handleCloseModal }: SkuAddSerialsFormPr
             </Fragment>
           ))}
         </div>
+
+        {haveDuplicateError && <p className="text-sm text-red mt-3">Số Serial không được trùng lặp</p>}
 
         <Button
           variant="redLight"
