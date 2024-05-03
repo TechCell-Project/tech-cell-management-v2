@@ -1,6 +1,14 @@
 'use client';
 
-import { FormControl, FormField, FormItem, FormLabel, MultiSelect } from '@/components/ui';
+import {
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  MultiSelect,
+} from '@/components/ui';
 import { FieldPath, FieldValues, useFormContext } from 'react-hook-form';
 
 type MultiSelectInputProps<T extends FieldValues, TOption extends FieldValues> = {
@@ -10,6 +18,9 @@ type MultiSelectInputProps<T extends FieldValues, TOption extends FieldValues> =
   options: TOption[];
   displayValue?: keyof TOption | string;
   displayLabel?: keyof TOption | string;
+  displayType?: 'items' | 'list';
+  elementLimit?: number;
+  description?: string;
 };
 
 export const MultiSelectInput = <T extends FieldValues, TOption extends FieldValues>({
@@ -19,9 +30,12 @@ export const MultiSelectInput = <T extends FieldValues, TOption extends FieldVal
   options,
   displayLabel,
   displayValue,
+  displayType,
+  elementLimit,
+  description,
 }: MultiSelectInputProps<T, TOption>) => {
   const { control } = useFormContext();
-  
+
   return (
     <FormField
       control={control}
@@ -36,8 +50,12 @@ export const MultiSelectInput = <T extends FieldValues, TOption extends FieldVal
               options={options}
               displayLabel={displayLabel as string}
               displayValue={displayValue as string}
+              displayType={displayType}
+              elementLimit={elementLimit}
             />
           </FormControl>
+          {description && <FormDescription>{description}</FormDescription>}
+          <FormMessage className="text-[13px]" />
         </FormItem>
       )}
     />

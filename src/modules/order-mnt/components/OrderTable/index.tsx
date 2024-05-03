@@ -101,7 +101,7 @@ export const OrderTable = () => {
           <div className="grid grid-cols-4 gap-x-5 gap-y-4 items-end">
             <TextInput<FilterOrdersMntDto> label="Từ khóa" name="keyword" />
             <SelectInput<FilterOrdersMntDto>
-              label="TT đơn hàng"
+              label="Tình trạng đơn hàng"
               name="selectType"
               options={
                 user?.user.role === UserRoleEnum.Accountant

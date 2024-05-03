@@ -2,7 +2,7 @@ import { DialogDisplay } from '@/components/common/display';
 import { Button, Form, useToast } from '@/components/ui';
 import { useOrderStore } from '~order-mnt/store';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ReactNode, memo, useEffect, useState } from 'react';
+import { ReactNode, memo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   OrderOrderStatusEnum,
@@ -10,21 +10,23 @@ import {
   UpdateOrderStatusDto,
   UpdateOrderStatusDtoOrderStatusEnum,
   UpdateSerialNumberDto,
-  UserRoleEnum,
 } from '@techcell/node-sdk';
 import { ProcessShipping } from '@/constants/utils';
 import { MultiSelectInput, TextareaInput } from '@/components/common/form-handle';
-import { updateOrderStatusSchema } from './validate-schema';
+import {
+  updateOrderStatusSchema,
+  updateOrderStatusWithSerialNumberSchema,
+} from './validate-schema';
 import { MoveRight } from 'lucide-react';
 import { convertOrderStatus } from '@/utilities/convert.util';
-import { useMutation, useQueries, useQuery } from '@tanstack/react-query';
+import { useMutation, useQueries } from '@tanstack/react-query';
 import { getOneOrderApi, patchOneOrderApi } from '~order-mnt/apis';
 import { useRouter } from 'next/navigation';
 import { Routes } from '@/constants/enum';
-import { useAuthStore } from '~auth/store';
 import { getListSkuSerialNumbersApi } from '@/modules/sku-mnt/apis';
 import { getSearchParams } from '@/utilities/func.util';
 import { PaginationResponse, SearchRequest } from '@/common/model';
+import Image from 'next/image';
 
 type OrderUpdateConfirmProps = {
   trigger: ReactNode;
@@ -38,9 +40,7 @@ const OrderUpdateConfirm = ({
   action = 'change-action',
 }: OrderUpdateConfirmProps) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [listSerials, setListSerials] = useState<any[]>([]);
 
-  const { user } = useAuthStore();
   const order = useOrderStore((state) => state.order);
   const getOneSuccess = useOrderStore((state) => state.getOneSuccess);
 
@@ -48,7 +48,11 @@ const OrderUpdateConfirm = ({
   const router = useRouter();
 
   const updateStatusOrderForm = useForm<UpdateOrderStatusDto>({
-    resolver: yupResolver(updateOrderStatusSchema),
+    resolver: yupResolver(
+      order?.orderStatus === OrderOrderStatusEnum.Preparing
+        ? updateOrderStatusWithSerialNumberSchema
+        : updateOrderStatusSchema,
+    ),
     values: {
       orderStatus:
         action === 'change-action'
@@ -69,34 +73,23 @@ const OrderUpdateConfirm = ({
     getValues,
   } = updateStatusOrderForm;
 
-  // useEffect(() => {
-  //   if (order) {
-  //     order.products.map((product) => {
-  //       getListSkuSerialNumbersApi(product.skuId, getSearchParams(new SearchRequest(1, 100))).then(
-  //         ({ data }) => setListSerials((prev) => [...prev, data]),
-  //       );
-  //     });
-  //   }
-  // }, [order]);
-
-  // console.log(listSerials)
-
-  // const combinedQueries = useQueries({
-  //   queries: (watch('updateSerialNumbers') as any)?.map((product: UpdateSerialNumberDto) => ({
-  //     queryKey: ['sku-serial-numbers', product.skuId],
-  //     queryFn: () =>
-  //       getListSkuSerialNumbersApi(product.skuId, getSearchParams(new SearchRequest(1, 100))),
-  //   })),
-  //   combine: (results) => {
-  //     return {
-  //       data: results.map(
-  //         (result: any) => (result.data.data as PaginationResponse<SerialNumber>).data,
-  //       ),
-  //       pending: results.some((result) => result.isPending),
-  //       count: results.length,
-  //     };
-  //   },
-  // });
+  const combinedQueries = useQueries({
+    queries: (getValues('updateSerialNumbers') as unknown as UpdateSerialNumberDto[])?.map(
+      (product: UpdateSerialNumberDto) => ({
+        queryKey: ['sku-serial-numbers', product.skuId],
+        queryFn: () =>
+          getListSkuSerialNumbersApi(product.skuId, getSearchParams(new SearchRequest(1, 50))),
+      }),
+    ),
+    combine: (results) => {
+      return {
+        listSerials: results.map(
+          (result: any) => (result.data?.data as PaginationResponse<SerialNumber>)?.data,
+        ),
+        pending: results.some((result) => result.isPending),
+      };
+    },
+  });
 
   const { mutateAsync } = useMutation({
     mutationFn: (values: UpdateOrderStatusDto) => patchOneOrderApi(order?._id as string, values),
@@ -135,22 +128,21 @@ const OrderUpdateConfirm = ({
       open={open}
       setOpen={setOpen}
       title="Cập nhật đơn hàng"
-      classContent="max-w-xl"
+      classContent="max-w-2xl"
     >
       <Form {...updateStatusOrderForm}>
         <form
           onSubmit={handleSubmit((data) => {
-            if (
-              user?.user.role !== UserRoleEnum.Sales &&
-              order?.orderStatus === OrderOrderStatusEnum.Pending
-            ) {
-              toast({
-                variant: 'destructive',
-                content: 'Tài khoản không có quyền',
-                description: 'Hãy dùng tài khoản nhân viên bán hàng!',
-              });
-              return;
+            if (order?.orderStatus !== OrderOrderStatusEnum.Preparing) {
+              delete data.updateSerialNumbers;
             }
+            // if(data.updateSerialNumbers) {
+            //   const matchSerials = data.updateSerialNumbers.map((serial, i) => {
+            //     if(serial.serialNumbers.length !== order?.products[i].quantity) {
+
+            //     }
+            //   })
+            // }
             return mutateAsync(data);
           })}
           className="mt-3"
@@ -164,9 +156,31 @@ const OrderUpdateConfirm = ({
             </div>
           )}
           {order?.orderStatus === OrderOrderStatusEnum.Preparing &&
-            getValues('updateSerialNumbers')?.map((product) => (
-              <div key={product.skuId}>
-                {/* <MultiSelectInput<UpdateOrderStatusDto> label=''/> */}
+            getValues('updateSerialNumbers')?.map((product, i) => (
+              <div key={product.skuId} className="py-3 grid grid-cols-6 gap-x-5 gap-y-3">
+                <div className="col-span-1">
+                  <Image
+                    width={90}
+                    height={90}
+                    src={order?.products[i]?.image?.url ?? 'https://github.com/shadcn.png'}
+                    alt="product-image"
+                    className="rounded"
+                  />
+                </div>
+                <div className="col-span-5">
+                  <h5 className="font-semibold text-sm">
+                    {order?.products[i].productName}, x{order?.products[i].quantity}
+                  </h5>
+                  <MultiSelectInput<UpdateOrderStatusDto, SerialNumber>
+                    label="Số serial"
+                    name={`updateSerialNumbers.${i}.serialNumbers`}
+                    options={combinedQueries?.listSerials[i]}
+                    displayLabel="number"
+                    displayValue="number"
+                    displayType="list"
+                    elementLimit={order?.products[i].quantity}
+                  />
+                </div>
               </div>
             ))}
           <TextareaInput<UpdateOrderStatusDto>
