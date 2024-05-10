@@ -10,8 +10,6 @@ type FieldsString = { [key: string]: string };
 export const convertRoleViVN: FieldsString = {
   [UserRoleEnum.Customer]: 'Khách hàng',
   [UserRoleEnum.Manager]: 'Quản lý',
-  [UserRoleEnum.Accountant]: 'Kế toán',
-  [UserRoleEnum.DataEntry]: 'Nhân viên nhập liệu',
   [UserRoleEnum.Sales]: 'Nhân viên bán hàng',
   [UserRoleEnum.Warehouse]: 'Nhân viên kho',
 };

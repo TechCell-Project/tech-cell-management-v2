@@ -3,10 +3,8 @@
 import { ReactNode, useMemo, useState } from 'react';
 import { Routes } from '@/constants/enum';
 import {
-  DATA_ENTRY_ROUTES,
   MANAGER_ROUTES,
   NavLinkProps,
-  ROUTES,
   ROUTES_UTILS,
   SALE_ROUTES,
   WAREHOUSE_ROUTES,
@@ -60,12 +58,10 @@ export const Sidebar = ({ children }: Readonly<{ children: ReactNode }>) => {
     switch (user?.user.role) {
       case UserRoleEnum.Manager:
         return MANAGER_ROUTES;
-      case UserRoleEnum.DataEntry:
-        return [...DATA_ENTRY_ROUTES, ...WAREHOUSE_ROUTES];
       case UserRoleEnum.Warehouse:
         return [...WAREHOUSE_ROUTES, ...SALE_ROUTES];
       default:
-        return SALE_ROUTES
+        return SALE_ROUTES;
     }
   }, [user]);
 

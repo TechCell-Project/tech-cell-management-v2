@@ -57,7 +57,7 @@ const OrderUpdateConfirm = ({
       orderStatus:
         action === 'change-action'
           ? (ProcessShipping[newStatus + 1].label as unknown as UpdateOrderStatusDtoOrderStatusEnum)
-          : UpdateOrderStatusDtoOrderStatusEnum.Canceled,
+          : UpdateOrderStatusDtoOrderStatusEnum.Failed,
       note: '',
       updateSerialNumbers:
         order?.products.map((product) => ({

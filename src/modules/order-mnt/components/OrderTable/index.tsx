@@ -69,13 +69,13 @@ export const OrderTable = () => {
   } = searchOrderForm;
 
   useEffect(() => {
-    if (user?.user.role === UserRoleEnum.Accountant) {
+    if (user?.user.role === UserRoleEnum.Sales) {
       router.replace(
         pathname +
           '?' +
           getParams +
           '&filters=' +
-          JSON.stringify({ selectType: 'allForAccountant' }),
+          JSON.stringify({ selectType: 'all' }),
       );
     }
     return () => {
@@ -104,12 +104,12 @@ export const OrderTable = () => {
               label="Tình trạng đơn hàng"
               name="selectType"
               options={
-                user?.user.role === UserRoleEnum.Accountant
+                user?.user.role === UserRoleEnum.Sales
                   ? [
                       ...OPTIONS_SELECT_ORDER,
                       {
-                        label: FilterOrdersMntDtoSelectTypeEnum.AllForAccountant,
-                        value: FilterOrdersMntDtoSelectTypeEnum.AllForAccountant,
+                        label: FilterOrdersMntDtoSelectTypeEnum.All,
+                        value: FilterOrdersMntDtoSelectTypeEnum.All,
                       },
                     ]
                   : OPTIONS_SELECT_ORDER

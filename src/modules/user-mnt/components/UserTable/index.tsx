@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getListUserApi } from '../../apis';
 import { useEffect, useMemo } from 'react';
-import { User, UserSearch } from '../../models';
+import { UserSearch } from '../../models';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useUserStore } from '../../store';
 import { getSearchParams } from '@/utilities/func.util';
