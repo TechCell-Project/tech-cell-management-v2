@@ -14,7 +14,7 @@ import { patchOneSpuModelApi, postOneSpuModelApi } from '@/modules/spu-mnt/apis'
 import { useAttributeStore } from '@/modules/attribute-mnt/store';
 
 import SpuCreateModelImage from '../../SpuCreate/SpuCreateModel/SpuCreateModelImage';
-import { convertSlugify } from '@/utilities/func.util';
+import { convertSlugify, getFieldChanges } from '@/utilities/func.util';
 import { SPUModelSchemaDto } from '@techcell/node-sdk';
 import { X } from 'lucide-react';
 
@@ -182,19 +182,7 @@ export const ModelCreateUpdateForm = memo(
               Quay lại
             </Button>
             <Button
-              onClick={handleSubmit((data) => {
-                // const values = getFieldChanges(data, model);
-                console.log(data);
-                // if (values.attributes) {
-                //   values.attributes.map((attr) => {
-                //     if (!attr.u) {
-                //       delete attr.u;
-                //     }
-                //     return attr;
-                //   });
-                // }
-                // mutateAsync(values);
-              })}
+              type='submit'
               variant="red"
               isLoading={isSubmitting}
             >
