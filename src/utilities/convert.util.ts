@@ -35,6 +35,6 @@ export const convertOrderStatus: FieldsString = {
   [OrderOrderStatusEnum.Prepared]: 'Hoàn thành đóng hàng',
   [OrderOrderStatusEnum.Shipping]: 'Giao hàng',
   [OrderOrderStatusEnum.Completed]: 'Đơn giao thành công',
-  [OrderOrderStatusEnum.Failed]: 'Đơn giao thất bại',
+  [OrderOrderStatusEnum.Failed]: 'Đơn hàng bị hủy',
   [OrderOrderStatusEnum.Canceled]: 'Đơn bị huỷ',
 };

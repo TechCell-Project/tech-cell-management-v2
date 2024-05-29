@@ -34,7 +34,42 @@ export const ROUTES: NavLinkProps[] = [
   },
 ];
 
-export const DATA_ENTRY_ROUTES: NavLinkProps[] = [
+// export const DATA_ENTRY_ROUTES: NavLinkProps[] = [
+//   {
+//     title: 'Quản lý sản phẩm',
+//     icon: <PanelsLeftBottom size={18} />,
+//     childrenNav: [
+//       {
+//         href: Routes.MntProductBrand,
+//         title: 'Thương hiệu',
+//       },
+//       {
+//         href: Routes.MntProductAttribute,
+//         title: 'Thông số',
+//       },
+//       {
+//         href: Routes.MntProductTag,
+//         title: 'Tiêu chí (Tag)',
+//       },
+//     ],
+//   },
+// ];
+
+export const WAREHOUSE_ROUTES: NavLinkProps[] = [
+  {
+    title: 'Quản lý kho hàng',
+    icon: <Package size={18} />,
+    childrenNav: [
+      {
+        href: Routes.MntInventorySpu,
+        title: 'Đơn vị sản phẩm (SPU)',
+      },
+      {
+        href: Routes.MntInventorySku,
+        title: 'Đơn vị định danh sản phẩm (SKU)',
+      },
+    ],
+  },
   {
     title: 'Quản lý sản phẩm',
     icon: <PanelsLeftBottom size={18} />,
@@ -50,23 +85,6 @@ export const DATA_ENTRY_ROUTES: NavLinkProps[] = [
       {
         href: Routes.MntProductTag,
         title: 'Tiêu chí (Tag)',
-      },
-    ],
-  },
-];
-
-export const WAREHOUSE_ROUTES: NavLinkProps[] = [
-  {
-    title: 'Quản lý kho hàng',
-    icon: <Package size={18} />,
-    childrenNav: [
-      {
-        href: Routes.MntInventorySpu,
-        title: 'Đơn vị sản phẩm (SPU)',
-      },
-      {
-        href: Routes.MntInventorySku,
-        title: 'Đơn vị định danh sản phẩm (SKU)',
       },
     ],
   },
@@ -95,7 +113,6 @@ export const MANAGER_ROUTES: NavLinkProps[] = [
       },
     ],
   },
-  ...DATA_ENTRY_ROUTES,
   ...WAREHOUSE_ROUTES,
 ];
 

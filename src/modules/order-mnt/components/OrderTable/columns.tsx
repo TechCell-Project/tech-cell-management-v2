@@ -5,6 +5,7 @@ import { DropdownDisplay } from '@/components/common/display';
 import { Button } from '@/components/ui';
 import { MoreHorizontal } from 'lucide-react';
 import { columnsAction } from './columns-action';
+import { convertOrderStatus } from '@/utilities/convert.util';
 
 export const columns: ColumnDef<Order>[] = [
   {
@@ -15,6 +16,7 @@ export const columns: ColumnDef<Order>[] = [
   {
     accessorKey: 'orderStatus',
     header: 'Tình trạng',
+    accessorFn: (row) => convertOrderStatus[row.orderStatus],
   },
   {
     id: 'payment',

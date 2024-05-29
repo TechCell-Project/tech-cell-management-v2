@@ -120,15 +120,15 @@ export const OPTIONS_STATUS_4: Options<string>[] = [
 
 export const OPTIONS_SELECT_ORDER: Options<string>[] = [
   {
-    label: FilterOrdersMntDtoSelectTypeEnum.Both,
+    label: 'Cần xử lý & Đã tham gia',
     value: FilterOrdersMntDtoSelectTypeEnum.Both,
   },
   {
-    label: FilterOrdersMntDtoSelectTypeEnum.OnlyJoined,
+    label: 'Đã tham gia',
     value: FilterOrdersMntDtoSelectTypeEnum.OnlyJoined,
   },
   {
-    label: FilterOrdersMntDtoSelectTypeEnum.OnlyNeed,
+    label: 'Cần xử lý',
     value: FilterOrdersMntDtoSelectTypeEnum.OnlyNeed,
   },
 ];

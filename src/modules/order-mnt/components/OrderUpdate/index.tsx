@@ -82,13 +82,14 @@ export const OrderUpdate = ({ id }: { id: string }) => {
               </Button>
             }
             newStatus={newStatus}
-            action='cancel-action'
+            action="cancel-action"
           />
         )}
 
         {order?.orderStatus !== OrderOrderStatusEnum.Completed &&
           order?.orderStatus !== OrderOrderStatusEnum.Failed &&
-          order?.orderStatus !== OrderOrderStatusEnum.Canceled && (
+          order?.orderStatus !== OrderOrderStatusEnum.Canceled &&
+          order?.orderStatus !== OrderOrderStatusEnum.Shipping && (
             <OrderUpdateConfirm
               trigger={
                 <Button variant="red" type="submit">
